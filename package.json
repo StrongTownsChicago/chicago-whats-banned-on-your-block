@@ -4,6 +4,7 @@
   "description": "Chicago zoning use table lookup — What's Banned on Your Block?",
   "type": "module",
   "scripts": {
+    "build": "echo \"export const MAPBOX_TOKEN = \\\"$MAPBOX_TOKEN\\\";\" > js/config.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },
