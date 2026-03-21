@@ -17,32 +17,59 @@
 export const USE_DISPLAY_LABELS = {
   // Housing
   single_family_detached: "Single-family detached home",
-  two_flat: "2-flat / coach house",
-  three_flat: "3-flat",
-  four_flat: "4-flat",
-  multi_unit_residential: "Multi-unit residential (5+ units)",
-  live_work_unit: "Live-work unit",
-  artist_live_work: "Artist live-work space",
+  two_flat:               "2-flat / coach house",
+  three_flat:             "3-flat",
+  four_flat:              "4-flat",
+  multi_unit_residential: "Apartment building (5+ units)",
+  live_work_unit:         "Live-work unit (combined home and workspace)",
+  artist_live_work:       "Artist live-work space (studio + residence)",
   // Food and retail
   neighborhood_grocery_small: "Small neighborhood grocery",
-  food_production_artisan: "Commissary kitchen / artisan food production",
-  eating_drinking_limited: "Café / limited food service",
-  eating_drinking_general: "Restaurant / full food & drink service",
+  food_production_artisan:    "Commercial kitchen / ghost kitchen (catering, food production)",
+  eating_drinking_limited:    "Café / limited food service",
+  eating_drinking_general:    "Restaurant or bar",
   // Personal services
   hair_salon_barbershop: "Hair salon / barbershop",
-  personal_service: "Personal service business (tailor, laundry, etc.)",
+  personal_service:      "Personal service business (tailor, laundry, etc.)",
   // Childcare and education
   daycare_center: "Daycare center",
-  daycare_home: "Family daycare home",
+  daycare_home:   "Home-based daycare (small in-home childcare)",
   // Community and civic
-  community_center: "Community center / social service",
+  community_center: "Community center or social services agency",
   place_of_worship: "Place of worship",
-  urban_farm: "Urban farm",
+  urban_farm:       "Urban farm",
   community_garden: "Community garden",
   // Health
   medical_clinic: "Medical or dental clinic",
   // Lodging
   bed_and_breakfast: "Bed & breakfast",
+};
+
+/**
+ * Category label for each advocacy use slug — used to group items in the UI.
+ */
+export const SLUG_CATEGORY = {
+  single_family_detached:  "Housing",
+  two_flat:                "Housing",
+  three_flat:              "Housing",
+  four_flat:               "Housing",
+  multi_unit_residential:  "Housing",
+  live_work_unit:          "Housing",
+  artist_live_work:        "Housing",
+  neighborhood_grocery_small: "Food & retail",
+  food_production_artisan:    "Food & retail",
+  eating_drinking_limited:    "Food & retail",
+  eating_drinking_general:    "Food & retail",
+  hair_salon_barbershop: "Services",
+  personal_service:      "Services",
+  daycare_center: "Childcare",
+  daycare_home:   "Childcare",
+  community_center: "Community & civic",
+  place_of_worship: "Community & civic",
+  urban_farm:       "Community & civic",
+  community_garden: "Community & civic",
+  medical_clinic:    "Health",
+  bed_and_breakfast: "Lodging",
 };
 
 /**

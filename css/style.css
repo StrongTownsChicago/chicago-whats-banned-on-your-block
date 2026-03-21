@@ -434,10 +434,25 @@ details.use-section[open] .use-list {
   gap: 0.375rem;
 }
 
-.use-list li {
+.use-list__item {
   font-size: 0.9375rem;
   color: var(--color-text);
   line-height: 1.4;
+}
+
+.use-list__category {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.use-list__category:first-child {
+  margin-top: 0;
 }
 
 /* ===================================================================

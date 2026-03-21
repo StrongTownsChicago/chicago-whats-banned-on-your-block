@@ -10,7 +10,7 @@ import { MAPBOX_TOKEN } from "./config.js";
 import { initMap, addZoningLayer, placeAddressMarker, registerMapClickHandler } from "./map.js";
 import { fetchZoningGeoJSON, fetchWardGeoJSON, findZoneClass, findWard } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
-import { fetchUseTable, getRestrictedUses, isPDDistrict, isPOSDistrict, isPMDDistrict } from "./use-table.js";
+import { fetchUseTable, getRestrictedUses, isPDDistrict, isPOSDistrict, isPMDDistrict, SLUG_CATEGORY } from "./use-table.js";
 
 // =====================================================================
 // Application state
@@ -360,11 +360,29 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
  */
 function renderUseList(listEl, uses) {
   const fragment = document.createDocumentFragment();
+
+  // Only add category subheadings when items span multiple categories
+  const categories = new Set(uses.map((u) => SLUG_CATEGORY[u.slug]).filter(Boolean));
+  const showCategories = categories.size > 1;
+  let currentCategory = null;
+
   for (const use of uses) {
+    if (showCategories) {
+      const category = SLUG_CATEGORY[use.slug];
+      if (category && category !== currentCategory) {
+        currentCategory = category;
+        const header = document.createElement("li");
+        header.className = "use-list__category";
+        header.textContent = category;
+        fragment.appendChild(header);
+      }
+    }
     const li = document.createElement("li");
+    li.className = "use-list__item";
     li.textContent = use.label;
     fragment.appendChild(li);
   }
+
   listEl.appendChild(fragment);
 }
 
