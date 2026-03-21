@@ -1,0 +1,187 @@
+import { describe, it, expect } from "vitest";
+import {
+  getRestrictedUses,
+  isPDDistrict,
+  USE_DISPLAY_LABELS,
+  ADVOCACY_USES_LIST,
+} from "../../js/use-table.js";
+
+// =====================================================================
+// Minimal use table fixtures for isolated testing
+// =====================================================================
+
+/** A minimal use table with one zone containing a mix of permission codes. */
+const MIXED_USE_TABLE = {
+  "B1-1": {
+    daycare_center:       "—",     // banned
+    live_work_unit:       "S",     // special use
+    hair_salon_barbershop: "P/S",  // conditional
+    personal_service:     "P/-",   // conditional
+    single_family_detached: "P",   // permitted — should be excluded
+    two_flat:             "P",
+    three_flat:           "P",
+    four_flat:            "P",
+    multi_unit_residential: "P",
+    artist_live_work:     "P",
+    neighborhood_grocery_small: "P",
+    food_production_artisan: "P",
+    eating_drinking_limited: "P",
+    eating_drinking_general: "P",
+    community_center:     "P",
+    place_of_worship:     "P",
+    urban_farm:           "P",
+    community_garden:     "P",
+    medical_clinic:       "P",
+    bed_and_breakfast:    "P",
+    daycare_home:         "P",
+  },
+};
+
+/** A zone where all 21 uses are permitted. */
+const ALL_PERMITTED_TABLE = {
+  "RS-3": Object.fromEntries(ADVOCACY_USES_LIST.map((slug) => [slug, "P"])),
+};
+
+/** A zone where one use has the Unicode replacement character encoding artifact. */
+const UFFFD_TABLE = {
+  "C1-1": {
+    ...Object.fromEntries(ADVOCACY_USES_LIST.map((slug) => [slug, "P"])),
+    daycare_center: "\ufffd", // encoding artifact — should be treated as banned
+  },
+};
+
+// =====================================================================
+// getRestrictedUses tests
+// =====================================================================
+
+describe("getRestrictedUses", () => {
+  it("classifies em-dash entries as banned", () => {
+    const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
+    expect(result).not.toBeNull();
+    expect(result.banned).toHaveLength(1);
+    expect(result.banned[0]).toMatchObject({ slug: "daycare_center", label: expect.any(String) });
+  });
+
+  it("normalizes \\ufffd replacement character to banned", () => {
+    const result = getRestrictedUses("C1-1", UFFFD_TABLE);
+    expect(result).not.toBeNull();
+    expect(result.banned.some((e) => e.slug === "daycare_center")).toBe(true);
+  });
+
+  it("classifies S entries as special use", () => {
+    const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
+    expect(result).not.toBeNull();
+    expect(result.specialUse).toHaveLength(1);
+    expect(result.specialUse[0]).toMatchObject({ slug: "live_work_unit", label: expect.any(String) });
+  });
+
+  it("classifies P/S entries as conditional", () => {
+    const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
+    expect(result).not.toBeNull();
+    const slugs = result.conditional.map((e) => e.slug);
+    expect(slugs).toContain("hair_salon_barbershop");
+  });
+
+  it("classifies P/- entries as conditional", () => {
+    const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
+    expect(result).not.toBeNull();
+    const slugs = result.conditional.map((e) => e.slug);
+    expect(slugs).toContain("personal_service");
+  });
+
+  it("excludes permitted (P) uses from all output arrays", () => {
+    const result = getRestrictedUses("RS-3", ALL_PERMITTED_TABLE);
+    expect(result).not.toBeNull();
+    expect(result.banned).toHaveLength(0);
+    expect(result.specialUse).toHaveLength(0);
+    expect(result.conditional).toHaveLength(0);
+  });
+
+  it("returns null for an unknown zone class", () => {
+    const result = getRestrictedUses("ZZ-99", MIXED_USE_TABLE);
+    expect(result).toBeNull();
+  });
+
+  it("preserves ADVOCACY_USES_LIST order within each category", () => {
+    const multiZoneTable = {
+      "TEST": {
+        ...Object.fromEntries(ADVOCACY_USES_LIST.map((slug) => [slug, "—"])),
+      },
+    };
+
+    const result = getRestrictedUses("TEST", multiZoneTable);
+    const bannedSlugs = result.banned.map((e) => e.slug);
+
+    // The banned array should follow the ADVOCACY_USES_LIST order
+    const filteredCanonical = ADVOCACY_USES_LIST.filter((slug) =>
+      bannedSlugs.includes(slug)
+    );
+    expect(bannedSlugs).toEqual(filteredCanonical);
+  });
+
+  it("handles a realistic mixed district with P, S, —, P/S codes", () => {
+    const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
+    expect(result).not.toBeNull();
+    // Verify the structure is correct and nothing throws
+    expect(Array.isArray(result.banned)).toBe(true);
+    expect(Array.isArray(result.specialUse)).toBe(true);
+    expect(Array.isArray(result.conditional)).toBe(true);
+    // Total restricted uses = banned + specialUse + conditional
+    // Permitted uses must not appear
+    const allSlugs = [
+      ...result.banned.map((e) => e.slug),
+      ...result.specialUse.map((e) => e.slug),
+      ...result.conditional.map((e) => e.slug),
+    ];
+    expect(allSlugs).not.toContain("single_family_detached"); // that's "P"
+  });
+});
+
+// =====================================================================
+// isPDDistrict tests
+// =====================================================================
+
+describe("isPDDistrict", () => {
+  it("returns true for zone classes starting with PD", () => {
+    expect(isPDDistrict("PD 144")).toBe(true);
+    expect(isPDDistrict("PD")).toBe(true);
+    expect(isPDDistrict("PD1")).toBe(true);
+  });
+
+  it("returns false for regular zone classes", () => {
+    expect(isPDDistrict("B1-1")).toBe(false);
+    expect(isPDDistrict("C3-2")).toBe(false);
+    expect(isPDDistrict("RS-3")).toBe(false);
+    expect(isPDDistrict("M1-2")).toBe(false);
+  });
+
+  it("is case-insensitive", () => {
+    expect(isPDDistrict("pd 1")).toBe(true);
+    expect(isPDDistrict("Pd 144")).toBe(true);
+    expect(isPDDistrict("pD 55")).toBe(true);
+  });
+
+  it("returns false for empty or non-string inputs", () => {
+    expect(isPDDistrict("")).toBe(false);
+    expect(isPDDistrict(null)).toBe(false);
+    expect(isPDDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
+// USE_DISPLAY_LABELS coverage test
+// =====================================================================
+
+describe("USE_DISPLAY_LABELS", () => {
+  it("covers all 21 slugs in ADVOCACY_USES_LIST", () => {
+    for (const slug of ADVOCACY_USES_LIST) {
+      expect(USE_DISPLAY_LABELS).toHaveProperty(slug);
+      expect(typeof USE_DISPLAY_LABELS[slug]).toBe("string");
+      expect(USE_DISPLAY_LABELS[slug].length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has exactly 21 entries matching ADVOCACY_USES_LIST length", () => {
+    expect(Object.keys(USE_DISPLAY_LABELS)).toHaveLength(ADVOCACY_USES_LIST.length);
+  });
+});

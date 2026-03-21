@@ -1,0 +1,16 @@
+{
+  "name": "use-table-reform",
+  "version": "1.0.0",
+  "description": "Chicago zoning use table lookup — What's Banned on Your Block?",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@turf/boolean-point-in-polygon": "^6.5.0",
+    "@turf/bbox": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
+    "vitest": "^2.0.0"
+  }
+}

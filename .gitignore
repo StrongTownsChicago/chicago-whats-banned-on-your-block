@@ -44,3 +44,12 @@ cleaned/*.tmp
 
 # Validation report (committed after human review)
 # validation_report.json is intentionally tracked.
+
+# Frontend: API key config — never commit actual tokens
+js/config.js
+
+# Node.js
+node_modules/
+
+# Vitest cache
+.vitest/

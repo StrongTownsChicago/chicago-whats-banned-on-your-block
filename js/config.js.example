@@ -1,0 +1,10 @@
+// Copy this file to js/config.js and add your Mapbox token.
+// js/config.js is gitignored — never commit your actual token.
+//
+// Get a token at: https://account.mapbox.com/
+// Restrict the token to your production domain in the Mapbox dashboard.
+//
+// For Cloudflare Pages deployment, set MAPBOX_TOKEN as an environment variable
+// and use a build script to generate js/config.js from this template.
+
+export const MAPBOX_TOKEN = "pk.YOUR_MAPBOX_TOKEN_HERE";

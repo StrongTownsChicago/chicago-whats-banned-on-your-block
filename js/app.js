@@ -1,0 +1,356 @@
+/**
+ * app.js — Top-level controller for "What's Banned on Your Block?"
+ *
+ * Single responsibility: wire DOM events to module calls and update the DOM
+ * with results. No business logic lives here — all classification and spatial
+ * query logic is delegated to the imported modules.
+ */
+
+import { MAPBOX_TOKEN } from "./config.js";
+import { initMap, addZoningLayer, placeAddressMarker } from "./map.js";
+import { fetchZoningGeoJSON, fetchWardGeoJSON, findZoneClass, findWard } from "./spatial.js";
+import { geocodeAddress } from "./geocode.js";
+import { fetchUseTable, getRestrictedUses, isPDDistrict } from "./use-table.js";
+
+// =====================================================================
+// Application state
+// =====================================================================
+
+const state = {
+  map: null,
+  zoningGeoJSON: null,
+  wardGeoJSON: null,
+  useTable: null,
+};
+
+// =====================================================================
+// DOM references
+// =====================================================================
+
+const addressForm     = document.getElementById("address-form");
+const addressInput    = document.getElementById("address-input");
+const addressError    = document.getElementById("address-error");
+const dataLoadingBanner = document.getElementById("data-loading-banner");
+const dataErrorBanner = document.getElementById("data-error-banner");
+const resultsPanel    = document.getElementById("results-panel");
+const resultsLoading  = document.getElementById("results-loading");
+const resultsContent  = document.getElementById("results-content");
+const districtLabel   = document.getElementById("district-label");
+const neighborhoodLabel = document.getElementById("neighborhood-label");
+const pdMessage       = document.getElementById("pd-message");
+const allPermittedMsg = document.getElementById("all-permitted-message");
+const noDataMessage   = document.getElementById("no-data-message");
+const restrictedUses  = document.getElementById("restricted-uses");
+const bannedSection   = document.getElementById("banned-section");
+const bannedList      = document.getElementById("banned-list");
+const specialUseSection = document.getElementById("special-use-section");
+const specialUseList  = document.getElementById("special-use-list");
+const conditionalSection = document.getElementById("conditional-section");
+const conditionalList = document.getElementById("conditional-list");
+const wardCta         = document.getElementById("ward-cta");
+const wardLabel       = document.getElementById("ward-label");
+const wardLink        = document.getElementById("ward-link");
+const wardAlderperson = document.getElementById("ward-alderperson");
+
+// =====================================================================
+// Utility helpers
+// =====================================================================
+
+function showElement(el)  { el.hidden = false; }
+function hideElement(el)  { el.hidden = true;  }
+
+function showAddressError(message) {
+  addressError.textContent = message;
+  showElement(addressError);
+}
+
+function clearAddressError() {
+  addressError.textContent = "";
+  hideElement(addressError);
+}
+
+function showDataErrorBanner(message) {
+  dataErrorBanner.textContent = message;
+  showElement(dataErrorBanner);
+}
+
+/**
+ * Extract a short neighborhood/city name from a Mapbox place_name string.
+ * place_name format: "123 N State St, Chicago, Illinois 60601, United States"
+ *
+ * @param {string} placeName
+ * @returns {string}
+ */
+function extractNeighborhood(placeName) {
+  const parts = placeName.split(",").map((s) => s.trim());
+  // Second part is typically neighborhood or city name
+  return parts.length > 1 ? parts[1] : "";
+}
+
+// =====================================================================
+// Data loading
+// =====================================================================
+
+/**
+ * Returns a Promise that resolves once the MapLibre map style is fully loaded.
+ * Handles both the case where the style has already loaded and where it hasn't yet.
+ *
+ * @param {maplibregl.Map} map
+ * @returns {Promise<void>}
+ */
+function waitForMapStyle(map) {
+  return new Promise((resolve) => {
+    if (map.isStyleLoaded()) {
+      resolve();
+    } else {
+      map.once("load", resolve);
+    }
+  });
+}
+
+async function loadAllData() {
+  showElement(dataLoadingBanner);
+
+  const errors = [];
+
+  // Fetch all data in parallel; also wait for the map style to be ready
+  const [zoningResult, wardResult, useTableResult] = await Promise.allSettled([
+    fetchZoningGeoJSON(),
+    fetchWardGeoJSON(),
+    fetchUseTable(),
+  ]);
+
+  hideElement(dataLoadingBanner);
+
+  if (zoningResult.status === "fulfilled") {
+    state.zoningGeoJSON = zoningResult.value;
+    // Ensure map style is ready before adding layers
+    await waitForMapStyle(state.map);
+    addZoningLayer(state.map, state.zoningGeoJSON);
+  } else {
+    console.error("Zoning GeoJSON load failed:", zoningResult.reason);
+    errors.push("Map data unavailable — spatial lookup is disabled.");
+  }
+
+  if (wardResult.status === "fulfilled") {
+    state.wardGeoJSON = wardResult.value;
+  } else {
+    console.error("Ward GeoJSON load failed:", wardResult.reason);
+    // Ward CTA will be hidden in results — non-critical failure
+  }
+
+  if (useTableResult.status === "fulfilled") {
+    state.useTable = useTableResult.value;
+  } else {
+    console.error("Use table load failed:", useTableResult.reason);
+    errors.push("Use table unavailable — zoning lookup is disabled.");
+  }
+
+  if (errors.length > 0) {
+    showDataErrorBanner(errors.join(" "));
+  }
+}
+
+// =====================================================================
+// Address lookup flow
+// =====================================================================
+
+async function handleAddressSubmit(event) {
+  event.preventDefault();
+  clearAddressError();
+
+  const address = addressInput.value.trim();
+  if (!address) return;
+
+  // Show results panel in loading state
+  showElement(resultsPanel);
+  showElement(resultsLoading);
+  hideElement(resultsContent);
+
+  // Step 1: Geocode the address
+  const geocodeResult = await geocodeAddress(address, MAPBOX_TOKEN);
+  if (!geocodeResult) {
+    hideElement(resultsLoading);
+    hideElement(resultsPanel);
+    showAddressError("Address not found — try a full street address (e.g. 2442 N Milwaukee Ave, Chicago).");
+    return;
+  }
+
+  const { lngLat, placeName } = geocodeResult;
+
+  // Step 2: Place marker on map
+  placeAddressMarker(state.map, lngLat);
+
+  // Step 3: Find zone class (requires zoning data)
+  if (!state.zoningGeoJSON) {
+    hideElement(resultsLoading);
+    renderResults(null, placeName, null, null, { zoningUnavailable: true });
+    return;
+  }
+
+  const zoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
+
+  // Step 4: Find ward (best-effort)
+  const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
+
+  // Step 5: Classify uses (skip lookup for PD or missing zone)
+  let restrictedUsesResult = null;
+  if (zoneClass && !isPDDistrict(zoneClass) && state.useTable) {
+    restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
+  }
+
+  // Step 6: Render results
+  hideElement(resultsLoading);
+  renderResults(zoneClass, placeName, restrictedUsesResult, ward);
+}
+
+// =====================================================================
+// DOM rendering
+// =====================================================================
+
+/**
+ * Update the results panel DOM with lookup results.
+ * No business logic — accepts data, updates DOM.
+ *
+ * @param {string | null} zoneClass
+ * @param {string} placeName - Full Mapbox place_name string
+ * @param {{ banned, specialUse, conditional } | null} uses - From getRestrictedUses
+ * @param {{ ward, alderperson, url } | null} ward
+ * @param {{ zoningUnavailable?: boolean }} [flags]
+ */
+export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
+  // Reset all sections
+  hideElement(pdMessage);
+  hideElement(allPermittedMsg);
+  hideElement(noDataMessage);
+  hideElement(restrictedUses);
+  hideElement(wardCta);
+
+  bannedList.innerHTML = "";
+  specialUseList.innerHTML = "";
+  conditionalList.innerHTML = "";
+
+  hideElement(bannedSection);
+  hideElement(specialUseSection);
+  hideElement(conditionalSection);
+
+  // District header
+  if (zoneClass) {
+    districtLabel.textContent = zoneClass;
+  } else if (flags.zoningUnavailable) {
+    districtLabel.textContent = "—";
+  } else {
+    districtLabel.textContent = "Outside Chicago";
+  }
+
+  neighborhoodLabel.textContent = extractNeighborhood(placeName);
+
+  // No zone match
+  if (!zoneClass && !flags.zoningUnavailable) {
+    noDataMessage.querySelector("p").textContent =
+      "This address is outside Chicago's zoning data. Make sure you entered a Chicago address.";
+    showElement(noDataMessage);
+    showElement(resultsContent);
+    return;
+  }
+
+  if (flags.zoningUnavailable) {
+    noDataMessage.querySelector("p").textContent =
+      "Zoning map data is currently unavailable. Spatial lookup is disabled.";
+    showElement(noDataMessage);
+    showElement(resultsContent);
+    return;
+  }
+
+  // PD district
+  if (isPDDistrict(zoneClass)) {
+    showElement(pdMessage);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
+  // No use table data (e.g. RT-3 missing from dataset)
+  if (uses === null) {
+    noDataMessage.querySelector("p").textContent =
+      "Zoning data is not available for this district type (RT-3 and similar) in our database.";
+    showElement(noDataMessage);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
+  // All uses permitted
+  if (uses.banned.length === 0 && uses.specialUse.length === 0 && uses.conditional.length === 0) {
+    showElement(allPermittedMsg);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
+  // Show restricted uses
+  showElement(restrictedUses);
+
+  if (uses.banned.length > 0) {
+    renderUseList(bannedList, uses.banned);
+    showElement(bannedSection);
+  }
+
+  if (uses.specialUse.length > 0) {
+    renderUseList(specialUseList, uses.specialUse);
+    showElement(specialUseSection);
+  }
+
+  if (uses.conditional.length > 0) {
+    renderUseList(conditionalList, uses.conditional);
+    showElement(conditionalSection);
+  }
+
+  renderWardCta(ward);
+  showElement(resultsContent);
+}
+
+/**
+ * Populate a <ul> with use list items.
+ *
+ * @param {HTMLElement} listEl - The <ul> element to populate.
+ * @param {Array<{ slug: string, label: string }>} uses
+ */
+function renderUseList(listEl, uses) {
+  const fragment = document.createDocumentFragment();
+  for (const use of uses) {
+    const li = document.createElement("li");
+    li.textContent = use.label;
+    fragment.appendChild(li);
+  }
+  listEl.appendChild(fragment);
+}
+
+/**
+ * Render or hide the ward CTA section.
+ *
+ * @param {{ ward: number, alderperson: string, url: string } | null} ward
+ */
+function renderWardCta(ward) {
+  if (!ward || !ward.ward) {
+    hideElement(wardCta);
+    return;
+  }
+
+  wardLabel.textContent = `Ward ${ward.ward}`;
+  wardAlderperson.textContent = ward.alderperson || `Ward ${ward.ward} Alderperson`;
+  wardLink.href = ward.url || "#";
+  wardLink.textContent = `Contact ${ward.alderperson || `Ward ${ward.ward} Alderperson`} →`;
+
+  showElement(wardCta);
+}
+
+// =====================================================================
+// Initialization
+// =====================================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+  state.map = initMap("map-container");
+  await loadAllData();
+  addressForm.addEventListener("submit", handleAddressSubmit);
+});
