@@ -37,6 +37,7 @@ Thumbs.db
 # raw/ and cleaned/ CSVs/JSONs are committed as evidence artifacts.
 # Exclude only genuinely transient files.
 raw/*.tmp
+raw/*.html
 cleaned/*.tmp
 
 # Final output (committed after human spot-check)
@@ -53,3 +54,6 @@ node_modules/
 
 # Vitest cache
 .vitest/
+
+feature_planning
+misc
