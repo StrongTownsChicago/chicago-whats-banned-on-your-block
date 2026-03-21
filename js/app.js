@@ -7,7 +7,7 @@
  */
 
 import { MAPBOX_TOKEN } from "./config.js";
-import { initMap, addZoningLayer, placeAddressMarker } from "./map.js";
+import { initMap, addZoningLayer, placeAddressMarker, registerMapClickHandler } from "./map.js";
 import { fetchZoningGeoJSON, fetchWardGeoJSON, findZoneClass, findWard } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
 import { fetchUseTable, getRestrictedUses, isPDDistrict } from "./use-table.js";
@@ -158,6 +158,34 @@ async function loadAllData() {
 // Address lookup flow
 // =====================================================================
 
+/**
+ * Core lookup: given a resolved [lng, lat] and optional place name,
+ * find the zone, ward, and restricted uses, then render results.
+ *
+ * @param {[number, number]} lngLat
+ * @param {string} placeName
+ */
+async function lookupLocation(lngLat, placeName) {
+  placeAddressMarker(state.map, lngLat);
+
+  if (!state.zoningGeoJSON) {
+    hideElement(resultsLoading);
+    renderResults(null, placeName, null, null, { zoningUnavailable: true });
+    return;
+  }
+
+  const zoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
+  const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
+
+  let restrictedUsesResult = null;
+  if (zoneClass && !isPDDistrict(zoneClass) && state.useTable) {
+    restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
+  }
+
+  hideElement(resultsLoading);
+  renderResults(zoneClass, placeName, restrictedUsesResult, ward);
+}
+
 async function handleAddressSubmit(event) {
   event.preventDefault();
   clearAddressError();
@@ -165,12 +193,10 @@ async function handleAddressSubmit(event) {
   const address = addressInput.value.trim();
   if (!address) return;
 
-  // Show results panel in loading state
   showElement(resultsPanel);
   showElement(resultsLoading);
   hideElement(resultsContent);
 
-  // Step 1: Geocode the address
   const geocodeResult = await geocodeAddress(address, MAPBOX_TOKEN);
   if (!geocodeResult) {
     hideElement(resultsLoading);
@@ -179,32 +205,15 @@ async function handleAddressSubmit(event) {
     return;
   }
 
-  const { lngLat, placeName } = geocodeResult;
+  await lookupLocation(geocodeResult.lngLat, geocodeResult.placeName);
+}
 
-  // Step 2: Place marker on map
-  placeAddressMarker(state.map, lngLat);
-
-  // Step 3: Find zone class (requires zoning data)
-  if (!state.zoningGeoJSON) {
-    hideElement(resultsLoading);
-    renderResults(null, placeName, null, null, { zoningUnavailable: true });
-    return;
-  }
-
-  const zoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
-
-  // Step 4: Find ward (best-effort)
-  const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
-
-  // Step 5: Classify uses (skip lookup for PD or missing zone)
-  let restrictedUsesResult = null;
-  if (zoneClass && !isPDDistrict(zoneClass) && state.useTable) {
-    restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
-  }
-
-  // Step 6: Render results
-  hideElement(resultsLoading);
-  renderResults(zoneClass, placeName, restrictedUsesResult, ward);
+async function handleMapClick(lngLat) {
+  clearAddressError();
+  showElement(resultsPanel);
+  showElement(resultsLoading);
+  hideElement(resultsContent);
+  await lookupLocation(lngLat, "Chicago, Illinois");
 }
 
 // =====================================================================
@@ -365,4 +374,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   state.map = initMap("map-container");
   await loadAllData();
   addressForm.addEventListener("submit", handleAddressSubmit);
+  registerMapClickHandler(state.map, handleMapClick);
 });

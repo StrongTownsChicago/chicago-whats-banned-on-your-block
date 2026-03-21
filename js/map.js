@@ -284,6 +284,19 @@ export function addZoningLayer(map, geojson) {
 }
 
 /**
+ * Register a callback for map clicks anywhere on the canvas.
+ * The callback receives a [longitude, latitude] array.
+ *
+ * @param {maplibregl.Map} map
+ * @param {function([number, number]): void} callback
+ */
+export function registerMapClickHandler(map, callback) {
+  map.on("click", (event) => {
+    callback([event.lngLat.lng, event.lngLat.lat]);
+  });
+}
+
+/**
  * Place or replace the address pin marker on the map and fly to it.
  *
  * @param {maplibregl.Map} map
