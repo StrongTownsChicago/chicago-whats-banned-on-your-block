@@ -1,160 +1,243 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What's Banned on Your Block? — Chicago Zoning</title>
-  <meta name="description" content="Enter a Chicago address to see what cannot be built there under current zoning — and what to do about it." />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What's Banned on Your Block? — Chicago Zoning</title>
+    <meta
+      name="description"
+      content="Enter a Chicago address to see what cannot be built there under current zoning — and what to do about it."
+    />
 
-  <!-- MapLibre GL JS -->
-  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <!-- MapLibre GL JS -->
+    <link
+      href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 
-  <!-- Turf.js (booleanPointInPolygon + bbox) -->
-  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+    <!-- Turf.js (booleanPointInPolygon + bbox) -->
+    <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
 
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
-  <noscript>
-    <div class="noscript-banner">
-      This tool requires JavaScript to look up your address and zoning district.
-      Please enable JavaScript in your browser settings.
-    </div>
-  </noscript>
-
-  <header class="site-header">
-    <div class="header-inner">
-      <h1 class="site-title">What's Banned on Your Block?</h1>
-      <p class="site-subtitle">Enter a Chicago address to see what current zoning restricts — and what to do about it.</p>
-
-      <form id="address-form" class="address-form" autocomplete="off">
-        <label for="address-input" class="sr-only">Chicago street address</label>
-        <input
-          type="text"
-          id="address-input"
-          class="address-input"
-          placeholder="e.g. 2442 N Milwaukee Ave, Chicago"
-          aria-label="Chicago street address"
-          required
-        />
-        <button type="submit" class="search-button">Look Up</button>
-      </form>
-
-      <div id="address-error" class="address-error" role="alert" aria-live="polite" hidden></div>
-    </div>
-  </header>
-
-  <div id="data-loading-banner" class="loading-banner" hidden>
-    Loading zoning and ward data…
-  </div>
-
-  <div id="data-error-banner" class="data-error-banner" role="alert" aria-live="polite" hidden></div>
-
-  <main class="app-layout">
-    <!-- Results panel (hidden until a lookup completes) -->
-    <section id="results-panel" class="results-panel" hidden aria-live="polite">
-      <div id="results-loading" class="results-loading" hidden>
-        <span class="spinner" aria-hidden="true"></span>
-        Looking up your address…
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <noscript>
+      <div class="noscript-banner">
+        This tool requires JavaScript to look up your address and zoning
+        district. Please enable JavaScript in your browser settings.
       </div>
+    </noscript>
 
-      <div id="results-content" hidden>
-        <!-- District identifier -->
-        <div class="district-header">
-          <span id="district-label" class="district-label"></span>
-          <span id="neighborhood-label" class="neighborhood-label"></span>
-        </div>
-
-        <!-- PD district message (shown instead of use lists) -->
-        <div id="pd-message" class="pd-message" hidden>
-          <p>
-            This parcel is in a <strong>Planned Development (PD)</strong> district.
-            PD zoning rules are custom-negotiated and must be reviewed case-by-case
-            with the Chicago Department of Planning and Development.
-          </p>
-          <a
-            href="https://www.chicago.gov/city/en/depts/dcd/supp_info/planned_developmentoverview.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="pd-link"
-          >Learn about Planned Developments →</a>
-        </div>
-
-        <!-- All-permitted message -->
-        <div id="all-permitted-message" class="all-permitted-message" hidden>
-          <p>This district allows all tracked uses by-right. No restrictions found.</p>
-        </div>
-
-        <!-- No-data message (e.g. RT-3) -->
-        <div id="no-data-message" class="no-data-message" hidden>
-          <p>Zoning data is not available for this district type in our database.</p>
-        </div>
-
-        <!-- Restricted uses lists -->
-        <div id="restricted-uses" hidden>
-          <section id="banned-section" class="use-section use-section--banned" hidden>
-            <h2 class="use-section__title">
-              <span class="use-section__icon" aria-hidden="true">✗</span>
-              Banned (not permitted)
-            </h2>
-            <ul id="banned-list" class="use-list"></ul>
-          </section>
-
-          <section id="special-use-section" class="use-section use-section--special" hidden>
-            <h2 class="use-section__title">
-              <span class="use-section__icon" aria-hidden="true">⚠</span>
-              Special Use Required
-            </h2>
-            <p class="use-section__subtitle">Requires a public hearing and fees before the Zoning Board of Appeals.</p>
-            <ul id="special-use-list" class="use-list"></ul>
-          </section>
-
-          <section id="conditional-section" class="use-section use-section--conditional" hidden>
-            <h2 class="use-section__title">
-              <span class="use-section__icon" aria-hidden="true">◑</span>
-              Conditional
-            </h2>
-            <p class="use-section__subtitle">Permitted in some configurations, restricted in others (e.g. existing use allowed but new construction banned).</p>
-            <ul id="conditional-list" class="use-list"></ul>
-          </section>
-
-          <details id="permitted-section" class="use-section use-section--permitted" hidden>
-            <summary class="use-section__summary">
-              <span class="use-section__icon" aria-hidden="true">✓</span>
-              <span class="use-section__title-text">Permitted by right</span>
-              <span id="permitted-count" class="use-section__count"></span>
-              <span class="use-section__chevron" aria-hidden="true">▸</span>
-            </summary>
-            <p class="use-section__subtitle">These uses are allowed without special approval. Some uses may require special use review above certain size thresholds.</p>
-            <ul id="permitted-list" class="use-list"></ul>
-          </details>
-        </div>
-
-        <!-- Ward call-to-action -->
-        <div id="ward-cta" class="ward-cta" hidden>
-          <p class="ward-cta__text">
-            You're in <strong id="ward-label"></strong>.
-            Contact your alderperson to advocate for zoning reform on your block.
-          </p>
-          <a id="ward-link" href="#" target="_blank" rel="noopener noreferrer" class="ward-button">
-            Contact <span id="ward-alderperson"></span> →
-          </a>
-        </div>
-
-        <!-- Attribution -->
-        <p class="results-attribution">
-          Uses from Chicago Title 17 Zoning Ordinance.
-          Data via <a href="https://data.cityofchicago.org/" target="_blank" rel="noopener noreferrer">Chicago Data Portal</a>.
-          A <a href="https://www.strongtownschicago.org/" target="_blank" rel="noopener noreferrer">Strong Towns Chicago</a> tool.
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="site-title">What's Banned on Your Block?</h1>
+        <p class="site-subtitle">
+          Enter a Chicago address or click the map to see what current zoning
+          restricts — and what to do about it.
         </p>
+
+        <form id="address-form" class="address-form" autocomplete="off">
+          <label for="address-input" class="sr-only"
+            >Chicago street address</label
+          >
+          <input
+            type="text"
+            id="address-input"
+            class="address-input"
+            placeholder="e.g. 2442 N Milwaukee Ave, Chicago"
+            aria-label="Chicago street address"
+            required
+          />
+          <button type="submit" class="search-button">Look Up</button>
+        </form>
+
+        <div
+          id="address-error"
+          class="address-error"
+          role="alert"
+          aria-live="polite"
+          hidden
+        ></div>
       </div>
-    </section>
+    </header>
 
-    <!-- Map -->
-    <div id="map-container" class="map-container" role="img" aria-label="Chicago zoning map"></div>
-  </main>
+    <div id="data-loading-banner" class="loading-banner" hidden>
+      Loading zoning and ward data…
+    </div>
 
-  <script type="module" src="js/app.js"></script>
-</body>
+    <div
+      id="data-error-banner"
+      class="data-error-banner"
+      role="alert"
+      aria-live="polite"
+      hidden
+    ></div>
+
+    <main class="app-layout">
+      <!-- Results panel (hidden until a lookup completes) -->
+      <section
+        id="results-panel"
+        class="results-panel"
+        hidden
+        aria-live="polite"
+      >
+        <div id="results-loading" class="results-loading" hidden>
+          <span class="spinner" aria-hidden="true"></span>
+          Looking up your address…
+        </div>
+
+        <div id="results-content" hidden>
+          <!-- District identifier -->
+          <div class="district-header">
+            <span id="district-label" class="district-label"></span>
+            <span id="neighborhood-label" class="neighborhood-label"></span>
+          </div>
+
+          <!-- PD district message (shown instead of use lists) -->
+          <div id="pd-message" class="pd-message" hidden>
+            <p>
+              This parcel is in a
+              <strong>Planned Development (PD)</strong> district. PD zoning
+              rules are custom-negotiated and must be reviewed case-by-case with
+              the Chicago Department of Planning and Development.
+            </p>
+            <a
+              href="https://www.chicago.gov/city/en/depts/dcd/provdrs/admin/svcs/planned_developmentdesignations.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="pd-link"
+              >Learn about Planned Developments →</a
+            >
+          </div>
+
+          <!-- All-permitted message -->
+          <div id="all-permitted-message" class="all-permitted-message" hidden>
+            <p>
+              This district allows all tracked uses by-right. No restrictions
+              found.
+            </p>
+          </div>
+
+          <!-- No-data message (e.g. RT-3) -->
+          <div id="no-data-message" class="no-data-message" hidden>
+            <p>
+              Zoning data is not available for this district type in our
+              database.
+            </p>
+          </div>
+
+          <!-- Restricted uses lists -->
+          <div id="restricted-uses" hidden>
+            <section
+              id="banned-section"
+              class="use-section use-section--banned"
+              hidden
+            >
+              <h2 class="use-section__title">
+                <span class="use-section__icon" aria-hidden="true">✗</span>
+                Banned (not permitted)
+              </h2>
+              <ul id="banned-list" class="use-list"></ul>
+            </section>
+
+            <section
+              id="special-use-section"
+              class="use-section use-section--special"
+              hidden
+            >
+              <h2 class="use-section__title">
+                <span class="use-section__icon" aria-hidden="true">⚠</span>
+                Special Use Required
+              </h2>
+              <p class="use-section__subtitle">
+                Requires a public hearing and fees before the Zoning Board of
+                Appeals.
+              </p>
+              <ul id="special-use-list" class="use-list"></ul>
+            </section>
+
+            <section
+              id="conditional-section"
+              class="use-section use-section--conditional"
+              hidden
+            >
+              <h2 class="use-section__title">
+                <span class="use-section__icon" aria-hidden="true">◑</span>
+                Conditional
+              </h2>
+              <p class="use-section__subtitle">
+                Permitted in some configurations, restricted in others (e.g.
+                existing use allowed but new construction banned).
+              </p>
+              <ul id="conditional-list" class="use-list"></ul>
+            </section>
+
+            <details
+              id="permitted-section"
+              class="use-section use-section--permitted"
+              hidden
+            >
+              <summary class="use-section__summary">
+                <span class="use-section__icon" aria-hidden="true">✓</span>
+                <span class="use-section__title-text">Permitted by right</span>
+                <span id="permitted-count" class="use-section__count"></span>
+                <span class="use-section__chevron" aria-hidden="true">▸</span>
+              </summary>
+              <p class="use-section__subtitle">
+                These uses are allowed without special approval. Some uses may
+                require special use review above certain size thresholds.
+              </p>
+              <ul id="permitted-list" class="use-list"></ul>
+            </details>
+          </div>
+
+          <!-- Ward call-to-action -->
+          <div id="ward-cta" class="ward-cta" hidden>
+            <p class="ward-cta__text">
+              You're in <strong id="ward-label"></strong>. Contact your
+              alderperson to advocate for zoning reform on your block.
+            </p>
+            <a
+              id="ward-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ward-button"
+            >
+              Contact <span id="ward-alderperson"></span> →
+            </a>
+          </div>
+
+          <!-- Attribution -->
+          <p class="results-attribution">
+            Uses from Chicago Title 17 Zoning Ordinance. Data via
+            <a
+              href="https://data.cityofchicago.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Chicago Data Portal</a
+            >. A
+            <a
+              href="https://www.strongtownschicago.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Strong Towns Chicago</a
+            >
+            tool.
+          </p>
+        </div>
+      </section>
+
+      <!-- Map -->
+      <div
+        id="map-container"
+        class="map-container"
+        role="img"
+        aria-label="Chicago zoning map"
+      ></div>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>
