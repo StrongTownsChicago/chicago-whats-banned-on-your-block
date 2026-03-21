@@ -75,6 +75,75 @@
     ></div>
 
     <main class="app-layout">
+      <!-- Intro panel: visible before any search, hidden once results load -->
+      <aside id="intro-panel" class="intro-panel">
+        <div class="intro-body">
+          <h2 class="intro-heading">About this tool</h2>
+          <p class="intro-text">
+            Chicago's zoning code determines what can be built or opened on
+            every block. Opening a daycare, small grocery, or restaurant on most
+            residential streets requires a special use permit. That means a
+            public hearing, certified mail to all neighbors within 250 feet, and
+            a city filing fee.
+          </p>
+
+          <ul class="intro-stats">
+            <li class="intro-stat">
+              <span class="intro-stat__number">41%</span>
+              <span class="intro-stat__text">
+                <span class="intro-stat__label"
+                  >of Chicago land is zoned for single-family homes or
+                  two-flats only</span
+                >
+                <a
+                  class="intro-stat__source"
+                  href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Metropolitan Planning Council</a
+                >
+              </span>
+            </li>
+            <li class="intro-stat">
+              <span class="intro-stat__number">60%</span>
+              <span class="intro-stat__text">
+                <span class="intro-stat__label"
+                  >of new homes built 2006–2024 were in just 5 community areas
+                  near downtown</span
+                >
+                <a
+                  class="intro-stat__source"
+                  href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Metropolitan Planning Council</a
+                >
+              </span>
+            </li>
+            <li class="intro-stat">
+              <span class="intro-stat__number">Last</span>
+              <span class="intro-stat__text">
+                <span class="intro-stat__label"
+                  >among the 10 largest U.S. metro areas for new home
+                  construction in 2024</span
+                >
+                <a
+                  class="intro-stat__source"
+                  href="https://www.chicagobusiness.com/residential-real-estate/chicago-last-among-major-us-metros-new-home-construction"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Crain's Chicago Business, 2024</a
+                >
+              </span>
+            </li>
+          </ul>
+
+          <a href="about.html" class="intro-about-link"
+            >Background, data, and reform context →</a
+          >
+        </div>
+      </aside>
+
       <!-- Results panel (hidden until a lookup completes) -->
       <section
         id="results-panel"
@@ -207,6 +276,13 @@
             >
               Contact <span id="ward-alderperson"></span> →
             </a>
+          </div>
+
+          <!-- Context links -->
+          <div class="results-context">
+            <a href="about.html" class="results-context__link"
+              >Background, data, and reform context →</a
+            >
           </div>
 
           <!-- Attribution -->

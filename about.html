@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background and Reform Context — What's Banned on Your Block?</title>
+    <meta
+      name="description"
+      content="Background, data, and reform context for Chicago's zoning use table."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .about-layout {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 4rem;
+      }
+
+      .about-back {
+        display: inline-block;
+        font-size: 0.875rem;
+        color: var(--color-accent);
+        text-decoration: none;
+        margin-bottom: 2rem;
+      }
+
+      .about-back:hover {
+        text-decoration: underline;
+      }
+
+      .about-article h1 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+      }
+
+      .about-article .lede {
+        font-size: 1.0625rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .about-article h2 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .about-article p {
+        font-size: 0.9375rem;
+        line-height: 1.7;
+        color: var(--color-text);
+        margin-bottom: 1rem;
+      }
+
+      .about-article ul,
+      .about-article ol {
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .about-article li {
+        font-size: 0.9375rem;
+        line-height: 1.6;
+        color: var(--color-text);
+        margin-bottom: 0.4rem;
+      }
+
+      .about-stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .about-stat {
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1rem;
+      }
+
+      .about-stat__number {
+        display: block;
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-accent);
+        line-height: 1;
+        margin-bottom: 0.375rem;
+      }
+
+      .about-stat__label {
+        display: block;
+        font-size: 0.8125rem;
+        color: var(--color-text);
+        line-height: 1.4;
+        margin-bottom: 0.375rem;
+      }
+
+      .about-stat__source {
+        display: block;
+        font-size: 0.6875rem;
+        color: var(--color-text-muted);
+        text-decoration: none;
+      }
+
+      .about-stat__source:hover {
+        text-decoration: underline;
+      }
+
+      .about-article a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .about-article a:hover {
+        text-decoration: underline;
+      }
+
+      .sources-list {
+        list-style: decimal;
+        padding-left: 1.5rem;
+      }
+
+      .sources-list li {
+        font-size: 0.8125rem;
+        line-height: 1.55;
+        color: var(--color-text-muted);
+        margin-bottom: 0.625rem;
+      }
+
+      .sources-list a {
+        color: var(--color-accent);
+        text-decoration: none;
+        word-break: break-all;
+      }
+
+      .sources-list a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        .about-stat-row {
+          grid-template-columns: 1fr;
+        }
+
+        .about-layout {
+          padding: 1.5rem 1rem 3rem;
+        }
+
+        .about-article h1 {
+          font-size: 1.375rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 class="site-title">What's Banned on Your Block?</h1>
+        <p class="site-subtitle">
+          Enter a Chicago address or click the map to see what current zoning
+          restricts and what you can do about it.
+        </p>
+      </div>
+    </header>
+
+    <main class="about-layout">
+      <a href="/" class="about-back">← Back to the tool</a>
+
+      <article class="about-article">
+        <h1>Chicago's Zoning Use Table</h1>
+        <p class="lede">
+          Background, data, and reform context for the What's Banned on Your
+          Block? tool.
+        </p>
+
+        <h2>What this tool shows</h2>
+        <p>
+          Chicago's zoning ordinance (Title 17 of the Municipal Code) assigns
+          every parcel in the city to a zoning district. Each district has a use
+          table: a list of activities and whether they are permitted by right
+          (P), require special approval (S), require a planned development (PD),
+          or prohibited (the code uses a dash to indicate this). Under §17-3-0204,
+          uses that do not appear in the table are also prohibited by default.
+        </p>
+        <p>
+          This tool reads that use table and shows, for any Chicago address,
+          which neighborhood uses are restricted or banned under current zoning.
+          It covers 21 categories: housing types, food and retail, personal
+          services, childcare, community uses, and lodging.
+        </p>
+
+        <h2>Three numbers</h2>
+        <div class="about-stat-row">
+          <div class="about-stat">
+            <span class="about-stat__number">41%</span>
+            <span class="about-stat__label"
+              >of Chicago land is zoned for single-family homes or two-flats
+              only</span
+            >
+            <a
+              class="about-stat__source"
+              href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Metropolitan Planning Council</a
+            >
+          </div>
+          <div class="about-stat">
+            <span class="about-stat__number">60%</span>
+            <span class="about-stat__label"
+              >of new homes built 2006–2024 were in just 5 community areas near
+              downtown</span
+            >
+            <a
+              class="about-stat__source"
+              href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Metropolitan Planning Council</a
+            >
+          </div>
+          <div class="about-stat">
+            <span class="about-stat__number">Last</span>
+            <span class="about-stat__label"
+              >among the 10 largest U.S. metro areas for new home construction
+              in 2024</span
+            >
+            <a
+              class="about-stat__source"
+              href="https://www.chicagobusiness.com/residential-real-estate/chicago-last-among-major-us-metros-new-home-construction"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Crain's Chicago Business, 2024</a
+            >
+          </div>
+        </div>
+
+        <h2>What a special use permit requires</h2>
+        <p>
+          When a use is listed as "S" in the zoning code, a property owner or
+          business must apply to the Zoning Board of Appeals. The process
+          includes:
+        </p>
+        <ul>
+          <li>A zoning denial letter from the city</li>
+          <li>
+            Certified mail with return receipt to every property owner within
+            250 feet of the site
+          </li>
+          <li>A plat of survey prepared by a licensed surveyor</li>
+          <li>A public hearing before the five-member ZBA</li>
+          <li>A city filing fee of $525</li>
+        </ul>
+        <p>
+          The ZBA hears cases once a month, on the third Friday.
+          <a
+            href="https://www.chicago.gov/dam/city/depts/dcd/Zoning%20Application/SpecialUseChecklistrevised.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source: City of Chicago Special Use Checklist (PDF)</a
+          >
+        </p>
+        <p>
+          Uses that many might consider routine, such as daycares, personal service
+          businesses (salons, barbershops), and small food production, require
+          this process in certain districts.
+        </p>
+
+        <h2>Where new housing has gone</h2>
+        <p>
+          The Metropolitan Planning Council and Urban Institute completed a
+          multi-phase zoning assessment of Chicago between 2023 and 2025. Their
+          research found that 60% of the 121,601 new homes permitted between
+          2006 and 2024 were concentrated in just five community areas: the Near
+          North Side, Near West Side, the Loop, West Town, and the Near South
+          Side.
+          <a
+            href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source: MPC, Improving Zoning Together: Affordable Housing Outcome
+            (Part 2 of 2)</a
+          >
+        </p>
+        <p>
+          In 2024, Chicago produced 4.5 new homes per 1,000 existing residential
+          units, compared to a national average of 10.1, ranking last among the
+          10 largest U.S. metro areas.
+          <a
+            href="https://www.chicagobusiness.com/residential-real-estate/chicago-last-among-major-us-metros-new-home-construction"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source: Crain's Chicago Business, July 2024, citing Construction
+            Coverage</a
+          >
+        </p>
+
+        <h2>Chicago's reform record</h2>
+        <p>Several zoning changes have passed in recent years:</p>
+        <ul>
+          <li>
+            <strong>2013 — Transit-Oriented Development Ordinance.</strong>
+            Reduced parking requirements for developments near CTA and Metra
+            stations.
+          </li>
+          <li>
+            <strong>2020 — ADU Ordinance.</strong> Re-legalized accessory
+            dwelling units in five pilot zones after a 63-year prohibition.
+          </li>
+          <li>
+            <strong>2022 — Connected Communities Ordinance.</strong> Expanded
+            the geographic definition of transit-served locations and allowed
+            deeper parking reductions near transit.
+          </li>
+          <li>
+            <strong>2024 — Cut the Tape.</strong> The Mayor's Office released
+            107 small-business permitting recommendations. The city reported 48
+            as complete by early 2025.
+          </li>
+          <li>
+            <strong
+              >July 2025 — Parking minimums near transit eliminated.</strong
+            >
+            City Council removed parking minimums for most new developments
+            within half a mile of transit, covering roughly 75% of the city.
+          </li>
+        </ul>
+
+        <h2>What other cities have done</h2>
+        <p>
+          Minneapolis adopted its Land Use Rezoning Study in May 2023 (effective
+          July 2023), consolidating from 23 zoning districts to 15. The updated
+          use table makes childcare centers permitted by right in all districts
+          where they appear, with no special use hearing required.
+          <a
+            href="https://www.minneapolismn.gov/business-services/planning-zoning/amendments/proposed-adopted/land-use-rezoning-study/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source: City of Minneapolis, Land Use Rezoning Study</a
+          >
+        </p>
+        <p>
+          In 2023, a federal investigation found that Chicago's tradition of
+          giving each alderperson de facto veto power over housing in their ward
+          "fuels segregation." The case was closed by the incoming federal
+          administration in August 2025 without a consent decree.
+          <a
+            href="https://news.wttw.com/2023/11/28/aldermanic-prerogative-fuels-segregation-and-violates-black-latino-chicagoans-civil"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Source: WTTW, November 2023</a
+          >
+        </p>
+
+        <h2>What's being proposed</h2>
+        <p>
+          Several organizations are advocating for changes to Chicago's code:
+        </p>
+        <ul>
+          <li>
+            <a
+              href="https://www.strongtownschicago.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Strong Towns Chicago</a
+            >'s Level Up campaign (with Abundant Housing Illinois) advocates for
+            allowing two-to-four flat housing types by right in more districts.
+          </li>
+          <li>
+            The
+            <a
+              href="https://metroplanning.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Metropolitan Planning Council</a
+            >
+            and Urban Institute's zoning assessment (Phase III) is developing
+            policy recommendations on reforming Chicago's code.
+          </li>
+          <li>
+            The Mayor's Cut the Tape initiative stated a Year 2 focus on "large,
+            structural zoning issues."
+          </li>
+        </ul>
+
+        <h2>About this tool</h2>
+        <p>
+          This tool was built by
+          <a
+            href="https://www.strongtownschicago.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Strong Towns Chicago</a
+          >. Zoning data comes from the
+          <a
+            href="https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/1"
+            target="_blank"
+            rel="noopener noreferrer"
+            >City of Chicago ArcGIS zoning boundaries</a
+          >
+          and the Chicago Municipal Code (Title 17). Ward data comes from the
+          <a
+            href="https://data.cityofchicago.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Chicago Data Portal</a
+          >.
+        </p>
+        <p>
+          The use table data used in this tool reflects the zoning ordinance
+          as-read. Use permissions can vary based on site-specific conditions,
+          overlay districts, and planned development agreements. This tool is
+          for general reference only. Consult the
+          <a
+            href="https://www.chicago.gov/city/en/depts/dcd/supp_info/zoning.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Chicago Department of Planning and Development</a
+          >
+          for official zoning determinations.
+        </p>
+
+        <h2>Sources</h2>
+        <ol class="sources-list">
+          <li>
+            Metropolitan Planning Council. "Improving Zoning Together:
+            Affordable Housing Outcome (Part 2 of 2)."
+            <a
+              href="https://metroplanning.org/affordable-housing-outcome-part-2-of-2/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >metroplanning.org/affordable-housing-outcome-part-2-of-2/</a
+            >
+          </li>
+          <li>
+            Crain's Chicago Business. "Chicago last among major U.S. metros on
+            new home construction." July 2024. Citing Construction Coverage
+            data.
+            <a
+              href="https://www.chicagobusiness.com/residential-real-estate/chicago-last-among-major-us-metros-new-home-construction"
+              target="_blank"
+              rel="noopener noreferrer"
+              >chicagobusiness.com</a
+            >
+          </li>
+          <li>
+            City of Chicago, Department of Planning and Development. Special Use
+            Permit Checklist.
+            <a
+              href="https://www.chicago.gov/dam/city/depts/dcd/Zoning%20Application/SpecialUseChecklistrevised.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              >chicago.gov (PDF)</a
+            >
+          </li>
+          <li>
+            City of Minneapolis. Land Use Rezoning Study (LURS). Adopted May
+            2023, effective July 2023.
+            <a
+              href="https://www.minneapolismn.gov/business-services/planning-zoning/amendments/proposed-adopted/land-use-rezoning-study/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >minneapolismn.gov</a
+            >
+          </li>
+          <li>
+            WTTW News. "Aldermanic Prerogative Fuels Segregation and Violates
+            Black, Latino Chicagoans' Civil Rights: Federal Officials." November
+            28, 2023.
+            <a
+              href="https://news.wttw.com/2023/11/28/aldermanic-prerogative-fuels-segregation-and-violates-black-latino-chicagoans-civil"
+              target="_blank"
+              rel="noopener noreferrer"
+              >news.wttw.com</a
+            >
+          </li>
+          <li>
+            Chicago Tribune. "HUD drops housing discrimination complaint related
+            to aldermanic prerogative and Chicago zoning." August 2025.
+            <a
+              href="https://www.chicagotribune.com/2025/08/06/hud-housing-discrimination-complaint-chicago/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >chicagotribune.com</a
+            >
+          </li>
+          <li>
+            City of Chicago. Municipal Code of Chicago, Title 17 — Zoning
+            Ordinance.
+            <a
+              href="https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-48750"
+              target="_blank"
+              rel="noopener noreferrer"
+              >American Legal Publishing</a
+            >
+          </li>
+        </ol>
+      </article>
+    </main>
+  </body>
+</html>

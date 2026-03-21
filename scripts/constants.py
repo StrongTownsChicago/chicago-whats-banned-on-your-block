@@ -59,9 +59,12 @@ ADVOCACY_USES: list[str] = [
     "food_production_artisan",
     "eating_drinking_limited",
     "eating_drinking_general",
+    "tavern",
+    "retail_sales_general",
     # Personal services
     "hair_salon_barbershop",
     "personal_service",
+    "body_art_services",
     # Childcare and education
     "daycare_center",
     "daycare_home",
@@ -72,8 +75,6 @@ ADVOCACY_USES: list[str] = [
     "community_garden",
     # Health
     "medical_clinic",
-    # Lodging
-    "bed_and_breakfast",
 ]
 
 # Valid permission codes in the final use-table.json output.

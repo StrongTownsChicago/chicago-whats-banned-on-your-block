@@ -204,6 +204,99 @@ body {
 }
 
 /* ===================================================================
+   Intro panel (shown before any address lookup)
+   =================================================================== */
+
+.intro-panel {
+  width: var(--panel-width);
+  min-width: var(--panel-width);
+  background: #fff;
+  border-right: 1px solid var(--color-border);
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.intro-body {
+  padding: 1.5rem 1.25rem;
+}
+
+.intro-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.intro-text {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.intro-stats {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.intro-stat {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.intro-stat__number {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-accent);
+  min-width: 3.5rem;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+
+.intro-stat__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.intro-stat__label {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+.intro-stat__source {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.intro-stat__source:hover {
+  text-decoration: underline;
+}
+
+.intro-about-link {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.intro-about-link:hover {
+  text-decoration: underline;
+}
+
+/* ===================================================================
    Results panel
    =================================================================== */
 
@@ -496,6 +589,21 @@ details.use-section[open] .use-list {
    Attribution footer inside panel
    =================================================================== */
 
+.results-context {
+  padding: 0.875rem 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.results-context__link {
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.results-context__link:hover {
+  text-decoration: underline;
+}
+
 .results-attribution {
   padding: 1rem 1.25rem;
   font-size: 0.75rem;
@@ -533,6 +641,19 @@ details.use-section[open] .use-list {
     flex-direction: column;
   }
 
+  .intro-panel {
+    width: 100%;
+    min-width: 0;
+    overflow-y: visible;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .intro-stat__number {
+    font-size: 1.625rem;
+    min-width: 3rem;
+  }
+
   .results-panel {
     width: 100%;
     min-width: 0;
@@ -542,8 +663,8 @@ details.use-section[open] .use-list {
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Hide results panel border styling changes when stacked */
-  .results-panel[hidden] + .map-container {
+  /* When both intro-panel and results-panel are absent, map fills height */
+  .intro-panel[hidden] + .results-panel[hidden] + .map-container {
     flex: 1;
     height: 50vh;
     min-height: 300px;

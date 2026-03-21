@@ -96,9 +96,11 @@ def validate_structure(data: dict[str, dict[str, str]]) -> list[str]:
             )
 
     # Check 3: all permission values are valid
+    # Compound codes like "P/S" or "P/conditional" are validated by their base (pre-"/") token.
+    base_codes = frozenset(c.split("/")[0] for c in VALID_PERMISSION_CODES)
     for zone_class, uses in sorted(data.items()):
         for slug, permission in sorted(uses.items()):
-            if permission not in VALID_PERMISSION_CODES:
+            if permission.split("/")[0] not in base_codes:
                 errors.append(
                     f"Invalid permission code {permission!r} at "
                     f"zone_class={zone_class!r}, use_slug={slug!r}"

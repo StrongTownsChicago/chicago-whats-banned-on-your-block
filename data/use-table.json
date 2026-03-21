@@ -11,6 +11,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -19,7 +21,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B1-2": {
@@ -34,6 +36,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -42,7 +46,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B1-3": {
@@ -57,6 +61,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -65,7 +71,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B2-1": {
@@ -80,6 +86,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -88,7 +96,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B2-2": {
@@ -103,6 +111,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -111,7 +121,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B2-3": {
@@ -126,6 +136,8 @@
     "food_production_artisan": "—",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -134,7 +146,7 @@
     "urban_farm": "—",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "—",
     "daycare_home": "—"
   },
   "B3-1": {
@@ -149,6 +161,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "S",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -157,7 +171,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "S",
     "daycare_home": "—"
   },
   "B3-2": {
@@ -172,6 +186,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "S",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -180,7 +196,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "S",
     "daycare_home": "—"
   },
   "B3-3": {
@@ -195,6 +211,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "S",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P/S",
     "personal_service": "P",
     "daycare_center": "P",
@@ -203,7 +221,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "S",
     "daycare_home": "—"
   },
   "C1-1": {
@@ -218,6 +236,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -226,7 +246,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C1-2": {
@@ -241,6 +261,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -249,7 +271,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C1-3": {
@@ -264,6 +286,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -272,7 +296,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C2-1": {
@@ -287,6 +311,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -295,7 +321,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C2-2": {
@@ -310,6 +336,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -318,7 +346,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C2-3": {
@@ -333,6 +361,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -341,7 +371,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "P",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C3-1": {
@@ -356,6 +386,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -364,7 +396,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "—",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C3-2": {
@@ -379,6 +411,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -387,7 +421,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "—",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "C3-3": {
@@ -402,6 +436,8 @@
     "food_production_artisan": "P",
     "eating_drinking_limited": "P",
     "eating_drinking_general": "P",
+    "tavern": "P",
+    "retail_sales_general": "P",
     "hair_salon_barbershop": "P",
     "personal_service": "P",
     "daycare_center": "P",
@@ -410,7 +446,7 @@
     "urban_farm": "P",
     "community_garden": "P",
     "medical_clinic": "P",
-    "bed_and_breakfast": "—",
+    "body_art_services": "P",
     "daycare_home": "—"
   },
   "M1-1": {
@@ -430,11 +466,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M1-2": {
     "neighborhood_grocery_small": "P",
@@ -453,11 +491,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M1-3": {
     "neighborhood_grocery_small": "P",
@@ -476,11 +516,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M2-1": {
     "neighborhood_grocery_small": "P",
@@ -499,11 +541,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M2-2": {
     "neighborhood_grocery_small": "P",
@@ -522,11 +566,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M2-3": {
     "neighborhood_grocery_small": "P",
@@ -545,11 +591,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M3-1": {
     "neighborhood_grocery_small": "P",
@@ -568,11 +616,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M3-2": {
     "neighborhood_grocery_small": "P",
@@ -591,11 +641,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "M3-3": {
     "neighborhood_grocery_small": "P",
@@ -614,11 +666,13 @@
     "multi_unit_residential": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
+    "body_art_services": "—",
     "daycare_center": "—",
     "daycare_home": "—",
-    "place_of_worship": "—",
-    "bed_and_breakfast": "—"
+    "place_of_worship": "—"
   },
   "RM-4.5": {
     "single_family_detached": "P/-",
@@ -632,15 +686,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RM-5": {
@@ -655,15 +711,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RM-5.5": {
@@ -678,15 +736,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RM-6": {
@@ -701,15 +761,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RM-6.5": {
@@ -724,15 +786,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RS-1": {
@@ -747,15 +811,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "—",
-    "bed_and_breakfast": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RS-2": {
@@ -770,15 +836,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "—",
-    "bed_and_breakfast": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RS-3": {
@@ -793,15 +861,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "—",
-    "bed_and_breakfast": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RT-3.5": {
@@ -816,15 +886,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "—",
-    "bed_and_breakfast": "—",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   },
   "RT-4": {
@@ -839,15 +911,17 @@
     "place_of_worship": "P",
     "community_garden": "P",
     "medical_clinic": "S",
-    "bed_and_breakfast": "P",
     "live_work_unit": "—",
     "artist_live_work": "—",
     "neighborhood_grocery_small": "—",
     "food_production_artisan": "—",
     "eating_drinking_limited": "—",
     "eating_drinking_general": "—",
+    "tavern": "—",
+    "retail_sales_general": "—",
     "hair_salon_barbershop": "—",
     "personal_service": "—",
+    "body_art_services": "—",
     "urban_farm": "—"
   }
 }

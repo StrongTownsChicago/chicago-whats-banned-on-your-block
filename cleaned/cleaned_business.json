@@ -110,6 +110,26 @@
     "C3": "P"
   },
   {
+    "use_slug": "tavern",
+    "use_name": "Eating and Drinking Establishment, Tavern",
+    "B1": "-",
+    "B2": "-",
+    "B3": "S",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "retail_sales_general",
+    "use_name": "Retail Sales, General",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
     "use_slug": "hair_salon_barbershop",
     "use_name": "Hair Salon, Nail Salon, or Barbershop",
     "B1": "P/S",
@@ -190,13 +210,13 @@
     "C3": "P"
   },
   {
-    "use_slug": "bed_and_breakfast",
-    "use_name": "Bed and Breakfast",
-    "B1": "P",
-    "B2": "P",
-    "B3": "P",
+    "use_slug": "body_art_services",
+    "use_name": "Body Art Services",
+    "B1": "-",
+    "B2": "-",
+    "B3": "S",
     "C1": "P",
     "C2": "P",
-    "C3": "-"
+    "C3": "P"
   }
 ]

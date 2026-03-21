@@ -27,6 +27,7 @@ const state = {
 // DOM references
 // =====================================================================
 
+const introPanel      = document.getElementById("intro-panel");
 const addressForm     = document.getElementById("address-form");
 const addressInput    = document.getElementById("address-input");
 const addressError    = document.getElementById("address-error");
@@ -190,6 +191,7 @@ async function lookupLocation(lngLat, placeName) {
 async function handleAddressSubmit(event) {
   event.preventDefault();
   clearAddressError();
+  hideElement(introPanel);
 
   const address = addressInput.value.trim();
   if (!address) return;
@@ -211,6 +213,7 @@ async function handleAddressSubmit(event) {
 
 async function handleMapClick(lngLat) {
   clearAddressError();
+  hideElement(introPanel);
   showElement(resultsPanel);
   showElement(resultsLoading);
   hideElement(resultsContent);

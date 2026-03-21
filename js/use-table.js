@@ -10,7 +10,7 @@
 
 /**
  * Human-readable display labels for each advocacy use slug.
- * Must cover all 21 slugs from scripts/constants.py ADVOCACY_USES.
+ * Must cover all slugs from scripts/constants.py ADVOCACY_USES.
  *
  * This is the single source of truth for frontend display names.
  */
@@ -27,10 +27,13 @@ export const USE_DISPLAY_LABELS = {
   neighborhood_grocery_small: "Small neighborhood grocery",
   food_production_artisan:    "Commercial kitchen / ghost kitchen (catering, food production)",
   eating_drinking_limited:    "Café / limited food service",
-  eating_drinking_general:    "Restaurant or bar",
+  eating_drinking_general:    "Restaurant (full-service)",
+  tavern:                     "Bar or tavern",
+  retail_sales_general:       "Retail shop (general merchandise)",
   // Personal services
   hair_salon_barbershop: "Hair salon / barbershop",
   personal_service:      "Personal service business (tailor, laundry, etc.)",
+  body_art_services:     "Tattoo parlor or body art studio",
   // Childcare and education
   daycare_center: "Daycare center",
   daycare_home:   "Home-based daycare (small in-home childcare)",
@@ -41,8 +44,6 @@ export const USE_DISPLAY_LABELS = {
   community_garden: "Community garden",
   // Health
   medical_clinic: "Medical or dental clinic",
-  // Lodging
-  bed_and_breakfast: "Bed & breakfast",
 };
 
 /**
@@ -60,8 +61,11 @@ export const SLUG_CATEGORY = {
   food_production_artisan:    "Food & retail",
   eating_drinking_limited:    "Food & retail",
   eating_drinking_general:    "Food & retail",
+  tavern:                     "Food & retail",
+  retail_sales_general:       "Food & retail",
   hair_salon_barbershop: "Services",
   personal_service:      "Services",
+  body_art_services:     "Services",
   daycare_center: "Childcare",
   daycare_home:   "Childcare",
   community_center: "Community & civic",
@@ -69,7 +73,6 @@ export const SLUG_CATEGORY = {
   urban_farm:       "Community & civic",
   community_garden: "Community & civic",
   medical_clinic:    "Health",
-  bed_and_breakfast: "Lodging",
 };
 
 /**
