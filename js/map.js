@@ -17,12 +17,15 @@ const INITIAL_ZOOM = 11;
 
 // Zone family color map (keyed on first letter of zone_class)
 const ZONE_FAMILY_COLORS = {
-  B: "#3b82f6", // blue  — Business
+  B: "#3b82f6", // blue   — Business
   C: "#f97316", // orange — Commercial
+  D: "#06b6d4", // cyan   — Downtown (DC, DX, DR, DS)
   M: "#8b5cf6", // purple — Manufacturing
+  P: "#f59e0b", // amber  — Planned Development
   R: "#22c55e", // green  — Residential
+  T: "#ec4899", // pink   — Transit-Served
 };
-const ZONE_FALLBACK_COLOR = "#94a3b8"; // grey for unknown/PD
+const ZONE_FALLBACK_COLOR = "#64748b"; // slate — truly unknown
 
 let currentMarker = null;
 let hoverPopup = null;
@@ -72,8 +75,11 @@ function buildZoneColorExpression() {
     ["slice", ["coalesce", ["get", "zone_class"], "?"], 0, 1],
     "B", ZONE_FAMILY_COLORS.B,
     "C", ZONE_FAMILY_COLORS.C,
+    "D", ZONE_FAMILY_COLORS.D,
     "M", ZONE_FAMILY_COLORS.M,
+    "P", ZONE_FAMILY_COLORS.P,
     "R", ZONE_FAMILY_COLORS.R,
+    "T", ZONE_FAMILY_COLORS.T,
     ZONE_FALLBACK_COLOR,
   ];
 }
@@ -89,8 +95,11 @@ function describeZoneFamily(zoneClass) {
   const labels = {
     B: "Business district",
     C: "Commercial district",
+    D: "Downtown district",
     M: "Manufacturing district",
+    P: "Planned Development",
     R: "Residential district",
+    T: "Transit-Served district",
   };
   return labels[letter] || "Zoning district";
 }
