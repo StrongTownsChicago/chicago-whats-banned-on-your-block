@@ -1,0 +1,65 @@
+[
+  {
+    "use_slug": "neighborhood_grocery_small",
+    "use_name": "Food and Beverage Retail Sales",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "food_production_artisan",
+    "use_name": "Manufacturing and Production, Artisan",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "eating_drinking_limited",
+    "use_name": "Restaurant, Limited",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "eating_drinking_general",
+    "use_name": "Restaurant, General",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "personal_service",
+    "use_name": "Personal Service",
+    "M1": "P",
+    "M2": "P",
+    "M3": "-"
+  },
+  {
+    "use_slug": "community_center",
+    "use_name": "Community Centers, Recreation Buildings and Similar Assembly Use",
+    "M1": "-",
+    "M2": "-",
+    "M3": "-"
+  },
+  {
+    "use_slug": "urban_farm",
+    "use_name": "Urban Farm, Indoor Operation",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "community_garden",
+    "use_name": "Community Garden",
+    "M1": "-",
+    "M2": "-",
+    "M3": "-"
+  },
+  {
+    "use_slug": "medical_clinic",
+    "use_name": "Medical Service",
+    "M1": "P",
+    "M2": "-",
+    "M3": "-"
+  }
+]

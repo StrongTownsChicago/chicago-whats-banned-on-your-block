@@ -1,0 +1,202 @@
+[
+  {
+    "use_slug": "single_family_detached",
+    "use_name": "Detached House",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "two_flat",
+    "use_name": "Two-Flat",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "three_flat",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "four_flat",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "multi_unit_residential",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "live_work_unit",
+    "use_name": "Business Live/Work Unit",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
+    "use_slug": "artist_live_work",
+    "use_name": "Artist Live/Work Space (above ground floor)",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "-"
+  },
+  {
+    "use_slug": "neighborhood_grocery_small",
+    "use_name": "Food and Beverage Retail Sales",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "food_production_artisan",
+    "use_name": "Manufacturing and Production, Limited (catering & shared kitchen)",
+    "B1": "-",
+    "B2": "-",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "eating_drinking_limited",
+    "use_name": "Restaurant, Limited",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "eating_drinking_general",
+    "use_name": "Restaurant, General",
+    "B1": "-",
+    "B2": "-",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "hair_salon_barbershop",
+    "use_name": "Hair Salon, Nail Salon, or Barbershop",
+    "B1": "P/S",
+    "B2": "P/S",
+    "B3": "P/S",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "personal_service",
+    "use_name": "Personal Service",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "daycare_center",
+    "use_name": "Day Care",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "community_center",
+    "use_name": "Community Centers, Recreation Buildings and Similar Assembly Use",
+    "B1": "S",
+    "B2": "S",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "S"
+  },
+  {
+    "use_slug": "place_of_worship",
+    "use_name": "Religious Assembly",
+    "B1": "S",
+    "B2": "S",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "S"
+  },
+  {
+    "use_slug": "urban_farm",
+    "use_name": "Urban Farm, Indoor Operation",
+    "B1": "-",
+    "B2": "-",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "community_garden",
+    "use_name": "Community Garden",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "medical_clinic",
+    "use_name": "Medical Service",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "bed_and_breakfast",
+    "use_name": "Bed and Breakfast",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "-"
+  }
+]

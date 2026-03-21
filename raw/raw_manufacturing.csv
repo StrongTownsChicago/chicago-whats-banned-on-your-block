@@ -1,0 +1,85 @@
+Use Category,Specific Use Type,M1,M2,M3,Use Standard,Parking Standard
+1.,Temporary Overnight Shelter,S,S,,§ 17-9-0115,§ 17-10-0207-Q
+2.,Transitional Shelters,S,S,,§ 17-9-0115,§ 17-10-0207-Q
+C. Detention and Correctional Facilities,C. Detention and Correctional Facilities,S,S,S,,§ 17-10-0207-E
+D. Parks and Recreation (except as more specifically regulated),D. Parks and Recreation (except as more specifically regulated),P,P,P,,§ 17-10-0207-E
+1.,"Community Centers, Recreation Buildings and Similar Assembly Use",-,-,-,,§ 17-10-0207-E
+2.,Community Garden,-,-,-,,
+E. Postal Service,E. Postal Service,P,P,P,,§ 17-10-0207-E
+F. Public Safety Services,F. Public Safety Services,P,P,P,,§ 17-10-0207-E
+"G. Utilities and Services, Minor","G. Utilities and Services, Minor",P,P,P,,§ 17-10-0207-E
+"H. Utilities and Services, Major","H. Utilities and Services, Major",S,S,S,,§ 17-10-0207-E
+1.,Wind Energy Meteorological Testing Tower,-,-,P,§ 17-9-0117.7,None required
+I. Adult Use,I. Adult Use,S,S,S,§ 17-9-0101,§ 17-10-0207-J
+1.,Shelters/Boarding Kennels,P,P,P,,§ 17-10-0207-K
+2.,Veterinary,P,P,P,,§ 17-10-0207-K
+3.,Stables,P,P,P,,§ 17-10-0207-K
+K. Building Maintenance Services,K. Building Maintenance Services,P,P,P,,§ 17-10-0207-N
+1.,Copying and Reproduction,P,P,P,,§ 17-10-0207-M
+2.,Business/Trade school,P,P,P,,§ 17-10-0207-E
+3.,Day Labor Employment Agency,P,P,P,,§17-10-0207-Q
+4.,Employment Agencies,P,P,P,,§ 17-10-0207-L
+1.,Indoor Operation,P,P,P,"§ 17-9-0103.3 Accessory sale of goods produced on site shall not exceed 3,000 square feet",§ 17-10-0207-U
+2.,Outdoor Operation,-,P,P,"§ 17-9-0103.3 Accessory sale of goods produced on site shall not exceed 3,000 square feet",§ 17-10-0207-U
+3.,Rooftop Operation,P,P,P,"§ 17-9-0103.3 Accessory sale of goods produced on site shall not exceed 3,000 square feet",§ 17-10-0207-U
+N. Communication Service Establishments,N. Communication Service Establishments,P,P,P,,§ 17-10-0207-L
+1.,Building Material Sales,-,P,P,Customer- accessible retail sales areas may not exceed 20% of total floor area,§ 17-10-0207-O
+2.,Contractor/Construction Storage Yard,-,P,P,,§ 17-10-0207-O
+P. Drive-Through Facility,P. Drive-Through Facility,S,S,S,§ 17-9-0106,
+1.,"Restaurant, Limited",P,P,P,"Max GFA: 4,000 sq ft; no entertainment allowed",§ 17-10-0207-M
+2.,"Restaurant, General",P,P,P,"Max GFA: 4,000 sq ft; no entertainment allowed",§ 17-10-0207-M
+3.,Tavern,P,P,P,"Max GFA: 4,000 sq ft; no entertainment allowed",§ 17-10-0207-M
+4.,Outdoor patio (if located on a rooftop),S,S,S,,§ 17-10-0207-M
+5.,Outdoor patio (if located at grade),P,S,S,,§ 17-10-0207-M
+1.,Indoor Special Event including incidental liquor sales,P,P,P,,
+3.,Industrial Private Event Venue including incidental liquor sales,P,P,P,§ 17-9-0130,§ 17-10-0207-P
+S. Financial Services (except as more specifically regulated),S. Financial Services (except as more specifically regulated),P,P,P,"Max GFA: 3,000 sq ft",§ 17-10-0207-L
+1.,Consumer Loan Establishment,S,S,S,"Max GFA: 3,000 sq ft",§ 17-10-0207-L
+2.,Payday/Title Secured Loan Store,S,S,S,"Max GFA: 3,000 sq ft § 17-9-0125",§ 17-10-0207-L
+3.,Pawn Shop,S,S,S,"Max GFA: 3,000 sq ft § 17-9-0127",§ 17-10-0207-L
+T. Food and Beverage Retail Sales,T. Food and Beverage Retail Sales,P,P,P,"Max GFA: 3,000 sq ft",§ 17-10-0207-M
+U. Gas Stations,U. Gas Stations,S,S,S,§ 17-9-0109,§ 17-10-0207-R
+V. Medical Service,V. Medical Service,P,-,-,,§ 17-10-0207-T
+W. Office (except as more specifically regulated),W. Office (except as more specifically regulated),P,P,P,"In M2 and M3, max GFA: 9,000 sq ft or accessory use to allowed industrial use",§ 17-10-0207-L
+1.,Electronic Data Storage Center,P,P,P,,§ 17-10-0207-U
+"X. Parking, Non-Accessory","X. Parking, Non-Accessory",S,S,S,,
+Y. Personal Service,Y. Personal Service,P,P,,"Max GFA: 3,000 sq ft",§ 17-10-0207-M
+"Z. Repair or Laundry Service, Consumer","Z. Repair or Laundry Service, Consumer",P,P,P,,§ 17-10-0207-N
+AA. Residential Storage Warehouse,AA. Residential Storage Warehouse,P,P,P,,§ 17-10-0207-Q
+"BB. Retail Sales, General","BB. Retail Sales, General",P,P,P,Accessory sales of goods produced on-site: not to exceed 20% of on-site GFA,§ 17-10-0207-M
+"CC. Sports and Recreation, Participant","CC. Sports and Recreation, Participant",S,S,S,,§ 17-10-0207-M
+1.,Shooting range facility,S,S,S,§ 17-9-0120 Accessory sales of firearms and ammunition; not to exceed 20% of total floor area,§ 17-10-0207-M
+1.,Car Wash or Cleaning Service,P,P,P,,§ 17-10-0207-N
+2.,Heavy Equipment Sales/Rental,-,P,P,§ 17-9-0107,§ 17-10-0207-N
+3.,"Light Equipment Sales/Rental, including automobile, motorcycle or boat sales",-,P,P,§ 17-9-0107,§ 17-10-0207-N
+4.,Motor Vehicle Repair Shop,P,P,P,,§ 17-10-0207-N
+5.,Vehicle Storage and Towing,P,P,P,,§ 17-10-0207-N
+6.,RVs or Boat Storage,-,P,P,Sales allowed as accessory use only,§ 17-10-0207-N
+1.,Artisan,P,P,P,,§ 17-10-0207-U
+2.,Limited,P,P,P,,§ 17-10-0207-U
+3.,General,P,P,P,,§ 17-10-0207-U
+4.,Intensive,-,-,P,§ 17-9-0117,§ 17-10-0207-U
+1.,Class I,P,P,P,,§ 17-10-0207-U
+2.,Class II,S,P,P,,§ 17-10-0207-U
+3.,Class III,-,S,P,§ 17-9-0117,§ 17-10-0207-U
+4.,Class IVA,-,S,S,§ 17-9-0117,§ 17-10-0207-U
+5.,Class IVB,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+6.,Class V,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+"HH. Warehousing, Wholesaling and Freight Movement (except as more specifically regulated)","HH. Warehousing, Wholesaling and Freight Movement (except as more specifically regulated)",P,P,P,§ 17-9-0117 & § 17-9-0108.1,§ 17-10-0207-U
+1.,Container Storage,-,S,S,§ 17-9-0105 & § 17-9-0117,§ 17-10-0207-U
+2.,Freight Terminal,-,P,P,§ 17-9-0117,§ 17-10-0207-U
+3.,Outdoor Storage of Raw Materials as a Principal Use,-,-,P,§ 17-9-0117,§ 17-10-0207-U
+1.,Hazardous Materials Disposal or Storage,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+2.,Liquid Waste Handling Facilities,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+3.,Reprocessable Construction/Demolition Material Facility,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+4.,Resource Recovery Facilities,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+5.,Transfer Stations,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+6.,Modified Transfer Stations,-,-,S,§ 17-9-0117,§ 17-10-0207-U
+1.,Co-located,P,P,P,§ 17-9-0118,None required
+2.,Freestanding (Towers),P,P,P,§ 17-9-0118,None required
+KK. Coke & Coal Bulk Material,KK. Coke & Coal Bulk Material,-,-,-,§ 17-9-0117-B,None required
+1.,Cannabis Cultivation Center,-,P/S*,P/S*,§ 17-9-0129,§ 17-10-0207-U
+2.,Cannabis Craft Grower,-,P/S*,P/S*,§ 17-9-0129,§ 17-10-0207-U
+3.,Cannabis Infuser,-,P/S*,P/S*,§ 17-9-0129,§ 17-10-0207-U
+4.,Cannabis Processor,-,P/S*,P/S*,§ 17-9-0129,§ 17-10-0207-U
+MM. Manganese-bearing Material Operation,MM. Manganese-bearing Material Operation,-,-,-,§ 17-9-0117-D,None required

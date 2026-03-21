@@ -1,0 +1,50 @@
+Use Category,Specific Use Type,RS-1,RS-2,RS-3,RT-3.5,RT-4,RM-4.5,RM-5-5.5,RM-6-6.5,Use Standard,Parking Standard
+1.,Detached House,P,P,P,P/-,P/-,P/-,P/-,P/-,§ 17-2-0303-B,§ 17-10-0207-A
+2.,Elderly Housing,-,-,-,P,P,P,P,P,,§ 17-10-0207-A
+3.,Two-Flat,-,-,P,P,P,P/-,P/-,P/-,§ 17-2-0303-B,§ 17-10-0207-A
+4.,Townhouse,-,-,-,P,P,P,P,P,§ 17-2-0500,§ 17-10-0207-A
+5.,Multi-Unit (3+ units) Residential,-,-,-,P,P,P,P,P,§ 17-2-0303-B,§ 17-10-0207-C
+6.,Single-Room Occupancy,-,-,-,-,P,P,P,P,,§ 17-10-0207-B
+7.,Conversion Unit within Additional Dwelling Unit-Allowed Areas,-,P,P,P,P,P,P,P,§ 17-2-0303-C & § 17-9-0131,
+8.,Coach House within Additional Dwelling Unit-Allowed Areas,-,P,P,P,P,P,P,P,§ 17-9-0201-F,
+1.,Assist. Living (Elderly Custodial Care),-,-,-,-,P,P,P,P,,§ 17-10-0207-Q
+2.,Convents and Monasteries,P,P,P,P,P,P,P,P,,§ 17-10-0207-Q
+3.,"Community Home, Family",P,P,P,P,P,P,P,P,,§ 17-10-0207-Q
+4.,"Community Home, Group",S,S,S,S,P,P,P,P,,§ 17-10-0207-Q
+5.,"Domestic Violence Residence, Family",S,S,S,P,P,P,P,P,,§ 17-10-0207-Q
+6.,"Domestic Violence Residence, Group",-,-,S,S,P,P,P,P,,§ 17-10-0207-Q
+7.,Domestic Violence Shelter,-,-,-,-,S,S,S,S,,§ 17-10-0207-Q
+8.,Nursing Home (Skilled Nursing Care),-,-,-,-,S,S,S,S,,§ 17-10-0207-Q
+*10.,Temporary Overnight Shelter,-,-,S,S,S,S,S,S,§ 17-9-0115,§ 17-10-0207-Q
+11.,Transitional Residences,S,S,S,S,S,S,S,S,§ 17-9-0115,§ 17-10-0207-Q
+12.,Transitional Shelters,-,-,S,S,S,S,S,S,§ 17-9-0115,§ 17-10-0207-Q
+13.,Group Living Not Otherwise Classified,-,-,-,-,S,S,S,S,,§ 17-10-0207-Q
+C. Colleges and Universities,C. Colleges and Universities,-,-,-,-,P,P,P,P,,§ 17-10-0207-E
+D. Cultural Exhibits and Libraries,D. Cultural Exhibits and Libraries,P,P,P,P,P,P,P,P,,§ 17-10-0207-F
+E. Day Care,E. Day Care,P,P,P,P,P,P,P,P,,§ 17-10-0207-E
+F. Hospital,F. Hospital,-,-,-,-,P,P,P,P,,§ 17-10-0207-G
+G. Lodge or Private Club,G. Lodge or Private Club,-,-,-,-,S,S,S,S,§ 17-9-0111,§ 17-10-0207-H
+H. Parks and Recreation (except as more specifically regulated),H. Parks and Recreation (except as more specifically regulated),P,P,P,P,P,P,P,P,,§ 17-10-0207-E
+1.,"Community Centers, Recreation Buildings and Similar Assembly Use",S,S,S,S,S,S,S,S,,§ 17-10-0207-E
+2.,Community Garden,P,P,P,P,P,P,P,P,§ 17-9-0103.5,§ 17-10-0207-E
+1.,Police Station,S,S,S,S,S,S,S,S,,§ 17-10-0207-E
+2.,Fire Station,P,P,P,P,P,P,P,P,,§ 17-10-0207-E
+J. Religious Assembly,J. Religious Assembly,P,P,P,P,P,P,P,P,,§ 17-10-0207-I
+K. School,K. School,P,P,P,P,P,P,P,P,,§ 17-10-0207-E
+"L. Utilities and Services, Minor","L. Utilities and Services, Minor",P,P,P,P,P,P,P,P,,§ 17-10-0207-E
+"M. Utilities and Services, Major","M. Utilities and Services, Major",S,S,S,S,S,S,S,S,,§ 17-10-0207-E
+1.,Cemetery/ Mausoleum/ Columbarium,P,P,P,P,P,P,P,P,,§ 17-10-0207-Q
+2.,Cremating,S,S,S,S,S,S,S,S,,§ 17-10-0207-Q
+1.,Bed and Breakfast,-,-,-,-,P,P,P,P,§ 17-9-0103,§ 17-10-0207-S
+2.,Vacation Rental,P,P,P,P,P,P,P,P,,
+3.,Shared Housing Unit,P,P,P,P,P,P,P,P,,
+1.,Government-operated Health Center,-,-,-,-,S,S,S,S,,§ 17-10-0207-T
+1.,Foreign Consulates,-,-,-,-,P,P,P,P,§ 17-9-0108,§ 17-10-0207-Q
+2.,Philanthropic and Eleemosynary Institutions,-,-,-,-,P,P,P,P,§ 17-9-0113,§ 17-10-0207-Q
+"S. Parking, Non-Accessory","S. Parking, Non-Accessory",-,-,-,-,P/S,P/S,P/S,P/S,§ 17-9-0111.5,None Req'd
+T. Residential Support Service,T. Residential Support Service,-,-,-,-,-,-,P,P,§ 17-9-0114,None Req'd
+1.,Co-located,P,P,P,P,P,P,P,P,§ 17-9-0118,None Req'd
+2.,Freestanding (Tower),S,S,S,S,S,S,S,S,§ 17-9-0118,None Req'd
+V. Accessory Uses,V. Accessory Uses,P,P,P,P,P,P,P,P,§ 17-9-0200,None Req'd
+W. Coke & Coal Bulk Material,W. Coke & Coal Bulk Material,-,-,-,-,-,-,-,-,§ 17-9-0117-B,None Req'd
+X. Manganese-bearing Material Operation,X. Manganese-bearing Material Operation,-,-,-,-,-,-,-,-,§ 17-9-0117-D,None Req'd

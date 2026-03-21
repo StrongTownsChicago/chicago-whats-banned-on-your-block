@@ -23,18 +23,19 @@ ZONE_TYPE_TO_CLASSES: dict[str, list[str]] = {
     "C2": ["C2-1", "C2-2", "C2-3"],
     "C3": ["C3-1", "C3-2", "C3-3"],
     # Residential single-family and townhouse districts (§17-2-0207)
+    # Column names in the ordinance table are "RS-1", "RS-2", "RS-3", "RT-3.5", "RT-4".
+    # RT-3 does not have its own column in the table (it is absent from §17-2-0207).
     "RS-1": ["RS-1"],
     "RS-2": ["RS-2"],
     "RS-3": ["RS-3"],
-    "RT-3": ["RT-3"],
     "RT-3.5": ["RT-3.5"],
     "RT-4": ["RT-4"],
     # Residential multi-unit districts (§17-2-0207)
+    # The ordinance table combines RM-5/RM-5.5 into one column and RM-6/RM-6.5 into one column.
+    # Column names in the table are "RM-4.5", "RM-5-5.5", "RM-6-6.5".
     "RM-4.5": ["RM-4.5"],
-    "RM-5": ["RM-5"],
-    "RM-5.5": ["RM-5.5"],
-    "RM-6": ["RM-6"],
-    "RM-6.5": ["RM-6.5"],
+    "RM-5-5.5": ["RM-5", "RM-5.5"],
+    "RM-6-6.5": ["RM-6", "RM-6.5"],
     # Manufacturing districts (§17-5-0207)
     "M1": ["M1-1", "M1-2", "M1-3"],
     "M2": ["M2-1", "M2-2", "M2-3"],
@@ -69,8 +70,6 @@ ADVOCACY_USES: list[str] = [
     "place_of_worship",
     "urban_farm",
     "community_garden",
-    # Home-based
-    "home_occupation",
     # Health
     "medical_clinic",
     # Lodging
@@ -78,4 +77,6 @@ ADVOCACY_USES: list[str] = [
 ]
 
 # Valid permission codes used in the ordinance use tables.
-VALID_PERMISSION_CODES: frozenset[str] = frozenset({"P", "S", "PD", "\u2014", "—"})
+# "-" (plain dash) is used in the HTML for "not permitted" (not the em dash "—").
+# "P/S" is a conditional variant where permission depends on conditions.
+VALID_PERMISSION_CODES: frozenset[str] = frozenset({"P", "S", "PD", "—", "\u2014", "-"})

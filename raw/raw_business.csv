@@ -1,0 +1,134 @@
+Use Category,Specific Use Type,B1,B2,B3,C1,C2,C3,Use Standard,Parking Standard
+1.,Artist Live/Work Space located above the ground floor,P,P,P,P,P,-,,§ 17-10-0207-C
+2.,Artist Live/Work Space located on the ground floor,S,P,S,S,S,-,,§ 17-10-0207-C
+3.,Dwelling Units located above the ground floor,P,P,P,P,P,-,,§ 17-10-0207-C
+4a.,Detached House,S,P,S,S,S,-,§ 17-3-0307.2,§ 17-10-0207-A
+4b.,Elderly Housing,S,P,S,S,S,-,§ 17-3-0307.3,§ 17-10-0207-D
+4c.,Multi-Unit (3+ units) Residential,S,P,S,S,S,-,§ 17-3-0307.2,§ 17-10-0207-C
+4d.,Single-Room Occupancy,S,P,S,S,S,-,,§ 17-10-0207-B
+4e.,Townhouse,S,P,S,S,S,-,§ 17-2-0500,§ 17-10-0207-A
+4f.,Two-Flat,S,P,S,S,S,-,§ 17-3-0307.2,§ 17-10-0207-A
+B. Group Living (except as more specifically regulated),B. Group Living (except as more specifically regulated),S,S,S,S,S,-,,§ 17-10-0207-Q
+1.,Assisted Living (Elderly Custodial Care),S,P,P,P,P,-,,§ 17-10-0207-Q
+2.,"Community Home, Family",P,P,P,P,-,-,§ 17-9-0104,§ 17-10-0207-Q
+3.,"Community Home, Group",S,S,S,S,-,-,§ 17-9-0104,§ 17-10-0207-Q
+4.,"Domestic Violence Residence, Family (located above the ground floor [1])",P,P,P,P,-,-,,§ 17-10-0207-Q
+5.,"Domestic Violence Residence, Group [2]",S/P,S/P,S/P,S,-,-,,§ 17-10-0207-Q
+6.,Domestic Violence Shelter,S,S,S,S,-,-,,§ 17-10-0207-Q
+7.,Nursing Home (Skilled Nursing Care),S,S,S,S,S,-,,§ 17-10-0207-Q
+8.,Temporary Overnight Shelter,S,S,S,S,S,S,§ 17-9-0115,§ 17-10-0207-Q
+9.,Transitional Residences,S,S,S,S,S,-,§ 17-9-0115,§ 17-10-0207-Q
+10.,Transitional Shelters,S,S,S,S,S,S,§ 17-9-0115,§ 17-10-0207-Q
+C. Colleges and Universities,C. Colleges and Universities,P,P,P,P,P,S,,§ 17-10-0207-E
+D. Cultural Exhibits and Libraries,D. Cultural Exhibits and Libraries,P,P,P,P,P,P,,§ 17-10-0207-F
+E. Day Care,E. Day Care,P,P,P,P,P,P,,§ 17-10-0207-E
+F. Detention and Correctional Facilities,F. Detention and Correctional Facilities,-,-,-,S,S,S,,§ 17-10-0208*
+G. Hospital,G. Hospital,-,-,-,P,P,P,,§ 17-10-0207-G
+H. Lodge or Private Club,H. Lodge or Private Club,-,S,S,S,S,S,,§ 17-10-0207-H
+I. Parks and Recreation (except as more specifically regulated),I. Parks and Recreation (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-E
+1.,"Community Centers, Recreation Buildings and Similar Assembly Use",S,S,S,S,S,S,,§ 17-10-0207-E
+2.,Community Garden,P,P,P,P,P,P,§ 17-9-0103.5,§ 17-10-0207-E
+J. Postal Service,J. Postal Service,P,P,P,P,P,P,,§ 17-10-0207-E
+K. Public Safety Services,K. Public Safety Services,P,P,P,P,P,P,,§ 17-10-0207-E
+L. Religious Assembly,L. Religious Assembly,S,S,S,S,S,S,,§ 17-10-0207-I
+M. School,M. School,S,S,S,S,S,S,,§ 17-10-0207-E
+"N. Utilities and Services, Minor","N. Utilities and Services, Minor",P,P,P,P,P,P,,§ 17-10-0207-E
+"O. Utilities and Services, Major","O. Utilities and Services, Major",S,S,S,S,S,S,,§ 17-10-0207-E
+P. Adult Use,P. Adult Use,-,-,-,S,S,S,§ 17-9-0101,§ 17-10-0207-J
+1.,Shelter/Boarding Kennel,-,-,S,P,P,P,,§ 17-10-0207-K
+2.,Sales and Grooming,P,P,P,P,P,P,,§ 17-10-0207-L
+3.,Veterinary,-,-,P,P,P,P,,§ 17-10-0207-K
+4.,Stables,-,-,-,S,S,S,,§ 17-10-0207-K
+R. Artist Work or Sales Space,R. Artist Work or Sales Space,P,P,P,P,P,P,,§ 17-10-0207-M
+S. Body Art Services,S. Body Art Services,-,-,S,P,P,P,,§ 17-10-0207-M
+T. Building Maintenance Services,T. Building Maintenance Services,P,P,P,P,P,P,,§ 17-10-0207-N
+U. Business Equipment Sales and Service,U. Business Equipment Sales and Service,P,P,P,P,P,P,,§ 17-10-0207-N
+V. Business Support Services (except as more specifically regulated),V. Business Support Services (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-L
+1.,Day Labor Employment Agency,-,-,S,S,S,P,,§ 17-10-0207-Q
+2.,Employment Agencies,-,-,P,P,P,P,,§ 17-10-0207-L
+1.,Indoor Operation,-,-,P,P,P,P,§ 17-9-0103.3,§ 17-10-0207-U
+2.,Outdoor Operation,-,-,-,P,P,P,§ 17-9-0103.3,§ 17-10-0207-U
+3.,Rooftop Operation,-,-,S,P,P,P,§ 17-9-0103.3,§ 17-10-0207-U
+X. Communication Service Establishments,X. Communication Service Establishments,-,-,P,P,P,P,,§ 17-10-0207-L
+1.,Building Material Sales,-,-,P,P,P,P,,§ 17-10-0207-O
+2.,Contractor/Construction Storage Yard,-,-,-,P,P,P,,§ 17-10-0207-O
+Z. Drive-Through Facility,Z. Drive-Through Facility,S,S,S,S,S,S,§ 17-9-0106,
+1.,"Restaurant, Limited",P,P,P,P,P,P,,§ 17-10-0207-M
+2.,"Restaurant, General",-,-,P,P,P,P,,§ 17-10-0207-M
+3.,Tavern,-,-,S,P,P,P,,§ 17-10-0207-M
+4.,Outdoor patio (if located on a rooftop),-,-,S,S,S,S,,§ 17-10-0207-M
+5.,Outdoor patio (if located at grade level),P,P,P,P,P,P,,§ 17-10-0207-M
+1.,Indoor Special Event including incidental liquor sales,P,P,P,P,P,P,,
+2.,Wagering Facility,-,-,-,P/S,P/S,P/S,§ 17-9-0110,§ 17-10-0207-P
+3.,Small venues (1 – 149 occupancy),P,P,P,P,P,P,,§ 17-10-0207-P
+4.,Medium venues (150 – 999 occupancy),-,-,P,P,P,P,,§ 17-10-0207-P
+5.,"Large venues (1,000+ occupancy)",-,-,PD,PD,PD,PD,,§ 17-10-0207-P
+6.,Indoor Event Venues,-,-,S,S,S,S,§ 17-9-0130.1,§ 17-10-0207-P
+7.,Industrial Private Event Venue including incidental liquor sales,-,-,-,-,-,-,,
+CC. Financial Services (except as more specifically regulated),CC. Financial Services (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-L
+1.,"Bank, Savings Bank, Savings and Loan Association, Currency Exchange, and Credit Union",P/S,P/S,P/S,P,P,P,§ 17-3-0504-I,§ 17-10-0207-L
+2.,Payday/Title Secured Loan Store,-,-,S,S,S,S,§ 17-9-0125,§ 17-10-0207-L
+3.,Pawn Shop,-,-,S,S,S,S,§ 17-9-0127,§ 17-10-0207-L
+4.,Automated Teller Machine Facility,P/S,P/S,P/S,P,P,P,§ 17-3-0504-I,
+DD. Flea Market,DD. Flea Market,-,-,-,S,S,S,,§ 17-10-0207-R
+EE. Food and Beverage Retail Sales (except as more specifically regulated),EE. Food and Beverage Retail Sales (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-M
+1.,Liquor Store (package goods),-,-,S,P,P,P,,§ 17-10-0207-M
+2.,Liquor Sales (as accessory use),P,P,P,P,P,P,,§ 17-10-0207-M
+3.,Poultry (including slaughtering and retail sales),-,-,-,S,S,S,§ 17-9-0119,§ 17-10-0207-M
+FF. Fortune Telling Service,FF. Fortune Telling Service,-,-,S,S,S,S,,§ 17-10-0207-M
+1.,Cemetery/Mausoleum/Columbarium,-,-,-,-,-,-,,§ 17-10-0207-Q
+2.,Cremating,-,-,S,S,S,S,,§ 17-10-0207-Q
+3.,Undertaking,P,P,P,P,P,P,,§ 17-10-0207-Q
+HH. Gas Stations,HH. Gas Stations,-,-,S,S,S,S,§ 17-9-0109,§ 17-10-0207-R
+1.,Bed and Breakfast,P,P,P,P,P,-,§ 17-9-0103,§ 17-10-0207-S
+2.,Hotel/Motel,-,-,S,S,S,S,,§ 17-10-0207-S
+3.,Vacation Rental,P,P,P,P,P,-,,
+4.,Shared Housing Unit,P,P,P,P,P,-,,
+JJ. Medical Service,JJ. Medical Service,P,P,P,P,P,P,,§ 17-10-0207-T
+KK. Office (except as more specifically regulated),KK. Office (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-L
+1.,Electronic Data Storage Center,-,-,P,P,P,P,,§ 17-10-0207-U
+"LL. Parking, Non-Accessory","LL. Parking, Non-Accessory",P,P,P,P,P,P,§ 17-3-0504-I,
+MM. Personal Service (except as more specifically regulated),MM. Personal Service (except as more specifically regulated),P,P,P,P,P,P,,§ 17-10-0207-M
+1.,"Hair Salon, Nail Salon, or Barbershop",P/S,P/S,P/S,P,P,P,§ 17-9-0112,
+2.,Massage Establishment,-,-,S,P,P,P,§ 17-9-0112,
+"NN. Repair or Laundry Service, Consumer (except as more specifically regulated)","NN. Repair or Laundry Service, Consumer (except as more specifically regulated)",P,P,P,P,P,P,,§ 17-10-0207-N
+1.,Dry cleaning drop-off or pick-up (no on-premise plant),P,P,P,P,P,P,,§ 17-10-0207-N
+2.,Coin-operated laundromat,-,-,P,P,P,P,,§ 17-10-0207-N
+"PP. Retail Sales, General","PP. Retail Sales, General",P,P,P,P,P,P,,§ 17-10-0207-M
+1.,Outdoor,-,-,P,-,P,P,,§ 17-10-0207-M
+2.,Indoor,P,P,P,P,P,P,,§ 17-10-0207-M
+3.,Amusement Arcades,-,-,-,P,P,P,,§ 17-10-0207-M
+4.,Entertainment Cabaret,-,-,S,S,S,P,,§ 17-10-0207-M
+5.,Children's Play Center,P,P,P,P,P,P,,§ 17-10-0207-T
+6.,Hookah Bar,S,S,S,S,S,S,,§ 17-10-0207-T
+7.,Shooting range facility,S,S,S,S,S,S,,§ 17-10-0207-T
+RR. Valuable Objects Dealer,RR. Valuable Objects Dealer,-,-,S,S,S,S,,§ 17-10-0207-M
+1.,Auto Supply/Accessory Sales,-,-,P,P,P,P,,§ 17-10-0207-M
+2.,Car Wash or Cleaning Service,-,-,-,P,P,P,,§ 17-10-0207-N
+3.,Heavy Equipment Sales/Rental,-,-,-,-,P,P,§ 17-9-0107,§ 17-10-0207-N
+4.,"Light Equipment Sales/Rental, Indoor (e.g., auto, motorcycle and boat sales)",-,-,P,P,P,P,,§ 17-10-0207-N
+5.,"Light Equipment Sales/Rental, Outdoor (e.g., auto, motorcycle and boat sales)",-,-,-,-,P,P,§ 17-9-0107,§ 17-10-0207-N
+6.,"Motor Vehicle Repair Shop, not including body work, painting or commercial vehicle repairs",-,-,P,P,P,P,,§ 17-10-0207-N
+7.,"Motor Vehicle Repair Shop, may include body work, painting or commercial vehicle repairs",-,-,-,P,P,P,,§ 17-10-0207-N
+8.,RV or Boat Storage,-,-,-,-,P,P,,§ 17-10-0207-N
+9.,Vehicle Storage and Towing (indoor storage),-,-,-,-,P,P,,§ 17-10-0207-N
+10.,Vehicle Storage and Towing (with outdoor storage),-,-,-,-,S,S,,§ 17-10-0207-N
+TT. Business Live/Work Unit,TT. Business Live/Work Unit,S,P,S,S,S,-,§ 17-9-0103.1,§ 17-10-0207-C
+1.,Artisan,-,-,-,P,P,P,,§ 17-10-0207-U
+2.,Limited (catering & shared kitchen only),-,-,P,P,P,P,,§ 17-10-0207-U
+3.,Limited,-,-,-,P,P,P,,§ 17-10-0207-U
+4.,General (laundry/dry cleaning plant; maximum 2 employees),-,-,P,P,P,P,,§ 17-10-0207-U
+5.,General (laundry or dry cleaning plant only),-,-,-,P,P,P,,§ 17-10-0207-U
+1.,Class I,-,-,P,S,P,P,,§ 17-10-0207-U
+2.,Class II,-,-,-,S,P,P,,§ 17-10-0207-U
+"WW. Warehousing, Wholesaling and Freight Movement","WW. Warehousing, Wholesaling and Freight Movement",-,-,-,P,P,P,§ 17-9-0117,§ 17-10-0207-U
+1.,Co-located,P,P,P,P,P,P,§ 17-9-0118,None required
+2.,Freestanding (Towers),S,S,S,S,S,S,§ 17-9-0118,None required
+YY. Coke & Coal Bulk Material,YY. Coke & Coal Bulk Material,-,-,-,-,-,-,§ 17-9-0117-B,None required
+ZZ. Firearms Dealer,ZZ. Firearms Dealer,-,-,-,-,S,S,§ 17-9-0128,§ 17-10-0207-M
+1.,Adult Use Cannabis Dispensary,-,-,-,S*,S*,S*,§ 17-9-0129,§ 17-10-0207-M
+2.,Medical Cannabis Dispensary,-,-,-,S*,S*,S*,§ 17-9-0129,§ 17-10-0207-M
+3.,Cannabis Craft Grower,-,-,-,S*,S*,S*,§ 17-9-0129,§ 17-10-0207-M
+4.,Cannabis Infuser,-,-,-,S*,S*,S*,§ 17-9-0129,§ 17-10-0207-M
+5.,Cannabis Processor,-,-,-,S*,S*,S*,§ 17-9-0129,§ 17-10-0207-M
+BBB. Manganese-bearing Material Operation,BBB. Manganese-bearing Material Operation,-,-,-,-,-,-,§ 17-9-0117-D,None required
