@@ -209,3 +209,16 @@ export function isPMDDistrict(zoneClass) {
   if (!zoneClass || typeof zoneClass !== "string") return false;
   return zoneClass.trim().toUpperCase().startsWith("PMD");
 }
+
+/**
+ * Determines whether a zone_class string represents a Downtown district (DC, DX, DR, DS).
+ * Downtown districts are covered by §17-4-0207 and have use table data.
+ * This guard is a safety net for cases where data is unexpectedly missing.
+ *
+ * @param {string} zoneClass
+ * @returns {boolean}
+ */
+export function isDDowntownDistrict(zoneClass) {
+  if (!zoneClass || typeof zoneClass !== "string") return false;
+  return /^D[CXRS]-/i.test(zoneClass.trim());
+}

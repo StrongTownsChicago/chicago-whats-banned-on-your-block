@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   getRestrictedUses,
   isPDDistrict,
+  isDDowntownDistrict,
   USE_DISPLAY_LABELS,
   ADVOCACY_USES_LIST,
 } from "../../js/use-table.js";
@@ -172,11 +173,49 @@ describe("isPDDistrict", () => {
 });
 
 // =====================================================================
+// isDDowntownDistrict tests
+// =====================================================================
+
+describe("isDDowntownDistrict", () => {
+  it("returns true for all four downtown district types", () => {
+    expect(isDDowntownDistrict("DC-12")).toBe(true);
+    expect(isDDowntownDistrict("DC-16")).toBe(true);
+    expect(isDDowntownDistrict("DX-3")).toBe(true);
+    expect(isDDowntownDistrict("DX-16")).toBe(true);
+    expect(isDDowntownDistrict("DR-3")).toBe(true);
+    expect(isDDowntownDistrict("DR-10")).toBe(true);
+    expect(isDDowntownDistrict("DS-3")).toBe(true);
+    expect(isDDowntownDistrict("DS-5")).toBe(true);
+  });
+
+  it("returns false for non-downtown zone classes", () => {
+    expect(isDDowntownDistrict("B1-1")).toBe(false);
+    expect(isDDowntownDistrict("C3-2")).toBe(false);
+    expect(isDDowntownDistrict("M1-2")).toBe(false);
+    expect(isDDowntownDistrict("RS-3")).toBe(false);
+    expect(isDDowntownDistrict("PD 144")).toBe(false);
+    expect(isDDowntownDistrict("PMD-1")).toBe(false);
+  });
+
+  it("is case-insensitive", () => {
+    expect(isDDowntownDistrict("dc-12")).toBe(true);
+    expect(isDDowntownDistrict("Dx-5")).toBe(true);
+    expect(isDDowntownDistrict("DR-7")).toBe(true);
+  });
+
+  it("returns false for empty or non-string inputs", () => {
+    expect(isDDowntownDistrict("")).toBe(false);
+    expect(isDDowntownDistrict(null)).toBe(false);
+    expect(isDDowntownDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
 // USE_DISPLAY_LABELS coverage test
 // =====================================================================
 
 describe("USE_DISPLAY_LABELS", () => {
-  it("covers all 21 slugs in ADVOCACY_USES_LIST", () => {
+  it("covers all slugs in ADVOCACY_USES_LIST", () => {
     for (const slug of ADVOCACY_USES_LIST) {
       expect(USE_DISPLAY_LABELS).toHaveProperty(slug);
       expect(typeof USE_DISPLAY_LABELS[slug]).toBe("string");
@@ -184,7 +223,7 @@ describe("USE_DISPLAY_LABELS", () => {
     }
   });
 
-  it("has exactly 21 entries matching ADVOCACY_USES_LIST length", () => {
+  it("has exactly as many entries as ADVOCACY_USES_LIST", () => {
     expect(Object.keys(USE_DISPLAY_LABELS)).toHaveLength(ADVOCACY_USES_LIST.length);
   });
 });

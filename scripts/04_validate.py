@@ -51,6 +51,12 @@ _MANUFACTURING_ZONE_CLASSES: frozenset[str] = frozenset(
     for zc in zcs
     if key.startswith(("M",))
 )
+_DOWNTOWN_ZONE_CLASSES: frozenset[str] = frozenset(
+    zc
+    for key, zcs in ZONE_TYPE_TO_CLASSES.items()
+    for zc in zcs
+    if key.startswith(("D",))
+)
 
 
 def _section_for_zone_class(zone_class: str) -> str:
@@ -61,6 +67,8 @@ def _section_for_zone_class(zone_class: str) -> str:
         return "residential"
     if zone_class in _MANUFACTURING_ZONE_CLASSES:
         return "manufacturing"
+    if zone_class in _DOWNTOWN_ZONE_CLASSES:
+        return "downtown"
     return "unknown"
 
 

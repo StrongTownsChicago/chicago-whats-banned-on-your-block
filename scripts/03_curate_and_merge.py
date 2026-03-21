@@ -25,7 +25,7 @@ from constants import ADVOCACY_USES, ZONE_TYPE_TO_CLASSES
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
-SECTION_NAMES: list[str] = ["business", "residential", "manufacturing"]
+SECTION_NAMES: list[str] = ["business", "residential", "manufacturing", "downtown"]
 
 
 def load_cleaned_json(section_name: str, cleaned_dir: Path) -> list[dict[str, str]]:

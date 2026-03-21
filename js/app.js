@@ -26,6 +26,7 @@ import {
   isPDDistrict,
   isPOSDistrict,
   isPMDDistrict,
+  isDDowntownDistrict,
   SLUG_CATEGORY,
 } from "./use-table.js";
 
@@ -351,8 +352,9 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
 
   // No use table data (e.g. RT-3 missing from dataset)
   if (uses === null) {
-    noDataMessage.querySelector("p").textContent =
-      "Zoning data is not available for this district type in our database.";
+    noDataMessage.querySelector("p").textContent = isDDowntownDistrict(zoneClass)
+      ? "This Downtown district is governed by §17-4-0207. Many downtown parcels are subject to individual Planned Development (PD) ordinances that supersede the base use table — check the PD ordinance for this parcel."
+      : "Zoning data is not available for this district type in our database.";
     showElement(noDataMessage);
     renderWardCta(ward);
     showElement(resultsContent);

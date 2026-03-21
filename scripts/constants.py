@@ -5,6 +5,7 @@ SECTION_URLS: dict[str, str] = {
     "business": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
     "residential": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
     "manufacturing": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
+    "downtown": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
 }
 
 # Mapping from use-table column header to the zone_class values it represents.
@@ -40,6 +41,12 @@ ZONE_TYPE_TO_CLASSES: dict[str, list[str]] = {
     "M1": ["M1-1", "M1-2", "M1-3"],
     "M2": ["M2-1", "M2-2", "M2-3"],
     "M3": ["M3-1", "M3-2", "M3-3"],
+    # Downtown districts (§17-4-0207)
+    # Numeric suffix is FAR/bulk tier only — use permissions are identical within each type.
+    "DC": ["DC-12", "DC-16"],
+    "DX": ["DX-3", "DX-5", "DX-7", "DX-12", "DX-16"],
+    "DR": ["DR-3", "DR-5", "DR-7", "DR-10"],
+    "DS": ["DS-3", "DS-5"],
 }
 
 # Ordered list of advocacy use slugs to include in the final output.

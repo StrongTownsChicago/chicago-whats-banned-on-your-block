@@ -1,0 +1,186 @@
+[
+  {
+    "use_slug": "single_family_detached",
+    "use_name": "Detached House",
+    "DC": "-",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "two_flat",
+    "use_name": "Two-Flat",
+    "DC": "-",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "three_flat",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "DC": "S",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "four_flat",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "DC": "S",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "multi_unit_residential",
+    "use_name": "Multi-Unit (3+ units) Residential",
+    "DC": "S",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "live_work_unit",
+    "use_name": "Business Live/Work Unit (not listed in §17-4-0207; defaulted to not permitted)",
+    "DC": "-",
+    "DX": "-",
+    "DR": "-",
+    "DS": "-"
+  },
+  {
+    "use_slug": "artist_live_work",
+    "use_name": "Artist Live/Work Space located above the ground floor",
+    "DC": "P",
+    "DX": "P",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
+    "use_slug": "neighborhood_grocery_small",
+    "use_name": "Food and Beverage Retail Sales",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "food_production_artisan",
+    "use_name": "Manufacturing, Production and Industrial Services — Artisan",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "eating_drinking_limited",
+    "use_name": "Eating and Drinking Establishments (all)",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "eating_drinking_general",
+    "use_name": "Eating and Drinking Establishments (all)",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "tavern",
+    "use_name": "Eating and Drinking Establishments (all, including tavern)",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "retail_sales_general",
+    "use_name": "Retail Sales, General",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "hair_salon_barbershop",
+    "use_name": "Personal Service (includes hair salon, nail salon, barbershop)",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "personal_service",
+    "use_name": "Personal Service",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "body_art_services",
+    "use_name": "Body Art Services",
+    "DC": "S",
+    "DX": "S",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "daycare_center",
+    "use_name": "Day Care",
+    "DC": "P",
+    "DX": "P",
+    "DR": "P",
+    "DS": "P"
+  },
+  {
+    "use_slug": "daycare_home",
+    "use_name": "Day Care",
+    "DC": "P",
+    "DX": "P",
+    "DR": "P",
+    "DS": "P"
+  },
+  {
+    "use_slug": "community_center",
+    "use_name": "Community Centers, Recreation Buildings and Similar Assembly Use",
+    "DC": "S",
+    "DX": "S",
+    "DR": "S",
+    "DS": "S"
+  },
+  {
+    "use_slug": "place_of_worship",
+    "use_name": "Religious Assembly",
+    "DC": "S",
+    "DX": "S",
+    "DR": "P",
+    "DS": "S"
+  },
+  {
+    "use_slug": "urban_farm",
+    "use_name": "Urban Farm, Indoor Operation",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  },
+  {
+    "use_slug": "community_garden",
+    "use_name": "Community Garden",
+    "DC": "P",
+    "DX": "P",
+    "DR": "P",
+    "DS": "P"
+  },
+  {
+    "use_slug": "medical_clinic",
+    "use_name": "Medical Service",
+    "DC": "P",
+    "DX": "P",
+    "DR": "-",
+    "DS": "P"
+  }
+]
