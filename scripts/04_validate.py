@@ -7,7 +7,7 @@ Outputs: validation_report.json (spot-check checklist for human review)
          stdout: pass/fail summary with error details
 
 Structural checks are fully automated.
-The spot-check step requires a human to open each AmLegal URL and verify
+The spot-check step requires a human to open each ordinance URL and verify
 the permission code against the live ordinance text.
 """
 
@@ -116,7 +116,7 @@ def generate_spot_checks(
 ) -> list[dict[str, str]]:
     """Randomly sample n (zone_class, use_slug) pairs for human spot-checking.
 
-    Each entry includes the permission value from the JSON and the AmLegal URL
+    Each entry includes the permission value from the JSON and the ordinance URL
     for the relevant ordinance section, so the checker can open the source directly.
 
     Args:

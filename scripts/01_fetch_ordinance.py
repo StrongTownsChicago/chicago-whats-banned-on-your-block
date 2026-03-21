@@ -1,5 +1,5 @@
 """
-Step 01: Fetch and extract raw use tables from AmLegal ordinance HTML.
+Step 01: Fetch and extract raw use tables from Chicago zoning ordinance HTML.
 
 Outputs: raw/raw_{business,residential,manufacturing}.csv
 
@@ -23,7 +23,7 @@ from constants import SECTION_URLS
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
-# Browser-like headers to avoid Cloudflare bot challenges on AmLegal
+# Browser-like headers to avoid Cloudflare bot challenges
 REQUEST_HEADERS: dict[str, str] = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -72,20 +72,20 @@ def extract_largest_table(html: str) -> pd.DataFrame:
 
     Raises:
         ValueError: If no tables are found in the HTML. This may indicate
-                    that AmLegal returned a bot-challenge page.
+                    that a bot-challenge page was returned instead of the ordinance.
     """
-    # header=[0,1,2]: the AmLegal tables use <td> (not <th>) for header cells,
+    # header=[0,1,2]: the ordinance tables use <td> (not <th>) for header cells,
     # so pandas needs to be told explicitly that the first 3 rows are header rows.
     tables = pd.read_html(io.StringIO(html), flavor="lxml", header=[0, 1, 2])
     if not tables:
         raise ValueError(
-            "No tables found in HTML — check if AmLegal is returning a bot challenge page."
+            "No tables found in HTML — check if a bot challenge page was returned instead of the ordinance."
         )
     return max(tables, key=len)
 
 
 def flatten_multiindex_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Flatten MultiIndex columns from the AmLegal 3-row header into clean names.
+    """Flatten MultiIndex columns from the ordinance 3-row header into clean names.
 
     Handles three patterns found in the ordinance tables:
 

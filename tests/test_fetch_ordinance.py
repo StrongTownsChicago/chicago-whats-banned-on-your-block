@@ -27,7 +27,7 @@ def _make_html(*tables: str) -> str:
 
 
 def _simple_table(rows: int, cols: int = 2) -> str:
-    # AmLegal uses <td> for all cells (including headers); header=[0,1,2] expects 3 header rows.
+    # The ordinance tables use <td> for all cells (including headers); header=[0,1,2] expects 3 header rows.
     headers = "".join(
         "<tr>" + "".join(f"<td>H{lvl}_{i}</td>" for i in range(cols)) + "</tr>"
         for lvl in range(3)

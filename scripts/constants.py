@@ -1,6 +1,6 @@
 """Shared constants for the Chicago zoning use table extraction pipeline."""
 
-# AmLegal URLs for the three Title 17 use table sections
+# URLs for the three Title 17 use table sections
 SECTION_URLS: dict[str, str] = {
     "business": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
     "residential": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
