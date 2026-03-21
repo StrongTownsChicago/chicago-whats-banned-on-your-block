@@ -76,7 +76,10 @@ ADVOCACY_USES: list[str] = [
     "bed_and_breakfast",
 ]
 
-# Valid permission codes used in the ordinance use tables.
-# "-" (plain dash) is used in the HTML for "not permitted" (not the em dash "—").
-# "P/S" is a conditional variant where permission depends on conditions.
-VALID_PERMISSION_CODES: frozenset[str] = frozenset({"P", "S", "PD", "—", "\u2014", "-"})
+# Valid permission codes in the final use-table.json output.
+# "-" (ASCII hyphen) is normalized to "—" during the merge step and does not appear in output.
+# "P/S" and "P/-" are conditional variants where the permission depends on sub-conditions
+# (e.g., permitted by-right for one building type, special use for another). The validate
+# script strips everything after "/" before checking, so "P/S" is validated as "P".
+# "PD" appears in the ordinance text but not in the current extracted data.
+VALID_PERMISSION_CODES: frozenset[str] = frozenset({"P", "S", "PD", "—", "P/S", "P/-"})

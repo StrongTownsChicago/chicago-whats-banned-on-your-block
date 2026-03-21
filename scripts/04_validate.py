@@ -98,9 +98,7 @@ def validate_structure(data: dict[str, dict[str, str]]) -> list[str]:
     # Check 3: all permission values are valid
     for zone_class, uses in sorted(data.items()):
         for slug, permission in sorted(uses.items()):
-            # Allow "P/conditional" and "S/conditional" variants
-            base_permission = permission.split("/")[0] if "/" in permission else permission
-            if base_permission not in VALID_PERMISSION_CODES:
+            if permission not in VALID_PERMISSION_CODES:
                 errors.append(
                     f"Invalid permission code {permission!r} at "
                     f"zone_class={zone_class!r}, use_slug={slug!r}"

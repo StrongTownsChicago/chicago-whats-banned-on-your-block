@@ -135,7 +135,10 @@ def expand_zone_classes(
             for zone_class in zone_type_to_classes[key]:
                 if zone_class not in result:
                     result[zone_class] = {}
-                result[zone_class][slug] = value
+                # Normalize ASCII hyphen ("-") to em dash ("—"): both mean "not permitted"
+                # in the ordinance tables, but business tables use "-" while residential/
+                # manufacturing tables use "—". Canonicalize to "—" throughout.
+                result[zone_class][slug] = "—" if value == "-" else value
 
     return result
 
