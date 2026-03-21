@@ -27,6 +27,17 @@ const ZONE_FAMILY_COLORS = {
 };
 const ZONE_FALLBACK_COLOR = "#64748b"; // slate — truly unknown
 
+// Ordered legend entries: [label, color]
+const LEGEND_ENTRIES = [
+  ["Residential",        ZONE_FAMILY_COLORS.R],
+  ["Business",           ZONE_FAMILY_COLORS.B],
+  ["Commercial",         ZONE_FAMILY_COLORS.C],
+  ["Downtown",           ZONE_FAMILY_COLORS.D],
+  ["Manufacturing",      ZONE_FAMILY_COLORS.M],
+  ["Planned Development",ZONE_FAMILY_COLORS.P],
+  ["Transit-Served",     ZONE_FAMILY_COLORS.T],
+];
+
 let currentMarker = null;
 let hoverPopup = null;
 
@@ -61,7 +72,76 @@ export function initMap(containerId) {
     offset: 8,
   });
 
+  createLegend(map);
+
   return map;
+}
+
+/**
+ * Inject a hideable zone-color legend into the map container.
+ *
+ * @param {maplibregl.Map} map
+ */
+function createLegend(map) {
+  const container = map.getContainer();
+
+  const legend = document.createElement("div");
+  legend.className = "map-legend";
+  legend.setAttribute("aria-label", "Zone type legend");
+
+  // Header row: title + toggle button
+  const header = document.createElement("div");
+  header.className = "map-legend__header";
+
+  const title = document.createElement("span");
+  title.className = "map-legend__title";
+  title.textContent = "Zone types";
+
+  const toggle = document.createElement("button");
+  toggle.className = "map-legend__toggle";
+  toggle.setAttribute("aria-expanded", "true");
+  toggle.setAttribute("aria-controls", "map-legend-body");
+  toggle.setAttribute("aria-label", "Hide legend");
+  toggle.textContent = "Hide";
+
+  header.appendChild(title);
+  header.appendChild(toggle);
+  legend.appendChild(header);
+
+  // Body: list of color swatches
+  const body = document.createElement("ul");
+  body.className = "map-legend__body";
+  body.id = "map-legend-body";
+
+  for (const [label, color] of LEGEND_ENTRIES) {
+    const item = document.createElement("li");
+    item.className = "map-legend__item";
+
+    const swatch = document.createElement("span");
+    swatch.className = "map-legend__swatch";
+    swatch.style.background = color;
+    swatch.setAttribute("aria-hidden", "true");
+
+    const text = document.createElement("span");
+    text.textContent = label;
+
+    item.appendChild(swatch);
+    item.appendChild(text);
+    body.appendChild(item);
+  }
+
+  legend.appendChild(body);
+  container.appendChild(legend);
+
+  // Toggle visibility
+  let expanded = true;
+  toggle.addEventListener("click", () => {
+    expanded = !expanded;
+    body.hidden = !expanded;
+    toggle.textContent = expanded ? "Hide" : "Show";
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggle.setAttribute("aria-label", expanded ? "Hide legend" : "Show legend");
+  });
 }
 
 /**

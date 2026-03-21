@@ -90,17 +90,25 @@ function normalizePermissionCode(rawCode) {
 }
 
 /**
- * Classify uses for a given zone_class into banned, special-use, and conditional arrays.
+ * Classify uses for a given zone_class into banned, special-use, conditional,
+ * and permitted arrays. Output arrays preserve ADVOCACY_USES_LIST order.
  *
- * Permitted uses (code "P") are excluded entirely — they are not shown in v1.
- * Output arrays preserve ADVOCACY_USES_LIST order.
+ * Code meanings:
+ *   "P"   — Permitted by right.
+ *   "P/S" — Permitted for standard-sized establishments; special use above a
+ *            size threshold. Treated as permitted for display purposes.
+ *   "P/-" — Permitted in some configurations, banned in others (e.g. existing
+ *            non-conforming use allowed, new construction banned). Conditional.
+ *   "S"   — Special use required (public hearing before ZBA).
+ *   "—"   — Not permitted.
  *
  * @param {string} zoneClass - The zone class to look up (e.g. "B1-1").
  * @param {Record<string, Record<string, string>>} useTable - Full use table.
  * @returns {{
  *   banned: Array<{ slug: string, label: string }>,
  *   specialUse: Array<{ slug: string, label: string }>,
- *   conditional: Array<{ slug: string, label: string }>
+ *   conditional: Array<{ slug: string, label: string }>,
+ *   permitted: Array<{ slug: string, label: string }>
  * } | null} Returns null if zoneClass is not found in the table.
  */
 export function getRestrictedUses(zoneClass, useTable) {
@@ -112,31 +120,28 @@ export function getRestrictedUses(zoneClass, useTable) {
   const banned = [];
   const specialUse = [];
   const conditional = [];
+  const permitted = [];
 
   for (const slug of ADVOCACY_USES_LIST) {
     const rawCode = districtData[slug];
     if (rawCode === undefined) continue;
 
     const code = normalizePermissionCode(rawCode);
-
-    if (code === "P") {
-      // Permitted by-right — not shown in v1
-      continue;
-    }
-
     const entry = { slug, label: USE_DISPLAY_LABELS[slug] || slug };
 
-    if (code === PERMISSION.BANNED) {
+    if (code === "P" || code === "P/S") {
+      permitted.push(entry);
+    } else if (code === PERMISSION.BANNED) {
       banned.push(entry);
     } else if (code === PERMISSION.SPECIAL_USE) {
       specialUse.push(entry);
-    } else if (code === "P/S" || code === "P/-") {
+    } else if (code === "P/-") {
       conditional.push(entry);
     }
     // Unknown codes are silently skipped
   }
 
-  return { banned, specialUse, conditional };
+  return { banned, specialUse, conditional, permitted };
 }
 
 /**

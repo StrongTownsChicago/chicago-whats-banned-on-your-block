@@ -75,11 +75,13 @@ describe("getRestrictedUses", () => {
     expect(result.specialUse[0]).toMatchObject({ slug: "live_work_unit", label: expect.any(String) });
   });
 
-  it("classifies P/S entries as conditional", () => {
+  it("classifies P/S entries as permitted (by-right at standard size)", () => {
     const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
     expect(result).not.toBeNull();
-    const slugs = result.conditional.map((e) => e.slug);
+    const slugs = result.permitted.map((e) => e.slug);
     expect(slugs).toContain("hair_salon_barbershop");
+    // P/S must not appear in conditional
+    expect(result.conditional.map((e) => e.slug)).not.toContain("hair_salon_barbershop");
   });
 
   it("classifies P/- entries as conditional", () => {
@@ -89,12 +91,13 @@ describe("getRestrictedUses", () => {
     expect(slugs).toContain("personal_service");
   });
 
-  it("excludes permitted (P) uses from all output arrays", () => {
+  it("classifies P entries into the permitted array", () => {
     const result = getRestrictedUses("RS-3", ALL_PERMITTED_TABLE);
     expect(result).not.toBeNull();
     expect(result.banned).toHaveLength(0);
     expect(result.specialUse).toHaveLength(0);
     expect(result.conditional).toHaveLength(0);
+    expect(result.permitted).toHaveLength(ADVOCACY_USES_LIST.length);
   });
 
   it("returns null for an unknown zone class", () => {
@@ -126,14 +129,14 @@ describe("getRestrictedUses", () => {
     expect(Array.isArray(result.banned)).toBe(true);
     expect(Array.isArray(result.specialUse)).toBe(true);
     expect(Array.isArray(result.conditional)).toBe(true);
-    // Total restricted uses = banned + specialUse + conditional
-    // Permitted uses must not appear
-    const allSlugs = [
+    // single_family_detached is "P" → must appear in permitted, not restricted
+    expect(result.permitted.map((e) => e.slug)).toContain("single_family_detached");
+    const restrictedSlugs = [
       ...result.banned.map((e) => e.slug),
       ...result.specialUse.map((e) => e.slug),
       ...result.conditional.map((e) => e.slug),
     ];
-    expect(allSlugs).not.toContain("single_family_detached"); // that's "P"
+    expect(restrictedSlugs).not.toContain("single_family_detached");
   });
 });
 

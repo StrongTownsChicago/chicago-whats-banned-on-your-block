@@ -47,6 +47,9 @@ const specialUseSection = document.getElementById("special-use-section");
 const specialUseList  = document.getElementById("special-use-list");
 const conditionalSection = document.getElementById("conditional-section");
 const conditionalList = document.getElementById("conditional-list");
+const permittedSection = document.getElementById("permitted-section");
+const permittedList   = document.getElementById("permitted-list");
+const permittedCount  = document.getElementById("permitted-count");
 const wardCta         = document.getElementById("ward-cta");
 const wardLabel       = document.getElementById("ward-label");
 const wardLink        = document.getElementById("ward-link");
@@ -229,10 +232,14 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
   bannedList.innerHTML = "";
   specialUseList.innerHTML = "";
   conditionalList.innerHTML = "";
+  permittedList.innerHTML = "";
+  permittedCount.textContent = "";
+  permittedSection.removeAttribute("open");
 
   hideElement(bannedSection);
   hideElement(specialUseSection);
   hideElement(conditionalSection);
+  hideElement(permittedSection);
 
   // District header
   if (zoneClass) {
@@ -280,15 +287,14 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
     return;
   }
 
-  // All uses permitted
-  if (uses.banned.length === 0 && uses.specialUse.length === 0 && uses.conditional.length === 0) {
+  const hasRestrictions = uses.banned.length > 0 || uses.specialUse.length > 0 || uses.conditional.length > 0;
+
+  // Show positive message when nothing is banned/restricted
+  if (!hasRestrictions) {
     showElement(allPermittedMsg);
-    renderWardCta(ward);
-    showElement(resultsContent);
-    return;
   }
 
-  // Show restricted uses
+  // Always show the uses container (for permitted section at minimum)
   showElement(restrictedUses);
 
   if (uses.banned.length > 0) {
@@ -304,6 +310,12 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
   if (uses.conditional.length > 0) {
     renderUseList(conditionalList, uses.conditional);
     showElement(conditionalSection);
+  }
+
+  if (uses.permitted.length > 0) {
+    renderUseList(permittedList, uses.permitted);
+    permittedCount.textContent = `(${uses.permitted.length})`;
+    showElement(permittedSection);
   }
 
   renderWardCta(ward);
