@@ -27,12 +27,16 @@ def _make_html(*tables: str) -> str:
 
 
 def _simple_table(rows: int, cols: int = 2) -> str:
-    header = "<tr>" + "".join(f"<th>H{i}</th>" for i in range(cols)) + "</tr>"
+    # AmLegal uses <td> for all cells (including headers); header=[0,1,2] expects 3 header rows.
+    headers = "".join(
+        "<tr>" + "".join(f"<td>H{lvl}_{i}</td>" for i in range(cols)) + "</tr>"
+        for lvl in range(3)
+    )
     data = "".join(
         "<tr>" + "".join(f"<td>r{r}c{i}</td>" for i in range(cols)) + "</tr>"
         for r in range(rows)
     )
-    return f"<table>{header}{data}</table>"
+    return f"<table>{headers}{data}</table>"
 
 
 class TestExtractLargestTable:
@@ -68,28 +72,48 @@ class TestExtractLargestTable:
 # ---------------------------------------------------------------------------
 
 class TestFlattenMultiindexColumns:
-    def test_multiindex_flattened_to_pipe_separated(self):
-        arrays = [["USE GROUP", "USE GROUP", "Zoning Districts", "Zoning Districts"],
-                  ["Use Category", "Specific Use Type", "B1", "B2"]]
+    def test_business_district_columns_deduplicated(self):
+        """('Zoning Districts', 'B1', 'B1') → 'B1' (all non-Unnamed parts the same)."""
+        arrays = [
+            ["USE GROUP", "USE GROUP", "Zoning Districts", "Zoning Districts"],
+            ["Use Category", "Specific Use Type", "B1", "B2"],
+            ["Use Category", "Specific Use Type", "B1", "B2"],
+        ]
         mi = pd.MultiIndex.from_arrays(arrays)
-        df = pd.DataFrame([["A", "B", "P", "S"]], columns=mi)
+        df = pd.DataFrame([["Housing", "Detached House", "P", "S"]], columns=mi)
         result = flatten_multiindex_columns(df)
         assert list(result.columns) == [
-            "USE GROUP|Use Category",
-            "USE GROUP|Specific Use Type",
-            "Zoning Districts|B1",
-            "Zoning Districts|B2",
+            "Use Category",
+            "Specific Use Type",
+            "B1",
+            "B2",
         ]
 
-    def test_unnamed_prefix_stripped(self):
-        arrays = [["Unnamed: 0_level_0", "Zoning Districts"],
-                  ["B1", "B2"]]
+    def test_residential_district_columns_joined_with_dash(self):
+        """('Zoning Districts', 'RS', '1') → 'RS-1'; ('Zoning Districts', 'RT', '3.5') → 'RT-3.5'."""
+        arrays = [
+            ["Zoning Districts", "Zoning Districts", "Zoning Districts"],
+            ["RS", "RT", "RM"],
+            ["1", "3.5", "4.5"],
+        ]
         mi = pd.MultiIndex.from_arrays(arrays)
-        df = pd.DataFrame([["P", "S"]], columns=mi)
+        df = pd.DataFrame([["P", "P", "P"]], columns=mi)
         result = flatten_multiindex_columns(df)
-        # "Unnamed: 0_level_0" is filtered; only "B1" remains for first col
-        assert result.columns[0] == "B1"
-        assert result.columns[1] == "Zoning Districts|B2"
+        assert list(result.columns) == ["RS-1", "RT-3.5", "RM-4.5"]
+
+    def test_unnamed_prefix_stripped(self):
+        arrays = [
+            ["Unnamed: 0_level_0", "Zoning Districts"],
+            ["Unnamed: 0_level_1", "B1"],
+            ["Use Category", "B1"],
+        ]
+        mi = pd.MultiIndex.from_arrays(arrays)
+        df = pd.DataFrame([["Housing", "P"]], columns=mi)
+        result = flatten_multiindex_columns(df)
+        # First col: all Unnamed filtered → parts = ["Use Category"] → "Use Category"
+        assert result.columns[0] == "Use Category"
+        # Second col: Unnamed filtered → parts = ["Zoning Districts", "B1"] → "B1" (last)
+        assert result.columns[1] == "B1"
 
     def test_single_level_columns_returned_as_is(self):
         df = pd.DataFrame({"A": [1], "B": [2]})
@@ -97,7 +121,7 @@ class TestFlattenMultiindexColumns:
         assert list(result.columns) == ["A", "B"]
 
     def test_does_not_mutate_original(self):
-        arrays = [["G1", "G2"], ["C1", "C2"]]
+        arrays = [["G1", "G2"], ["C1", "C2"], ["C1", "C2"]]
         mi = pd.MultiIndex.from_arrays(arrays)
         df = pd.DataFrame([[1, 2]], columns=mi)
         flatten_multiindex_columns(df)
@@ -116,13 +140,14 @@ class TestSaveRawCsv:
         assert out.name == "raw_business.csv"
 
     def test_flattens_multiindex_columns_in_csv(self, tmp_path: Path):
-        arrays = [["G", "G"], ["B1", "B2"]]
+        # Business-style 3-level MultiIndex: all levels same → column name is deduped value.
+        arrays = [["Zoning Districts", "Zoning Districts"], ["B1", "B2"], ["B1", "B2"]]
         mi = pd.MultiIndex.from_arrays(arrays)
         df = pd.DataFrame([["P", "S"]], columns=mi)
         out = save_raw_csv(df, "test", tmp_path)
         header = out.read_text(encoding="utf-8").splitlines()[0]
-        assert "G|B1" in header
-        assert "G|B2" in header
+        assert "B1" in header
+        assert "B2" in header
 
     def test_creates_output_dir_if_absent(self, tmp_path: Path):
         nested = tmp_path / "a" / "b"

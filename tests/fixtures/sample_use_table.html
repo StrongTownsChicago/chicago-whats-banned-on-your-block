@@ -4,15 +4,23 @@
 <body>
 <table>
   <tr>
-    <th colspan="2">USE GROUP</th>
-    <th colspan="3">Zoning Districts</th>
+    <td colspan="2">USE GROUP</td>
+    <td colspan="3">Zoning Districts</td>
   </tr>
   <tr>
-    <th>Use Category</th>
-    <th>Specific Use Type</th>
-    <th>B1</th>
-    <th>B2</th>
-    <th>B3</th>
+    <td>Use Category</td>
+    <td>Specific Use Type</td>
+    <td>B1</td>
+    <td>B2</td>
+    <td>B3</td>
+  </tr>
+  <!-- Third header row (AmLegal repeats zone identifiers) -->
+  <tr>
+    <td>Use Category</td>
+    <td>Specific Use Type</td>
+    <td>B1</td>
+    <td>B2</td>
+    <td>B3</td>
   </tr>
   <!-- Legend row - should be stripped by strip_non_data_rows -->
   <tr>
@@ -72,9 +80,12 @@
   </tr>
 </table>
 
-<!-- A small decoy table to test that extract_largest_table picks the right one -->
+<!-- A small decoy table to test that extract_largest_table picks the right one.
+     Needs 3+ rows so pandas header=[0,1,2] can parse it without error. -->
 <table>
-  <tr><th>Col1</th><th>Col2</th></tr>
+  <tr><td>H0</td><td>H0</td></tr>
+  <tr><td>H1</td><td>H1</td></tr>
+  <tr><td>H2</td><td>H2</td></tr>
   <tr><td>A</td><td>B</td></tr>
 </table>
 </body>

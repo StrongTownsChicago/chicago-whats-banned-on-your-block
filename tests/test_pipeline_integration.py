@@ -129,7 +129,7 @@ class TestConstantsZoneClassCoverage:
         "C3-1", "C3-2", "C3-3",
         # Residential
         "RS-1", "RS-2", "RS-3",
-        "RT-3", "RT-3.5", "RT-4",
+        "RT-3.5", "RT-4",
         "RM-4.5", "RM-5", "RM-5.5", "RM-6", "RM-6.5",
         # Manufacturing
         "M1-1", "M1-2", "M1-3",
