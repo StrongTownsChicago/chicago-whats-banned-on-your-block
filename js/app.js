@@ -7,10 +7,27 @@
  */
 
 import { MAPBOX_TOKEN } from "./config.js";
-import { initMap, addZoningLayer, placeAddressMarker, registerMapClickHandler } from "./map.js";
-import { fetchZoningGeoJSON, fetchWardGeoJSON, findZoneClass, findWard } from "./spatial.js";
+import {
+  initMap,
+  addZoningLayer,
+  placeAddressMarker,
+  registerMapClickHandler,
+} from "./map.js";
+import {
+  fetchZoningGeoJSON,
+  fetchWardGeoJSON,
+  findZoneClass,
+  findWard,
+} from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
-import { fetchUseTable, getRestrictedUses, isPDDistrict, isPOSDistrict, isPMDDistrict, SLUG_CATEGORY } from "./use-table.js";
+import {
+  fetchUseTable,
+  getRestrictedUses,
+  isPDDistrict,
+  isPOSDistrict,
+  isPMDDistrict,
+  SLUG_CATEGORY,
+} from "./use-table.js";
 
 // =====================================================================
 // Application state
@@ -27,43 +44,47 @@ const state = {
 // DOM references
 // =====================================================================
 
-const sidePanel       = document.getElementById("side-panel");
-const panelToggle     = document.getElementById("panel-toggle");
-const introPanel      = document.getElementById("intro-panel");
-const addressForm     = document.getElementById("address-form");
-const addressInput    = document.getElementById("address-input");
-const addressError    = document.getElementById("address-error");
+const sidePanel = document.getElementById("side-panel");
+const panelToggle = document.getElementById("panel-toggle");
+const introPanel = document.getElementById("intro-panel");
+const addressForm = document.getElementById("address-form");
+const addressInput = document.getElementById("address-input");
+const addressError = document.getElementById("address-error");
 const dataLoadingBanner = document.getElementById("data-loading-banner");
 const dataErrorBanner = document.getElementById("data-error-banner");
-const resultsPanel    = document.getElementById("results-panel");
-const resultsLoading  = document.getElementById("results-loading");
-const resultsContent  = document.getElementById("results-content");
-const districtLabel   = document.getElementById("district-label");
+const resultsPanel = document.getElementById("results-panel");
+const resultsLoading = document.getElementById("results-loading");
+const resultsContent = document.getElementById("results-content");
+const districtLabel = document.getElementById("district-label");
 const neighborhoodLabel = document.getElementById("neighborhood-label");
-const pdMessage       = document.getElementById("pd-message");
+const pdMessage = document.getElementById("pd-message");
 const allPermittedMsg = document.getElementById("all-permitted-message");
-const noDataMessage   = document.getElementById("no-data-message");
-const restrictedUses  = document.getElementById("restricted-uses");
-const bannedSection   = document.getElementById("banned-section");
-const bannedList      = document.getElementById("banned-list");
+const noDataMessage = document.getElementById("no-data-message");
+const restrictedUses = document.getElementById("restricted-uses");
+const bannedSection = document.getElementById("banned-section");
+const bannedList = document.getElementById("banned-list");
 const specialUseSection = document.getElementById("special-use-section");
-const specialUseList  = document.getElementById("special-use-list");
+const specialUseList = document.getElementById("special-use-list");
 const conditionalSection = document.getElementById("conditional-section");
 const conditionalList = document.getElementById("conditional-list");
 const permittedSection = document.getElementById("permitted-section");
-const permittedList   = document.getElementById("permitted-list");
-const permittedCount  = document.getElementById("permitted-count");
-const wardCta         = document.getElementById("ward-cta");
-const wardLabel       = document.getElementById("ward-label");
-const wardLink        = document.getElementById("ward-link");
+const permittedList = document.getElementById("permitted-list");
+const permittedCount = document.getElementById("permitted-count");
+const wardCta = document.getElementById("ward-cta");
+const wardLabel = document.getElementById("ward-label");
+const wardLink = document.getElementById("ward-link");
 const wardAlderperson = document.getElementById("ward-alderperson");
 
 // =====================================================================
 // Utility helpers
 // =====================================================================
 
-function showElement(el)  { el.hidden = false; }
-function hideElement(el)  { el.hidden = true;  }
+function showElement(el) {
+  el.hidden = false;
+}
+function hideElement(el) {
+  el.hidden = true;
+}
 
 function showAddressError(message) {
   addressError.textContent = message;
@@ -135,7 +156,7 @@ async function loadAllData() {
     addZoningLayer(state.map, state.zoningGeoJSON);
   } else {
     console.error("Zoning GeoJSON load failed:", zoningResult.reason);
-    errors.push("Map data unavailable — spatial lookup is disabled.");
+    errors.push("Map data unavailable. Spatial lookup is disabled.");
   }
 
   if (wardResult.status === "fulfilled") {
@@ -149,7 +170,7 @@ async function loadAllData() {
     state.useTable = useTableResult.value;
   } else {
     console.error("Use table load failed:", useTableResult.reason);
-    errors.push("Use table unavailable — zoning lookup is disabled.");
+    errors.push("Use table unavailable. Zoning lookup is disabled.");
   }
 
   if (errors.length > 0) {
@@ -181,7 +202,11 @@ async function lookupLocation(lngLat, placeName) {
   const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
 
   let restrictedUsesResult = null;
-  const skipLookup = !zoneClass || isPDDistrict(zoneClass) || isPOSDistrict(zoneClass) || isPMDDistrict(zoneClass);
+  const skipLookup =
+    !zoneClass ||
+    isPDDistrict(zoneClass) ||
+    isPOSDistrict(zoneClass) ||
+    isPMDDistrict(zoneClass);
   if (!skipLookup && state.useTable) {
     restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
   }
@@ -215,7 +240,9 @@ async function handleAddressSubmit(event) {
   if (!geocodeResult) {
     hideElement(resultsLoading);
     hideElement(resultsPanel);
-    showAddressError("Address not found — try a full street address (e.g. 2442 N Milwaukee Ave, Chicago).");
+    showAddressError(
+      "Address not found. Try a full street address (e.g. 2442 N Milwaukee Ave, Chicago).",
+    );
     return;
   }
 
@@ -305,7 +332,7 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
   // POS district
   if (isPOSDistrict(zoneClass)) {
     noDataMessage.querySelector("p").textContent =
-      "Parks and Open Space (POS) districts are not subject to the standard use table — permitted uses are governed by the Chicago Park District and city ordinance.";
+      "Parks and Open Space (POS) districts are not subject to the standard use table. Permitted uses are governed by the Chicago Park District and city ordinance.";
     showElement(noDataMessage);
     renderWardCta(ward);
     showElement(resultsContent);
@@ -332,7 +359,10 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
     return;
   }
 
-  const hasRestrictions = uses.banned.length > 0 || uses.specialUse.length > 0 || uses.conditional.length > 0;
+  const hasRestrictions =
+    uses.banned.length > 0 ||
+    uses.specialUse.length > 0 ||
+    uses.conditional.length > 0;
 
   // Show positive message when nothing is banned/restricted
   if (!hasRestrictions) {
@@ -377,7 +407,9 @@ function renderUseList(listEl, uses) {
   const fragment = document.createDocumentFragment();
 
   // Only add category subheadings when items span multiple categories
-  const categories = new Set(uses.map((u) => SLUG_CATEGORY[u.slug]).filter(Boolean));
+  const categories = new Set(
+    uses.map((u) => SLUG_CATEGORY[u.slug]).filter(Boolean),
+  );
   const showCategories = categories.size > 1;
   let currentCategory = null;
 
@@ -413,7 +445,8 @@ function renderWardCta(ward) {
   }
 
   wardLabel.textContent = `Ward ${ward.ward}`;
-  wardAlderperson.textContent = ward.alderperson || `Ward ${ward.ward} Alderperson`;
+  wardAlderperson.textContent =
+    ward.alderperson || `Ward ${ward.ward} Alderperson`;
   wardLink.href = ward.url || "#";
   wardLink.textContent = `Contact ${ward.alderperson || `Ward ${ward.ward} Alderperson`} →`;
 
@@ -436,7 +469,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     sidePanel.classList.toggle("is-collapsed");
     panelToggle.classList.toggle("is-collapsed");
     panelToggle.setAttribute("aria-expanded", String(!collapsing));
-    panelToggle.setAttribute("aria-label", collapsing ? "Expand panel" : "Collapse panel");
+    panelToggle.setAttribute(
+      "aria-label",
+      collapsing ? "Expand panel" : "Collapse panel",
+    );
     panelToggle.title = collapsing ? "Expand panel" : "Collapse panel";
   });
 });
