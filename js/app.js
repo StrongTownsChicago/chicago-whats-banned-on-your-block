@@ -27,6 +27,8 @@ const state = {
 // DOM references
 // =====================================================================
 
+const sidePanel       = document.getElementById("side-panel");
+const panelToggle     = document.getElementById("panel-toggle");
 const introPanel      = document.getElementById("intro-panel");
 const addressForm     = document.getElementById("address-form");
 const addressInput    = document.getElementById("address-input");
@@ -188,9 +190,18 @@ async function lookupLocation(lngLat, placeName) {
   renderResults(zoneClass, placeName, restrictedUsesResult, ward);
 }
 
+function expandPanel() {
+  sidePanel.classList.remove("is-collapsed");
+  panelToggle.classList.remove("is-collapsed");
+  panelToggle.setAttribute("aria-expanded", "true");
+  panelToggle.setAttribute("aria-label", "Collapse panel");
+  panelToggle.title = "Collapse panel";
+}
+
 async function handleAddressSubmit(event) {
   event.preventDefault();
   clearAddressError();
+  expandPanel();
   hideElement(introPanel);
 
   const address = addressInput.value.trim();
@@ -213,6 +224,7 @@ async function handleAddressSubmit(event) {
 
 async function handleMapClick(lngLat) {
   clearAddressError();
+  expandPanel();
   hideElement(introPanel);
   showElement(resultsPanel);
   showElement(resultsLoading);
@@ -417,4 +429,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadAllData();
   addressForm.addEventListener("submit", handleAddressSubmit);
   registerMapClickHandler(state.map, handleMapClick);
+
+  // Panel collapse toggle
+  panelToggle.addEventListener("click", () => {
+    const collapsing = !sidePanel.classList.contains("is-collapsed");
+    sidePanel.classList.toggle("is-collapsed");
+    panelToggle.classList.toggle("is-collapsed");
+    panelToggle.setAttribute("aria-expanded", String(!collapsing));
+    panelToggle.setAttribute("aria-label", collapsing ? "Expand panel" : "Collapse panel");
+    panelToggle.title = collapsing ? "Expand panel" : "Collapse panel";
+  });
 });

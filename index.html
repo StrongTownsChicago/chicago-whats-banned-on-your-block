@@ -74,7 +74,11 @@
       hidden
     ></div>
 
-    <main class="app-layout">
+    <main class="app-layout" id="app-layout">
+
+      <!-- Collapsible side panel wrapper -->
+      <div class="side-panel" id="side-panel">
+
       <!-- Intro panel: visible before any search, hidden once results load -->
       <aside id="intro-panel" class="intro-panel">
         <div class="intro-body">
@@ -83,8 +87,14 @@
             Chicago's zoning code determines what can be built or opened on
             every block. Opening a daycare, small grocery, or restaurant on most
             residential streets requires a special use permit. That means a
-            public hearing, certified mail to all neighbors within 250 feet, and
-            a city filing fee.
+            public hearing, certified mail to all neighbors within 250 feet, a
+            $1,025 filing fee, and a process that
+            <a
+              href="https://www.gglawoffices.com/starting-a-business/special-use-zoning-for-businesses/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >typically takes 3–4 months</a
+            >.
           </p>
 
           <ul class="intro-stats">
@@ -92,8 +102,8 @@
               <span class="intro-stat__number">41%</span>
               <span class="intro-stat__text">
                 <span class="intro-stat__label"
-                  >of Chicago land is zoned for single-family homes or
-                  two-flats only</span
+                  >of Chicago land is zoned for single-family homes or two-flats
+                  only</span
                 >
                 <a
                   class="intro-stat__source"
@@ -311,6 +321,35 @@
           </p>
         </div>
       </section>
+
+      </div><!-- /.side-panel -->
+
+      <!-- Panel collapse/expand toggle -->
+      <button
+        class="panel-toggle"
+        id="panel-toggle"
+        aria-label="Collapse panel"
+        aria-expanded="true"
+        title="Collapse panel"
+      >
+        <svg
+          class="panel-toggle__icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="7"
+          height="12"
+          viewBox="0 0 7 12"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M6 1L1.5 6L6 11"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
 
       <!-- Map -->
       <div
