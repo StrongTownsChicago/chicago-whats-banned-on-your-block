@@ -10,7 +10,7 @@ import { MAPBOX_TOKEN } from "./config.js";
 import { initMap, addZoningLayer, placeAddressMarker, registerMapClickHandler } from "./map.js";
 import { fetchZoningGeoJSON, fetchWardGeoJSON, findZoneClass, findWard } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
-import { fetchUseTable, getRestrictedUses, isPDDistrict } from "./use-table.js";
+import { fetchUseTable, getRestrictedUses, isPDDistrict, isPOSDistrict, isPMDDistrict } from "./use-table.js";
 
 // =====================================================================
 // Application state
@@ -178,7 +178,8 @@ async function lookupLocation(lngLat, placeName) {
   const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
 
   let restrictedUsesResult = null;
-  if (zoneClass && !isPDDistrict(zoneClass) && state.useTable) {
+  const skipLookup = !zoneClass || isPDDistrict(zoneClass) || isPOSDistrict(zoneClass) || isPMDDistrict(zoneClass);
+  if (!skipLookup && state.useTable) {
     restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
   }
 
@@ -286,10 +287,30 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
     return;
   }
 
+  // POS district
+  if (isPOSDistrict(zoneClass)) {
+    noDataMessage.querySelector("p").textContent =
+      "Parks and Open Space (POS) districts are not subject to the standard use table — permitted uses are governed by the Chicago Park District and city ordinance.";
+    showElement(noDataMessage);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
+  // PMD district
+  if (isPMDDistrict(zoneClass)) {
+    noDataMessage.querySelector("p").textContent =
+      "Planned Manufacturing Districts (PMD) have custom use restrictions set by individual district ordinances. Review the specific PMD ordinance for this area.";
+    showElement(noDataMessage);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
   // No use table data (e.g. RT-3 missing from dataset)
   if (uses === null) {
     noDataMessage.querySelector("p").textContent =
-      "Zoning data is not available for this district type (RT-3 and similar) in our database.";
+      "Zoning data is not available for this district type in our database.";
     showElement(noDataMessage);
     renderWardCta(ward);
     showElement(resultsContent);

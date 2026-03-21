@@ -16,33 +16,33 @@
  */
 export const USE_DISPLAY_LABELS = {
   // Housing
-  single_family_detached:  "Single-family detached home",
-  two_flat:                "2-flat / coach house",
-  three_flat:              "3-flat",
-  four_flat:               "4-flat",
-  multi_unit_residential:  "Multi-unit residential (5+ units)",
-  live_work_unit:          "Live-work unit",
-  artist_live_work:        "Artist live-work space",
+  single_family_detached: "Single-family detached home",
+  two_flat: "2-flat / coach house",
+  three_flat: "3-flat",
+  four_flat: "4-flat",
+  multi_unit_residential: "Multi-unit residential (5+ units)",
+  live_work_unit: "Live-work unit",
+  artist_live_work: "Artist live-work space",
   // Food and retail
   neighborhood_grocery_small: "Small neighborhood grocery",
   food_production_artisan: "Commissary kitchen / artisan food production",
   eating_drinking_limited: "Café / limited food service",
   eating_drinking_general: "Restaurant / full food & drink service",
   // Personal services
-  hair_salon_barbershop:   "Hair salon / barbershop",
-  personal_service:        "Personal service business (tailor, laundry, etc.)",
+  hair_salon_barbershop: "Hair salon / barbershop",
+  personal_service: "Personal service business (tailor, laundry, etc.)",
   // Childcare and education
-  daycare_center:          "Daycare center",
-  daycare_home:            "Family daycare home",
+  daycare_center: "Daycare center",
+  daycare_home: "Family daycare home",
   // Community and civic
-  community_center:        "Community center / social service",
-  place_of_worship:        "Place of worship",
-  urban_farm:              "Urban farm",
-  community_garden:        "Community garden",
+  community_center: "Community center / social service",
+  place_of_worship: "Place of worship",
+  urban_farm: "Urban farm",
+  community_garden: "Community garden",
   // Health
-  medical_clinic:          "Medical or dental clinic",
+  medical_clinic: "Medical or dental clinic",
   // Lodging
-  bed_and_breakfast:       "Bed & breakfast",
+  bed_and_breakfast: "Bed & breakfast",
 };
 
 /**
@@ -55,7 +55,7 @@ export const ADVOCACY_USES_LIST = Object.keys(USE_DISPLAY_LABELS);
  * Permission codes and how they map to display categories.
  */
 const PERMISSION = {
-  BANNED:      "—",
+  BANNED: "—",
   SPECIAL_USE: "S",
   // Unicode replacement character that appears as an encoding artifact in the data
   REPLACEMENT_CHAR: "\ufffd",
@@ -145,7 +145,7 @@ export function getRestrictedUses(zoneClass, useTable) {
 }
 
 /**
- * Test whether a zone_class string represents a Planned Development district.
+ * Determines whether a zone_class string represents a Planned Development district.
  * PD districts have custom zoning rules and are not in the use table.
  *
  * @param {string} zoneClass
@@ -154,4 +154,28 @@ export function getRestrictedUses(zoneClass, useTable) {
 export function isPDDistrict(zoneClass) {
   if (!zoneClass || typeof zoneClass !== "string") return false;
   return zoneClass.trim().toUpperCase().startsWith("PD");
+}
+
+/**
+ * Determines whether a zone_class string represents a Parks and Open Space district.
+ * POS districts are not in the use table.
+ *
+ * @param {string} zoneClass
+ * @returns {boolean}
+ */
+export function isPOSDistrict(zoneClass) {
+  if (!zoneClass || typeof zoneClass !== "string") return false;
+  return zoneClass.trim().toUpperCase().startsWith("POS");
+}
+
+/**
+ * Determines whether a zone_class string represents a Planned Manufacturing District.
+ * PMD districts are not in the use table.
+ *
+ * @param {string} zoneClass
+ * @returns {boolean}
+ */
+export function isPMDDistrict(zoneClass) {
+  if (!zoneClass || typeof zoneClass !== "string") return false;
+  return zoneClass.trim().toUpperCase().startsWith("PMD");
 }
