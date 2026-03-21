@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head><title>Sample Use Table Fixture</title></head>
+<body>
+<table>
+  <tr>
+    <th colspan="2">USE GROUP</th>
+    <th colspan="3">Zoning Districts</th>
+  </tr>
+  <tr>
+    <th>Use Category</th>
+    <th>Specific Use Type</th>
+    <th>B1</th>
+    <th>B2</th>
+    <th>B3</th>
+  </tr>
+  <!-- Legend row - should be stripped by strip_non_data_rows -->
+  <tr>
+    <td colspan="5">P = Permitted by Right; S = Special Use; &#8212; = Not Permitted; PD = Planned Development only</td>
+  </tr>
+  <!-- Category header row - should be stripped -->
+  <tr>
+    <td>A. Commercial Uses</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <!-- Data rows -->
+  <tr>
+    <td></td>
+    <td>Day Care Center</td>
+    <td>S</td>
+    <td>P</td>
+    <td>P</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Food Production, Artisan</td>
+    <td>S</td>
+    <td>S</td>
+    <td>P</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Live-Work Unit</td>
+    <td>&#8212;</td>
+    <td>S</td>
+    <td>P</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Hair Salon / Barbershop</td>
+    <td>P</td>
+    <td>P</td>
+    <td>P</td>
+  </tr>
+  <!-- Category header row - should be stripped -->
+  <tr>
+    <td>B. Residential Uses</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Neighborhood Grocery, Small</td>
+    <td>S</td>
+    <td>P</td>
+    <td>P</td>
+  </tr>
+</table>
+
+<!-- A small decoy table to test that extract_largest_table picks the right one -->
+<table>
+  <tr><th>Col1</th><th>Col2</th></tr>
+  <tr><td>A</td><td>B</td></tr>
+</table>
+</body>
+</html>

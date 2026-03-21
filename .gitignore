@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Pipeline artifacts (committed selectively — see below)
+# raw/ and cleaned/ CSVs/JSONs are committed as evidence artifacts.
+# Exclude only genuinely transient files.
+raw/*.tmp
+cleaned/*.tmp
+
+# Final output (committed after human spot-check)
+# data/use-table.json is intentionally tracked — do not add data/ here.
+
+# Validation report (committed after human review)
+# validation_report.json is intentionally tracked.

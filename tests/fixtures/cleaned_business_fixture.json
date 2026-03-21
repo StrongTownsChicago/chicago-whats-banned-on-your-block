@@ -1,0 +1,37 @@
+[
+  {
+    "use_slug": "daycare_center",
+    "use_name": "Day Care Center",
+    "B1": "S",
+    "B2": "P",
+    "B3": "P"
+  },
+  {
+    "use_slug": "food_production_artisan",
+    "use_name": "Food Production, Artisan",
+    "B1": "S",
+    "B2": "S",
+    "B3": "P"
+  },
+  {
+    "use_slug": "live_work_unit",
+    "use_name": "Live-Work Unit",
+    "B1": "—",
+    "B2": "S",
+    "B3": "P"
+  },
+  {
+    "use_slug": "hair_salon_barbershop",
+    "use_name": "Hair Salon / Barbershop",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P"
+  },
+  {
+    "use_slug": "neighborhood_grocery_small",
+    "use_name": "Neighborhood Grocery, Small",
+    "B1": "S",
+    "B2": "P",
+    "B3": "P"
+  }
+]
