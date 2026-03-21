@@ -17,6 +17,9 @@ dev = [
     "pytest-cov>=5.0.0",
 ]
 
+[tool.setuptools]
+packages = []
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
