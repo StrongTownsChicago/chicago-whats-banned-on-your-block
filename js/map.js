@@ -15,27 +15,31 @@ const CHICAGO_BOUNDS = [-87.94, 41.64, -87.52, 42.03];
 const CHICAGO_CENTER = [-87.63, 41.86];
 const INITIAL_ZOOM = 11;
 
-// Zone family color map (keyed on first letter of zone_class)
+// Zone family color map
 const ZONE_FAMILY_COLORS = {
-  B: "#3b82f6", // blue   — Business
-  C: "#f97316", // orange — Commercial
-  D: "#06b6d4", // cyan   — Downtown (DC, DX, DR, DS)
-  M: "#8b5cf6", // purple — Manufacturing
-  P: "#f59e0b", // amber  — Planned Development
-  R: "#22c55e", // green  — Residential
-  T: "#ec4899", // pink   — Transit-Served
+  B:   "#3b82f6", // blue         — Business
+  C:   "#f97316", // orange       — Commercial
+  D:   "#06b6d4", // cyan         — Downtown (DC, DX, DR, DS)
+  M:   "#8b5cf6", // purple       — Manufacturing
+  PD:  "#f59e0b", // amber        — Planned Development
+  PMD: "#b45309", // rust/brown   — Planned Manufacturing District
+  POS: "#15803d", // forest green — Parks & Open Space
+  R:   "#22c55e", // green        — Residential
+  T:   "#ec4899", // pink         — Transit-Served
 };
 const ZONE_FALLBACK_COLOR = "#64748b"; // slate — truly unknown
 
 // Ordered legend entries: [label, color]
 const LEGEND_ENTRIES = [
-  ["Residential",        ZONE_FAMILY_COLORS.R],
-  ["Business",           ZONE_FAMILY_COLORS.B],
-  ["Commercial",         ZONE_FAMILY_COLORS.C],
-  ["Downtown",           ZONE_FAMILY_COLORS.D],
-  ["Manufacturing",      ZONE_FAMILY_COLORS.M],
-  ["Planned Development",ZONE_FAMILY_COLORS.P],
-  ["Transit-Served",     ZONE_FAMILY_COLORS.T],
+  ["Residential",         ZONE_FAMILY_COLORS.R],
+  ["Business",            ZONE_FAMILY_COLORS.B],
+  ["Commercial",          ZONE_FAMILY_COLORS.C],
+  ["Downtown",            ZONE_FAMILY_COLORS.D],
+  ["Manufacturing",       ZONE_FAMILY_COLORS.M],
+  ["Parks & Open Space",           ZONE_FAMILY_COLORS.POS],
+  ["Planned Development",          ZONE_FAMILY_COLORS.PD],
+  ["Planned Manufacturing District", ZONE_FAMILY_COLORS.PMD],
+  ["Transit-Served",      ZONE_FAMILY_COLORS.T],
 ];
 
 let currentMarker = null;
@@ -150,16 +154,19 @@ function createLegend(map) {
  * @returns {Array} MapLibre expression for match-based coloring.
  */
 function buildZoneColorExpression() {
+  const zc = ["coalesce", ["get", "zone_class"], "?"];
   return [
-    "match",
-    ["slice", ["coalesce", ["get", "zone_class"], "?"], 0, 1],
-    "B", ZONE_FAMILY_COLORS.B,
-    "C", ZONE_FAMILY_COLORS.C,
-    "D", ZONE_FAMILY_COLORS.D,
-    "M", ZONE_FAMILY_COLORS.M,
-    "P", ZONE_FAMILY_COLORS.P,
-    "R", ZONE_FAMILY_COLORS.R,
-    "T", ZONE_FAMILY_COLORS.T,
+    "case",
+    // Check longer prefixes first to avoid POS matching PD's "P"
+    ["==", ["slice", zc, 0, 3], "POS"], ZONE_FAMILY_COLORS.POS,
+    ["==", ["slice", zc, 0, 3], "PMD"], ZONE_FAMILY_COLORS.PMD,
+    ["==", ["slice", zc, 0, 2], "PD"],  ZONE_FAMILY_COLORS.PD,
+    ["==", ["slice", zc, 0, 1], "B"],   ZONE_FAMILY_COLORS.B,
+    ["==", ["slice", zc, 0, 1], "C"],   ZONE_FAMILY_COLORS.C,
+    ["==", ["slice", zc, 0, 1], "D"],   ZONE_FAMILY_COLORS.D,
+    ["==", ["slice", zc, 0, 1], "M"],   ZONE_FAMILY_COLORS.M,
+    ["==", ["slice", zc, 0, 1], "R"],   ZONE_FAMILY_COLORS.R,
+    ["==", ["slice", zc, 0, 1], "T"],   ZONE_FAMILY_COLORS.T,
     ZONE_FALLBACK_COLOR,
   ];
 }
@@ -172,12 +179,15 @@ function buildZoneColorExpression() {
  */
 function describeZoneFamily(zoneClass) {
   const letter = (zoneClass || "").charAt(0).toUpperCase();
+  const zc = (zoneClass || "").trim().toUpperCase();
+  if (zc.startsWith("POS")) return "Parks & Open Space";
+  if (zc.startsWith("PMD")) return "Planned Manufacturing District";
+  if (zc.startsWith("PD"))  return "Planned Development";
   const labels = {
     B: "Business district",
     C: "Commercial district",
     D: "Downtown district",
     M: "Manufacturing district",
-    P: "Planned Development",
     R: "Residential district",
     T: "Transit-Served district",
   };
