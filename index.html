@@ -175,10 +175,59 @@
           </div>
 
           <div id="results-content" hidden>
+            <!-- BUILD Act advocacy banner (shown in BUILD Act mode for RS-1/2/3) -->
+            <div
+              id="build-act-banner"
+              class="build-act-banner"
+              role="status"
+              hidden
+            >
+              <p>
+                <strong>Viewing BUILD Act impact (proposed law).</strong>
+                The BUILD Act would require these uses to be permitted by right
+                here if enacted.
+                <a
+                  href="https://www.ilga.gov/legislation/BillStatus.asp?DocNum=5626&GAID=18&DocTypeID=HB&SessionID=114&GA=104"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >The BUILD Act status on ILGA →</a
+                >
+              </p>
+              <button
+                id="build-act-banner-dismiss"
+                class="build-act-banner__dismiss"
+                aria-label="Dismiss"
+              >
+                ✕
+              </button>
+            </div>
+
             <!-- District identifier -->
             <div class="district-header">
               <span id="district-label" class="district-label"></span>
               <span id="neighborhood-label" class="neighborhood-label"></span>
+              <div
+                id="build-act-toggle-row"
+                class="build-act-toggle-row"
+                hidden
+              >
+                <button
+                  id="build-act-toggle"
+                  class="build-act-toggle"
+                  role="switch"
+                  aria-checked="false"
+                  aria-label="Toggle BUILD Act proposed law view"
+                >
+                  <span
+                    class="build-act-toggle__option build-act-toggle__option--current"
+                    >Current law</span
+                  >
+                  <span
+                    class="build-act-toggle__option build-act-toggle__option--act"
+                    >If BUILD Act passes</span
+                  >
+                </button>
+              </div>
             </div>
 
             <!-- PD district message (shown instead of use lists) -->
@@ -220,6 +269,23 @@
 
             <!-- Restricted uses lists -->
             <div id="restricted-uses" hidden>
+              <!-- BUILD Act unlocked section (shown in BUILD Act mode only) -->
+              <section
+                id="build-act-section"
+                class="use-section use-section--build-act"
+                hidden
+              >
+                <h2 class="use-section__title">
+                  <span class="use-section__icon" aria-hidden="true">✓</span>
+                  Permitted under BUILD Act
+                </h2>
+                <p class="use-section__subtitle">
+                  The BUILD Act would require these uses to be allowed by right
+                  in this district if enacted.
+                </p>
+                <ul id="build-act-list" class="use-list"></ul>
+              </section>
+
               <section
                 id="banned-section"
                 class="use-section use-section--banned"
@@ -231,6 +297,21 @@
                 </h2>
                 <ul id="banned-list" class="use-list"></ul>
               </section>
+
+              <!-- BUILD Act teaser callout (shown in current-law mode for RS-1/2/3) -->
+              <div id="build-act-teaser" class="build-act-teaser" hidden>
+                <p>
+                  💡 The BUILD Act would legalize
+                  <strong
+                    ><span id="build-act-teaser-count"></span> of these banned
+                    uses</strong
+                  >
+                  here by right.
+                </p>
+                <button id="build-act-teaser-cta" class="build-act-teaser__cta">
+                  See BUILD Act impact →
+                </button>
+              </div>
 
               <section
                 id="special-use-section"

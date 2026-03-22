@@ -14,15 +14,17 @@ import {
   registerMapClickHandler,
   ZONING_TILES_URL,
 } from "./map.js";
-import {
-  fetchZoneClass,
-  fetchWardGeoJSON,
-  findWard,
-} from "./spatial.js";
+import { fetchZoneClass, fetchWardGeoJSON, findWard } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
 import { getCCOStatus } from "./cco.js";
 import { getADUStatus } from "./adu.js";
 import { WARD_OPT_IN_INFO } from "./adu-ward-data.js";
+import {
+  isBuildActDistrict,
+  applyBuildActOverrides,
+  getBuildActAduOverride,
+  getBuildActUnlockCount,
+} from "./build-act.js";
 import {
   fetchUseTable,
   getRestrictedUses,
@@ -44,6 +46,8 @@ const state = {
   wardGeoJSON: null,
   useTable: null,
   transitStations: null,
+  buildActMode: false,
+  lastLookup: null,
 };
 
 // =====================================================================
@@ -89,6 +93,19 @@ const wardCta = document.getElementById("ward-cta");
 const wardLabel = document.getElementById("ward-label");
 const wardLink = document.getElementById("ward-link");
 const wardAlderperson = document.getElementById("ward-alderperson");
+
+// BUILD Act DOM references
+const buildActToggleRow = document.getElementById("build-act-toggle-row");
+const buildActToggle = document.getElementById("build-act-toggle");
+const buildActBanner = document.getElementById("build-act-banner");
+const buildActBannerDismiss = document.getElementById(
+  "build-act-banner-dismiss",
+);
+const buildActSection = document.getElementById("build-act-section");
+const buildActList = document.getElementById("build-act-list");
+const buildActTeaser = document.getElementById("build-act-teaser");
+const buildActTeaserCta = document.getElementById("build-act-teaser-cta");
+const buildActTeaserCount = document.getElementById("build-act-teaser-count");
 
 // =====================================================================
 // Utility helpers
@@ -157,15 +174,14 @@ async function loadAllData() {
 
   // Fetch ward, use-table, and transit data in parallel;
   // Zoning polygons are loaded lazily via PMTiles (no fetch needed here).
-  const [wardResult, useTableResult, transitResult] =
-    await Promise.allSettled([
-      fetchWardGeoJSON(),
-      fetchUseTable(),
-      fetch("data/transit-stations.json").then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      }),
-    ]);
+  const [wardResult, useTableResult, transitResult] = await Promise.allSettled([
+    fetchWardGeoJSON(),
+    fetchUseTable(),
+    fetch("data/transit-stations.json").then((r) => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.json();
+    }),
+  ]);
 
   hideElement(dataLoadingBanner);
 
@@ -237,16 +253,18 @@ async function lookupLocation(lngLat, placeName) {
     ? getADUStatus(zoneClass, ward ? ward.ward : null, WARD_OPT_IN_INFO)
     : { zoneEligible: false };
 
-  hideElement(resultsLoading);
-  renderResults(
+  state.buildActMode = false;
+  state.lastLookup = {
     zoneClass,
     placeName,
-    restrictedUsesResult,
+    uses: restrictedUsesResult,
     ward,
-    {},
     ccoStatus,
     aduStatus,
-  );
+  };
+
+  hideElement(resultsLoading);
+  renderResultsForCurrentMode();
 }
 
 function expandPanel() {
@@ -308,6 +326,36 @@ async function handleMapClick(lngLat) {
 }
 
 // =====================================================================
+// BUILD Act rendering helper
+// =====================================================================
+
+/**
+ * Re-render results for the current BUILD Act mode state.
+ * Reads from state.lastLookup and applies overrides when buildActMode is active.
+ * Guards against null lastLookup (called only after a completed lookup).
+ */
+function renderResultsForCurrentMode() {
+  if (!state.lastLookup) return;
+  const { zoneClass, placeName, uses, ward, ccoStatus, aduStatus } =
+    state.lastLookup;
+  if (state.buildActMode && isBuildActDistrict(zoneClass) && uses !== null) {
+    const overriddenUses = applyBuildActOverrides(zoneClass, uses);
+    const overriddenAdu = getBuildActAduOverride(zoneClass, aduStatus);
+    renderResults(
+      zoneClass,
+      placeName,
+      overriddenUses,
+      ward,
+      {},
+      ccoStatus,
+      overriddenAdu,
+    );
+  } else {
+    renderResults(zoneClass, placeName, uses, ward, {}, ccoStatus, aduStatus);
+  }
+}
+
+// =====================================================================
 // DOM rendering
 // =====================================================================
 
@@ -355,6 +403,13 @@ export function renderResults(
   hideElement(conditionalSection);
   hideElement(permittedSection);
 
+  // Reset BUILD Act elements
+  hideElement(buildActToggleRow);
+  hideElement(buildActBanner);
+  hideElement(buildActTeaser);
+  hideElement(buildActSection);
+  buildActList.innerHTML = "";
+
   // District header
   if (zoneClass) {
     districtLabel.textContent = zoneClass;
@@ -365,6 +420,13 @@ export function renderResults(
   }
 
   neighborhoodLabel.textContent = extractNeighborhood(placeName);
+
+  // BUILD Act toggle visibility (shown for RS-1/2/3 regardless of other state)
+  if (zoneClass && isBuildActDistrict(zoneClass)) {
+    showElement(buildActToggleRow);
+    buildActToggle.setAttribute("aria-checked", String(state.buildActMode));
+    buildActToggle.classList.toggle("is-active", state.buildActMode);
+  }
 
   // No zone match
   if (!zoneClass && !flags.zoningUnavailable) {
@@ -449,6 +511,12 @@ export function renderResults(
   // Always show the uses container (for permitted section at minimum)
   showElement(restrictedUses);
 
+  // BUILD Act promoted uses section (visible in BUILD Act mode only)
+  if (uses.promotedByBuildAct?.length > 0) {
+    renderUseList(buildActList, uses.promotedByBuildAct);
+    showElement(buildActSection);
+  }
+
   if (uses.banned.length > 0) {
     renderUseList(bannedList, uses.banned);
     showElement(bannedSection);
@@ -470,8 +538,21 @@ export function renderResults(
     showElement(permittedSection);
   }
 
+  // BUILD Act banner / teaser
+  if (zoneClass && isBuildActDistrict(zoneClass)) {
+    if (state.buildActMode) {
+      showElement(buildActBanner);
+    } else {
+      const unlockCount = getBuildActUnlockCount(zoneClass, uses);
+      if (unlockCount > 0) {
+        buildActTeaserCount.textContent = unlockCount;
+        showElement(buildActTeaser);
+      }
+    }
+  }
+
   renderPolicyCallouts(ccoStatus, aduStatus, ward);
-  renderWardCta(ward);
+  renderWardCta(ward, zoneClass);
   showElement(resultsContent);
 }
 
@@ -538,6 +619,17 @@ function renderPolicyCallouts(ccoStatus, aduStatus, ward) {
     return;
   }
 
+  // ADU: BUILD Act override — supersedes the ward opt-in requirement for RS zones
+  if (aduStatus.buildActOverride && aduStatus.wardOptIn === "not_opted_in") {
+    aduCalloutTitle.textContent = "ADU by Right (BUILD Act)";
+    aduCalloutBody.textContent =
+      "The BUILD Act would require ADUs to be permitted by right in RS zones, removing the ward opt-in requirement.";
+    hideElement(aduOptinCta);
+    showElement(aduCallout);
+    showElement(policyExceptionsDivider);
+    return;
+  }
+
   // ADU: zone is eligible but ward hasn't opted in — show CTA to contact alderperson
   if (aduStatus.wardOptIn === "not_opted_in" && ward) {
     const alder = ward.alderperson || `Ward ${ward.ward} Alderperson`;
@@ -560,7 +652,7 @@ function renderPolicyCallouts(ccoStatus, aduStatus, ward) {
   hideElement(aduOptinCta);
 
   const wardNum = ward ? ward.ward : null;
-  const alder = ward ? (ward.alderperson || `Ward ${wardNum} Alderperson`) : null;
+  const alder = ward ? ward.alderperson || `Ward ${wardNum} Alderperson` : null;
   let title, body;
 
   if (aduStatus.wardOptIn === "full") {
@@ -596,18 +688,19 @@ function renderPolicyCallouts(ccoStatus, aduStatus, ward) {
  * Render or hide the ward CTA section.
  *
  * @param {{ ward: number, alderperson: string, url: string } | null} ward
+ * @param {string | null} [zoneClass] - Optional zone class; used to customize CTA text in BUILD Act mode.
  */
-function renderWardCta(ward) {
+function renderWardCta(ward, zoneClass = null) {
   if (!ward || !ward.ward) {
     hideElement(wardCta);
     return;
   }
 
+  const alder = ward.alderperson || `Ward ${ward.ward} Alderperson`;
   wardLabel.textContent = `Ward ${ward.ward}`;
-  wardAlderperson.textContent =
-    ward.alderperson || `Ward ${ward.ward} Alderperson`;
+  wardAlderperson.textContent = alder;
   wardLink.href = ward.url || "#";
-  wardLink.textContent = `Contact ${ward.alderperson || `Ward ${ward.ward} Alderperson`} →`;
+  wardLink.textContent = `Contact ${alder} →`;
 
   showElement(wardCta);
 }
@@ -621,6 +714,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadAllData();
   addressForm.addEventListener("submit", handleAddressSubmit);
   registerMapClickHandler(state.map, handleMapClick);
+
+  // BUILD Act toggle
+  buildActToggle.addEventListener("click", () => {
+    if (!state.lastLookup) return;
+    state.buildActMode = !state.buildActMode;
+    renderResultsForCurrentMode();
+  });
+
+  buildActTeaserCta.addEventListener("click", () => {
+    if (!state.lastLookup) return;
+    state.buildActMode = true;
+    renderResultsForCurrentMode();
+  });
+
+  buildActBannerDismiss.addEventListener("click", () => {
+    hideElement(buildActBanner);
+  });
 
   // Panel collapse toggle
   panelToggle.addEventListener("click", () => {

@@ -60,10 +60,13 @@ User enters address
   → use-table.js (bundled data/use-table.json) → permission codes for 21 tracked uses
   → cco.js (Turf.js distance, bundled data/transit-stations.json) → CCO proximity status
   → adu.js + adu-ward-data.js (ward opt-in lookup) → ADU eligibility status
+  → build-act.js (pure logic) → BUILD Act override data for RS-1/2/3 toggle mode
   → app.js updates DOM with banned/special-use/permitted results + policy callouts
 ```
 
 `app.js` is the controller that wires events and orchestrates the other modules. The other JS modules are stateless and export pure functions.
+
+**BUILD Act toggle (`js/build-act.js`):** For RS-1/2/3 zones, `app.js` caches each lookup in `state.lastLookup` and exposes a toggle. When active, `applyBuildActOverrides` promotes banned middle-housing uses (two_flat, three_flat, four_flat, townhouse) into a `promotedByBuildAct` array, and `getBuildActAduOverride` adds a `buildActOverride` flag to suppress the ward opt-in CTA. The toggle re-renders without re-fetching spatial data.
 
 ### Key Data Structures
 
@@ -110,5 +113,5 @@ Hard-coded in `spatial.js` as a static dict of 50 wards → `{ name, url }`. Upd
 
 ### Tests
 
-- **JavaScript** (`tests/js/*.test.js`): 5 files via Vitest (Node environment). New modules `cco.js` and `adu.js` use `@turf/distance` injected via the `turfLib` pattern (same as `spatial.js`).
+- **JavaScript** (`tests/js/*.test.js`): 6 files via Vitest (Node environment). `cco.js` and `adu.js` use `@turf/distance` injected via the `turfLib` pattern (same as `spatial.js`). `build-act.js` has no external dependencies and is tested with inline fixture objects.
 - **Python** (`tests/test_*.py`): 4 files via pytest with fixtures in `tests/fixtures/`
