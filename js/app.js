@@ -559,11 +559,12 @@ function renderPolicyCallouts(ccoStatus, aduStatus, ward) {
   hideElement(aduOptinCta);
 
   const wardNum = ward ? ward.ward : null;
+  const alder = ward ? (ward.alderperson || `Ward ${wardNum} Alderperson`) : null;
   let title, body;
 
   if (aduStatus.wardOptIn === "full") {
     title = "ADU / Coach House Eligible";
-    body = `Alder ${alder} (Ward ${ward.ward}) has opted in to the ADU Ordinance. A coach house, garage apartment, or internal conversion may be added to this parcel.`;
+    body = `Alder ${alder} (Ward ${wardNum}) has opted in to the ADU Ordinance. A coach house, garage apartment, or internal conversion may be added to this parcel.`;
     const caveats = [];
     if (aduStatus.blockLimits) caveats.push("block-level unit limits apply");
     if (aduStatus.homeownerReq) caveats.push("owner-occupancy required");
