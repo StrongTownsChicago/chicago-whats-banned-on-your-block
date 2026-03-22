@@ -29,6 +29,7 @@ export const USE_DISPLAY_LABELS = {
   eating_drinking_general: "Sit-down restaurant",
   tavern: "Bar or tavern",
   retail_sales_general: "Corner store or retail shop",
+  liquor_store: "Liquor store",
   // Personal services
   hair_salon_barbershop: "Hair salon / barbershop",
   personal_service: "Personal service shop (tailor, alterations, shoe repair)",
@@ -60,6 +61,7 @@ export const SLUG_CATEGORY = {
   eating_drinking_general: "Food & retail",
   tavern: "Food & retail",
   retail_sales_general: "Food & retail",
+  liquor_store: "Food & retail",
   hair_salon_barbershop: "Services",
   personal_service: "Services",
   body_art_services: "Services",

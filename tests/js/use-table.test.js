@@ -34,6 +34,7 @@ const MIXED_USE_TABLE = {
     eating_drinking_general: "P",
     tavern:               "P",
     retail_sales_general: "P",
+    liquor_store:         "P",
     place_of_worship:     "P",
     urban_farm:           "P",
     community_garden:     "P",

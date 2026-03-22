@@ -130,6 +130,16 @@
     "C3": "P"
   },
   {
+    "use_slug": "liquor_store",
+    "use_name": "Liquor Store (package goods)",
+    "B1": "-",
+    "B2": "-",
+    "B3": "S",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
     "use_slug": "hair_salon_barbershop",
     "use_name": "Hair Salon, Nail Salon, or Barbershop",
     "B1": "P/S",
@@ -151,6 +161,16 @@
   },
   {
     "use_slug": "daycare_center",
+    "use_name": "Day Care",
+    "B1": "P",
+    "B2": "P",
+    "B3": "P",
+    "C1": "P",
+    "C2": "P",
+    "C3": "P"
+  },
+  {
+    "use_slug": "daycare_home",
     "use_name": "Day Care",
     "B1": "P",
     "B2": "P",

@@ -104,6 +104,14 @@
     "DS": "P"
   },
   {
+    "use_slug": "liquor_store",
+    "use_name": "Liquor Store (package goods)",
+    "DC": "S",
+    "DX": "S",
+    "DR": "-",
+    "DS": "S"
+  },
+  {
     "use_slug": "hair_salon_barbershop",
     "use_name": "Personal Service (includes hair salon, nail salon, barbershop)",
     "DC": "P",

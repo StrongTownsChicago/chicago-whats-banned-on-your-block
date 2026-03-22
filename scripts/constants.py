@@ -70,6 +70,7 @@ ADVOCACY_USES: list[str] = [
     "eating_drinking_general",
     "tavern",
     "retail_sales_general",
+    "liquor_store",
     # Personal services
     "hair_salon_barbershop",
     "personal_service",
