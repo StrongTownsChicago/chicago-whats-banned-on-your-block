@@ -31,7 +31,7 @@ export const USE_DISPLAY_LABELS = {
   retail_sales_general:       "Corner store or retail shop",
   // Personal services
   hair_salon_barbershop: "Hair salon / barbershop",
-  personal_service:      "Everyday service businesses (tailor, dry cleaner, laundromat)",
+  personal_service:      "Personal service shop (tailor, alterations, shoe repair)",
   body_art_services:     "Tattoo parlor or body art studio",
   // Childcare and education
   daycare_center: "Daycare center",
