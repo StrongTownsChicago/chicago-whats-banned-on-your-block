@@ -26,7 +26,9 @@ import {
   isPDDistrict,
   isPOSDistrict,
   isPMDDistrict,
+  isTDistrict,
   isDDowntownDistrict,
+  normalizeZoneClass,
   SLUG_CATEGORY,
 } from "./use-table.js";
 
@@ -199,7 +201,8 @@ async function lookupLocation(lngLat, placeName) {
     return;
   }
 
-  const zoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
+  const rawZoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
+  const zoneClass = rawZoneClass ? normalizeZoneClass(rawZoneClass) : null;
   const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
 
   let restrictedUsesResult = null;
@@ -207,7 +210,8 @@ async function lookupLocation(lngLat, placeName) {
     !zoneClass ||
     isPDDistrict(zoneClass) ||
     isPOSDistrict(zoneClass) ||
-    isPMDDistrict(zoneClass);
+    isPMDDistrict(zoneClass) ||
+    isTDistrict(zoneClass);
   if (!skipLookup && state.useTable) {
     restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
   }
@@ -344,6 +348,18 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
   if (isPMDDistrict(zoneClass)) {
     noDataMessage.querySelector("p").textContent =
       "Planned Manufacturing Districts (PMD) have custom use restrictions set by individual district ordinances. Review the specific PMD ordinance for this area.";
+    showElement(noDataMessage);
+    renderWardCta(ward);
+    showElement(resultsContent);
+    return;
+  }
+
+  // T (Transportation) district
+  if (isTDistrict(zoneClass)) {
+    noDataMessage.querySelector("p").textContent =
+      "Transportation (T) districts protect rail lines, busways, and road corridors. " +
+      "This land is reserved for transportation infrastructure only and is not subject " +
+      "to the standard use table. Rezoning is required before any other use is permitted.";
     showElement(noDataMessage);
     renderWardCta(ward);
     showElement(resultsContent);

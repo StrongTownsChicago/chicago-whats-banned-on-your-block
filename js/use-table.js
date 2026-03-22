@@ -208,6 +208,37 @@ export function isPMDDistrict(zoneClass) {
 }
 
 /**
+ * Determines whether a zone_class string represents a Transportation district (T).
+ * T districts (§17-6-0300) are reserved for rail, busway, and road corridor use.
+ * They have no standard use table — only commuter/freight rail is permitted.
+ *
+ * @param {string} zoneClass
+ * @returns {boolean}
+ */
+export function isTDistrict(zoneClass) {
+  if (!zoneClass || typeof zoneClass !== "string") return false;
+  return zoneClass.trim().toUpperCase() === "T";
+}
+
+/**
+ * Normalize known malformed zone class strings from the ArcGIS data layer.
+ * The city's GIS data occasionally contains encoding artifacts
+ * (e.g. "RM4.5" instead of "RM-4.5").
+ *
+ * @param {string} zoneClass
+ * @returns {string}
+ */
+export function normalizeZoneClass(zoneClass) {
+  if (!zoneClass) return zoneClass;
+  const aliases = {
+    "RM4.5":  "RM-4.5",
+    "RM4-.5": "RM-4.5",
+    "RM5.5":  "RM-5.5",
+  };
+  return aliases[zoneClass] || zoneClass;
+}
+
+/**
  * Determines whether a zone_class string represents a Downtown district (DC, DX, DR, DS).
  * Downtown districts are covered by §17-4-0207 and have use table data.
  * This guard is a safety net for cases where data is unexpectedly missing.

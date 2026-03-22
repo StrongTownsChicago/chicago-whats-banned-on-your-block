@@ -4,7 +4,9 @@ import {
   isPDDistrict,
   isPOSDistrict,
   isPMDDistrict,
+  isTDistrict,
   isDDowntownDistrict,
+  normalizeZoneClass,
   USE_DISPLAY_LABELS,
   SLUG_CATEGORY,
   ADVOCACY_USES_LIST,
@@ -289,6 +291,64 @@ describe("isPMDDistrict", () => {
     expect(isPMDDistrict("")).toBe(false);
     expect(isPMDDistrict(null)).toBe(false);
     expect(isPMDDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
+// isTDistrict tests
+// =====================================================================
+
+describe("isTDistrict", () => {
+  it("returns true for the T zone class", () => {
+    expect(isTDistrict("T")).toBe(true);
+  });
+
+  it("is case-insensitive and trims whitespace", () => {
+    expect(isTDistrict("t")).toBe(true);
+    expect(isTDistrict(" T ")).toBe(true);
+  });
+
+  it("returns false for zone classes that merely start with T", () => {
+    expect(isTDistrict("T1")).toBe(false);
+    expect(isTDistrict("T-1")).toBe(false);
+  });
+
+  it("returns false for regular zone classes", () => {
+    expect(isTDistrict("B1-1")).toBe(false);
+    expect(isTDistrict("RT-4")).toBe(false);
+    expect(isTDistrict("PD 1")).toBe(false);
+    expect(isTDistrict("PMD-1")).toBe(false);
+  });
+
+  it("returns false for empty or non-string inputs", () => {
+    expect(isTDistrict("")).toBe(false);
+    expect(isTDistrict(null)).toBe(false);
+    expect(isTDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
+// normalizeZoneClass tests
+// =====================================================================
+
+describe("normalizeZoneClass", () => {
+  it("maps known malformed ArcGIS variants to canonical form", () => {
+    expect(normalizeZoneClass("RM4.5")).toBe("RM-4.5");
+    expect(normalizeZoneClass("RM4-.5")).toBe("RM-4.5");
+    expect(normalizeZoneClass("RM5.5")).toBe("RM-5.5");
+  });
+
+  it("passes through already-canonical zone classes unchanged", () => {
+    expect(normalizeZoneClass("RM-4.5")).toBe("RM-4.5");
+    expect(normalizeZoneClass("RM-5.5")).toBe("RM-5.5");
+    expect(normalizeZoneClass("B1-1")).toBe("B1-1");
+    expect(normalizeZoneClass("RT-4")).toBe("RT-4");
+  });
+
+  it("returns falsy input as-is", () => {
+    expect(normalizeZoneClass(null)).toBeNull();
+    expect(normalizeZoneClass(undefined)).toBeUndefined();
+    expect(normalizeZoneClass("")).toBe("");
   });
 });
 

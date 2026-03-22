@@ -1,32 +1,14 @@
 {
   "metadata": {
     "use_table_path": "C:\\Repositories\\use-table-reform\\data\\use-table.json",
-    "zone_class_count": 50,
-    "use_slug_count": 23,
+    "zone_class_count": 63,
+    "use_slug_count": 21,
     "structural_errors": 0
   },
   "spot_checks": [
     {
-      "zone_class": "RM-5.5",
-      "use_slug": "single_family_detached",
-      "permission": "P/-",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "B3-1",
-      "use_slug": "multi_unit_residential",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
       "zone_class": "C2-2",
-      "use_slug": "two_flat",
+      "use_slug": "community_center",
       "permission": "S",
       "ordinance_section": "business",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
@@ -34,71 +16,26 @@
       "note": ""
     },
     {
-      "zone_class": "B3-2",
-      "use_slug": "tavern",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "zone_class": "M1-2",
+      "use_slug": "personal_service",
+      "permission": "P",
+      "ordinance_section": "manufacturing",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
       "result": "",
       "note": ""
     },
     {
-      "zone_class": "B1-3",
-      "use_slug": "daycare_home",
-      "permission": "—",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "B1-3",
-      "use_slug": "four_flat",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "DX-5",
-      "use_slug": "single_family_detached",
-      "permission": "S",
-      "ordinance_section": "downtown",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "DX-12",
-      "use_slug": "four_flat",
-      "permission": "S",
-      "ordinance_section": "downtown",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "RT-4",
-      "use_slug": "medical_clinic",
-      "permission": "S",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "B2-1",
+      "zone_class": "M3-3",
       "use_slug": "food_production_artisan",
-      "permission": "—",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "permission": "P",
+      "ordinance_section": "manufacturing",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
       "result": "",
       "note": ""
     },
     {
-      "zone_class": "M2-3",
-      "use_slug": "hair_salon_barbershop",
+      "zone_class": "M2-2",
+      "use_slug": "single_family_detached",
       "permission": "—",
       "ordinance_section": "manufacturing",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
@@ -106,36 +43,9 @@
       "note": ""
     },
     {
-      "zone_class": "B2-3",
-      "use_slug": "place_of_worship",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "DR-10",
-      "use_slug": "community_center",
-      "permission": "S",
-      "ordinance_section": "downtown",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "C2-2",
-      "use_slug": "single_family_detached",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "B1-3",
-      "use_slug": "two_flat",
-      "permission": "S",
+      "zone_class": "B1-1",
+      "use_slug": "eating_drinking_general",
+      "permission": "—",
       "ordinance_section": "business",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
       "result": "",
@@ -143,7 +53,7 @@
     },
     {
       "zone_class": "B1-2",
-      "use_slug": "three_flat",
+      "use_slug": "four_flat",
       "permission": "S",
       "ordinance_section": "business",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
@@ -151,25 +61,25 @@
       "note": ""
     },
     {
-      "zone_class": "DX-5",
-      "use_slug": "food_production_artisan",
-      "permission": "P",
-      "ordinance_section": "downtown",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "zone_class": "M2-2",
+      "use_slug": "medical_clinic",
+      "permission": "—",
+      "ordinance_section": "manufacturing",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
       "result": "",
       "note": ""
     },
     {
-      "zone_class": "B3-3",
-      "use_slug": "urban_farm",
-      "permission": "P",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "zone_class": "RT-3.5",
+      "use_slug": "tavern",
+      "permission": "—",
+      "ordinance_section": "residential",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
       "result": "",
       "note": ""
     },
     {
-      "zone_class": "B2-3",
+      "zone_class": "B1-5",
       "use_slug": "community_center",
       "permission": "S",
       "ordinance_section": "business",
@@ -178,53 +88,8 @@
       "note": ""
     },
     {
-      "zone_class": "RS-2",
-      "use_slug": "hair_salon_barbershop",
-      "permission": "—",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "C2-3",
-      "use_slug": "place_of_worship",
-      "permission": "S",
-      "ordinance_section": "business",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "DX-3",
-      "use_slug": "body_art_services",
-      "permission": "S",
-      "ordinance_section": "downtown",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "RS-3",
-      "use_slug": "community_center",
-      "permission": "S",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "RM-4.5",
-      "use_slug": "neighborhood_grocery_small",
-      "permission": "—",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "DR-10",
-      "use_slug": "single_family_detached",
+      "zone_class": "DC-12",
+      "use_slug": "daycare_home",
       "permission": "P",
       "ordinance_section": "downtown",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
@@ -232,16 +97,7 @@
       "note": ""
     },
     {
-      "zone_class": "RM-5.5",
-      "use_slug": "body_art_services",
-      "permission": "—",
-      "ordinance_section": "residential",
-      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
-      "result": "",
-      "note": ""
-    },
-    {
-      "zone_class": "B3-2",
+      "zone_class": "C1-5",
       "use_slug": "eating_drinking_general",
       "permission": "P",
       "ordinance_section": "business",
@@ -250,8 +106,17 @@
       "note": ""
     },
     {
-      "zone_class": "B3-2",
-      "use_slug": "live_work_unit",
+      "zone_class": "DC-16",
+      "use_slug": "three_flat",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "C1-1.5",
+      "use_slug": "multi_unit_residential",
       "permission": "S",
       "ordinance_section": "business",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
@@ -259,20 +124,155 @@
       "note": ""
     },
     {
-      "zone_class": "RS-1",
-      "use_slug": "three_flat",
+      "zone_class": "M1-1",
+      "use_slug": "place_of_worship",
       "permission": "—",
+      "ordinance_section": "manufacturing",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "RT-4A",
+      "use_slug": "community_center",
+      "permission": "S",
       "ordinance_section": "residential",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
       "result": "",
       "note": ""
     },
     {
-      "zone_class": "C1-2",
-      "use_slug": "multi_unit_residential",
+      "zone_class": "B1-3",
+      "use_slug": "community_center",
       "permission": "S",
       "ordinance_section": "business",
       "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DC-12",
+      "use_slug": "community_center",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "B2-3",
+      "use_slug": "place_of_worship",
+      "permission": "S",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "M1-2",
+      "use_slug": "retail_sales_general",
+      "permission": "P",
+      "ordinance_section": "manufacturing",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2637580",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DC-16",
+      "use_slug": "community_center",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "C1-5",
+      "use_slug": "place_of_worship",
+      "permission": "S",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DX-16",
+      "use_slug": "multi_unit_residential",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "C3-3",
+      "use_slug": "place_of_worship",
+      "permission": "S",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "B1-5",
+      "use_slug": "place_of_worship",
+      "permission": "S",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "RM-6",
+      "use_slug": "community_center",
+      "permission": "S",
+      "ordinance_section": "residential",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2620261",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "B1-2",
+      "use_slug": "neighborhood_grocery_small",
+      "permission": "P",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DR-5",
+      "use_slug": "community_center",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DX-10",
+      "use_slug": "single_family_detached",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "B2-5",
+      "use_slug": "multi_unit_residential",
+      "permission": "P",
+      "ordinance_section": "business",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicago_il/0-0-0-2623048",
+      "result": "",
+      "note": ""
+    },
+    {
+      "zone_class": "DC-12",
+      "use_slug": "body_art_services",
+      "permission": "S",
+      "ordinance_section": "downtown",
+      "amlegal_url": "https://codelibrary.amlegal.com/codes/chicago/latest/chicagozoning_il/0-0-0-49338",
       "result": "",
       "note": ""
     }

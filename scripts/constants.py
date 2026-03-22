@@ -16,13 +16,16 @@ SECTION_URLS: dict[str, str] = {
 # Source: Chicago Title 17 ordinance, confirmed against Socrata dataset 7cve-jgbp.
 ZONE_TYPE_TO_CLASSES: dict[str, list[str]] = {
     # Business districts (§17-3-0207)
-    "B1": ["B1-1", "B1-2", "B1-3"],
-    "B2": ["B2-1", "B2-2", "B2-3"],
-    "B3": ["B3-1", "B3-2", "B3-3"],
+    # -1.5 and -5 variants appear in the ArcGIS zoning layer; use permissions are
+    # identical across all intensity suffixes within the same district type.
+    "B1": ["B1-1", "B1-1.5", "B1-2", "B1-3", "B1-5"],
+    "B2": ["B2-1", "B2-1.5", "B2-2", "B2-3", "B2-5"],
+    "B3": ["B3-1", "B3-1.5", "B3-2", "B3-3", "B3-5"],
     # Commercial districts (§17-3-0207)
-    "C1": ["C1-1", "C1-2", "C1-3"],
-    "C2": ["C2-1", "C2-2", "C2-3"],
-    "C3": ["C3-1", "C3-2", "C3-3"],
+    # -5 variants (and C1-1.5) appear in the ArcGIS zoning layer; same use permissions.
+    "C1": ["C1-1", "C1-1.5", "C1-2", "C1-3", "C1-5"],
+    "C2": ["C2-1", "C2-2", "C2-3", "C2-5"],
+    "C3": ["C3-1", "C3-2", "C3-3", "C3-5"],
     # Residential single-family and townhouse districts (§17-2-0207)
     # Column names in the ordinance table are "RS-1", "RS-2", "RS-3", "RT-3.5", "RT-4".
     # RT-3 does not have its own column in the table (it is absent from §17-2-0207).
@@ -30,10 +33,11 @@ ZONE_TYPE_TO_CLASSES: dict[str, list[str]] = {
     "RS-2": ["RS-2"],
     "RS-3": ["RS-3"],
     "RT-3.5": ["RT-3.5"],
-    "RT-4": ["RT-4"],
+    "RT-4": ["RT-4", "RT-4A"],
     # Residential multi-unit districts (§17-2-0207)
     # The ordinance table combines RM-5/RM-5.5 into one column and RM-6/RM-6.5 into one column.
     # Column names in the table are "RM-4.5", "RM-5-5.5", "RM-6-6.5".
+    # RT-4A appears in the ArcGIS layer but has no ordinance column; same permissions as RT-4.
     "RM-4.5": ["RM-4.5"],
     "RM-5-5.5": ["RM-5", "RM-5.5"],
     "RM-6-6.5": ["RM-6", "RM-6.5"],
@@ -44,9 +48,9 @@ ZONE_TYPE_TO_CLASSES: dict[str, list[str]] = {
     # Downtown districts (§17-4-0207)
     # Numeric suffix is FAR/bulk tier only — use permissions are identical within each type.
     "DC": ["DC-12", "DC-16"],
-    "DX": ["DX-3", "DX-5", "DX-7", "DX-12", "DX-16"],
+    "DX": ["DX-3", "DX-5", "DX-7", "DX-10", "DX-12", "DX-16"],
     "DR": ["DR-3", "DR-5", "DR-7", "DR-10"],
-    "DS": ["DS-3", "DS-5"],
+    "DS": ["DS-3", "DS-5", "DS-7"],
 }
 
 # Ordered list of advocacy use slugs to include in the final output.

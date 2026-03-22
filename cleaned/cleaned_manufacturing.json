@@ -28,6 +28,20 @@
     "M3": "P"
   },
   {
+    "use_slug": "tavern",
+    "use_name": "Eating and Drinking Establishment, Tavern",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
+    "use_slug": "retail_sales_general",
+    "use_name": "Retail Sales, General",
+    "M1": "P",
+    "M2": "P",
+    "M3": "P"
+  },
+  {
     "use_slug": "personal_service",
     "use_name": "Personal Service",
     "M1": "P",
