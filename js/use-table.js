@@ -20,6 +20,7 @@ export const USE_DISPLAY_LABELS = {
   two_flat: "2-flat / coach house",
   three_flat: "3-flat",
   four_flat: "4-flat",
+  townhouse: "Townhouse",
   multi_unit_residential: "Apartment building (5+ units)",
   // Food and retail
   neighborhood_grocery_small: "Food or beverage retail store",
@@ -54,6 +55,7 @@ export const SLUG_CATEGORY = {
   two_flat: "Housing",
   three_flat: "Housing",
   four_flat: "Housing",
+  townhouse: "Housing",
   multi_unit_residential: "Housing",
   neighborhood_grocery_small: "Food & retail",
   food_production_artisan: "Food & retail",

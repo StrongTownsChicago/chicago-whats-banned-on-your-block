@@ -40,6 +40,16 @@
     "C3": "-"
   },
   {
+    "use_slug": "townhouse",
+    "use_name": "Townhouse",
+    "B1": "S",
+    "B2": "P",
+    "B3": "S",
+    "C1": "S",
+    "C2": "S",
+    "C3": "-"
+  },
+  {
     "use_slug": "multi_unit_residential",
     "use_name": "Multi-Unit (3+ units) Residential",
     "B1": "S",

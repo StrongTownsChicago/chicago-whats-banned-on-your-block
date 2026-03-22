@@ -48,6 +48,18 @@
     "RM-6-6.5": "P"
   },
   {
+    "use_slug": "townhouse",
+    "use_name": "Townhouse",
+    "RS-1": "-",
+    "RS-2": "-",
+    "RS-3": "-",
+    "RT-3.5": "P",
+    "RT-4": "P",
+    "RM-4.5": "P",
+    "RM-5-5.5": "P",
+    "RM-6-6.5": "P"
+  },
+  {
     "use_slug": "multi_unit_residential",
     "use_name": "Multi-Unit (3+ units) Residential",
     "RS-1": "-",

@@ -32,6 +32,14 @@
     "DS": "-"
   },
   {
+    "use_slug": "townhouse",
+    "use_name": "Townhouse",
+    "DC": "-",
+    "DX": "S",
+    "DR": "P",
+    "DS": "-"
+  },
+  {
     "use_slug": "multi_unit_residential",
     "use_name": "Multi-Unit (3+ units) Residential",
     "DC": "S",
