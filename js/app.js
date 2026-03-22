@@ -20,6 +20,9 @@ import {
   findWard,
 } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
+import { getCCOStatus } from "./cco.js";
+import { getADUStatus } from "./adu.js";
+import { WARD_OPT_IN_INFO } from "./adu-ward-data.js";
 import {
   fetchUseTable,
   getRestrictedUses,
@@ -41,6 +44,7 @@ const state = {
   zoningGeoJSON: null,
   wardGeoJSON: null,
   useTable: null,
+  transitStations: null,
 };
 
 // =====================================================================
@@ -73,6 +77,15 @@ const conditionalList = document.getElementById("conditional-list");
 const permittedSection = document.getElementById("permitted-section");
 const permittedList = document.getElementById("permitted-list");
 const permittedCount = document.getElementById("permitted-count");
+const policyExceptionsDivider = document.getElementById(
+  "policy-exceptions-divider",
+);
+const ccoCallout = document.getElementById("cco-callout");
+const aduOptinCta = document.getElementById("adu-optin-cta");
+const aduOptinBody = document.getElementById("adu-optin-body");
+const aduCallout = document.getElementById("adu-callout");
+const aduCalloutTitle = document.getElementById("adu-callout-title");
+const aduCalloutBody = document.getElementById("adu-callout-body");
 const wardCta = document.getElementById("ward-cta");
 const wardLabel = document.getElementById("ward-label");
 const wardLink = document.getElementById("ward-link");
@@ -144,11 +157,16 @@ async function loadAllData() {
   const errors = [];
 
   // Fetch all data in parallel; also wait for the map style to be ready
-  const [zoningResult, wardResult, useTableResult] = await Promise.allSettled([
-    fetchZoningGeoJSON(),
-    fetchWardGeoJSON(),
-    fetchUseTable(),
-  ]);
+  const [zoningResult, wardResult, useTableResult, transitResult] =
+    await Promise.allSettled([
+      fetchZoningGeoJSON(),
+      fetchWardGeoJSON(),
+      fetchUseTable(),
+      fetch("data/transit-stations.json").then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      }),
+    ]);
 
   hideElement(dataLoadingBanner);
 
@@ -174,6 +192,13 @@ async function loadAllData() {
   } else {
     console.error("Use table load failed:", useTableResult.reason);
     errors.push("Use table unavailable. Zoning lookup is disabled.");
+  }
+
+  if (transitResult.status === "fulfilled") {
+    state.transitStations = transitResult.value;
+  } else {
+    console.warn("Transit stations load failed:", transitResult.reason);
+    // Non-critical: CCO callout simply won't show
   }
 
   if (errors.length > 0) {
@@ -216,8 +241,25 @@ async function lookupLocation(lngLat, placeName) {
     restrictedUsesResult = getRestrictedUses(zoneClass, state.useTable);
   }
 
+  const ccoStatus =
+    state.transitStations && zoneClass
+      ? getCCOStatus(lngLat, zoneClass, state.transitStations)
+      : { eligible: false, distanceMiles: null, nearestName: null };
+
+  const aduStatus = zoneClass
+    ? getADUStatus(zoneClass, ward ? ward.ward : null, WARD_OPT_IN_INFO)
+    : { zoneEligible: false };
+
   hideElement(resultsLoading);
-  renderResults(zoneClass, placeName, restrictedUsesResult, ward);
+  renderResults(
+    zoneClass,
+    placeName,
+    restrictedUsesResult,
+    ward,
+    {},
+    ccoStatus,
+    aduStatus,
+  );
 }
 
 function expandPanel() {
@@ -277,13 +319,27 @@ async function handleMapClick(lngLat) {
  * @param {{ banned, specialUse, conditional } | null} uses - From getRestrictedUses
  * @param {{ ward, alderperson, url } | null} ward
  * @param {{ zoningUnavailable?: boolean }} [flags]
+ * @param {{ eligible: boolean, distanceMiles: number|null, nearestName: string|null } | null} [ccoStatus]
+ * @param {{ zoneEligible: boolean, available?: boolean, wardOptIn?: string, blockLimits?: boolean, homeownerReq?: boolean, adminAdj?: boolean, notes?: string|null } | null} [aduStatus]
  */
-export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
+export function renderResults(
+  zoneClass,
+  placeName,
+  uses,
+  ward,
+  flags = {},
+  ccoStatus = null,
+  aduStatus = null,
+) {
   // Reset all sections
   hideElement(pdMessage);
   hideElement(allPermittedMsg);
   hideElement(noDataMessage);
   hideElement(restrictedUses);
+  hideElement(policyExceptionsDivider);
+  hideElement(ccoCallout);
+  hideElement(aduOptinCta);
+  hideElement(aduCallout);
   hideElement(wardCta);
 
   bannedList.innerHTML = "";
@@ -368,7 +424,9 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
 
   // No use table data (e.g. RT-3 missing from dataset)
   if (uses === null) {
-    noDataMessage.querySelector("p").textContent = isDDowntownDistrict(zoneClass)
+    noDataMessage.querySelector("p").textContent = isDDowntownDistrict(
+      zoneClass,
+    )
       ? "This Downtown district is governed by §17-4-0207. Many downtown parcels are subject to individual Planned Development (PD) ordinances that supersede the base use table — check the PD ordinance for this parcel."
       : "Zoning data is not available for this district type in our database.";
     showElement(noDataMessage);
@@ -411,6 +469,7 @@ export function renderResults(zoneClass, placeName, uses, ward, flags = {}) {
     showElement(permittedSection);
   }
 
+  renderPolicyCallouts(ccoStatus, aduStatus, ward);
   renderWardCta(ward);
   showElement(resultsContent);
 }
@@ -449,6 +508,86 @@ function renderUseList(listEl, uses) {
   }
 
   listEl.appendChild(fragment);
+}
+
+/**
+ * Render or hide the CCO and ADU policy callout sections.
+ * Only called from the normal render path (not early-return paths for PD/POS/PMD/T).
+ *
+ * @param {{ eligible: boolean, distanceMiles: number|null, nearestName: string|null } | null} ccoStatus
+ * @param {{ zoneEligible: boolean, available?: boolean, wardOptIn?: string, blockLimits?: boolean, homeownerReq?: boolean, adminAdj?: boolean, notes?: string|null } | null} aduStatus
+ * @param {{ ward: number, alderperson: string, url: string } | null} ward
+ */
+function renderPolicyCallouts(ccoStatus, aduStatus, ward) {
+  const ccoVisible = ccoStatus && ccoStatus.eligible;
+
+  // CCO callout
+  if (ccoVisible) {
+    showElement(ccoCallout);
+  } else {
+    hideElement(ccoCallout);
+  }
+
+  // ADU: hide everything if zone is not eligible
+  if (!aduStatus || !aduStatus.zoneEligible) {
+    hideElement(aduOptinCta);
+    hideElement(aduCallout);
+    if (ccoVisible) showElement(policyExceptionsDivider);
+    else hideElement(policyExceptionsDivider);
+    return;
+  }
+
+  // ADU: zone is eligible but ward hasn't opted in — show CTA to contact alderperson
+  if (aduStatus.wardOptIn === "not_opted_in" && ward) {
+    const alder = ward.alderperson || `Ward ${ward.ward} Alderperson`;
+    aduOptinBody.textContent = `ADUs/granny flats could be allowed in this zone type, but Alder ${alder} (Ward ${ward.ward}) has chosen to block them. Contact them and tell them to act.`;
+    showElement(aduOptinCta);
+    hideElement(aduCallout);
+    showElement(policyExceptionsDivider);
+    return;
+  }
+
+  // ADU: ward is marked not_eligible (e.g. Ward 3) or ward unknown — hide both
+  if (!aduStatus.available) {
+    hideElement(aduOptinCta);
+    hideElement(aduCallout);
+    if (ccoVisible) showElement(policyExceptionsDivider);
+    else hideElement(policyExceptionsDivider);
+    return;
+  }
+
+  hideElement(aduOptinCta);
+
+  const wardNum = ward ? ward.ward : null;
+  let title, body;
+
+  if (aduStatus.wardOptIn === "full") {
+    title = "ADU / Coach House Eligible";
+    body = `Alder ${alder} (Ward ${ward.ward}) has opted in to the ADU Ordinance. A coach house, garage apartment, or internal conversion may be added to this parcel.`;
+    const caveats = [];
+    if (aduStatus.blockLimits) caveats.push("block-level unit limits apply");
+    if (aduStatus.homeownerReq) caveats.push("owner-occupancy required");
+    if (aduStatus.adminAdj)
+      caveats.push("administrative adjustment may be required");
+    if (caveats.length > 0) {
+      body += ` Note: ${caveats.join(", ")}.`;
+    }
+    if (aduStatus.notes) body += ` ${aduStatus.notes}`;
+  } else if (aduStatus.wardOptIn === "partial") {
+    title = "ADU May Be Available";
+    body = `Ward ${wardNum} has a partial opt-in. ${aduStatus.notes || "Check whether this precinct is included."}`;
+  } else {
+    // Unexpected wardOptIn value — hide callout
+    hideElement(aduCallout);
+    if (ccoVisible) showElement(policyExceptionsDivider);
+    else hideElement(policyExceptionsDivider);
+    return;
+  }
+
+  aduCalloutTitle.textContent = title;
+  aduCalloutBody.textContent = body;
+  showElement(aduCallout);
+  showElement(policyExceptionsDivider);
 }
 
 /**

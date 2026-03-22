@@ -289,6 +289,125 @@
               </details>
             </div>
 
+            <!-- Divider shown when at least one policy callout is visible -->
+            <div
+              id="policy-exceptions-divider"
+              class="policy-exceptions-divider"
+              hidden
+            >
+              <span class="policy-exceptions-divider__label"
+                >Special Exceptions</span
+              >
+            </div>
+
+            <!-- CCO policy callout (shown for RS-1/2/3 within ½ mile of rail or ¼ mile of qualifying bus) -->
+            <details
+              id="cco-callout"
+              class="policy-callout policy-callout--transit"
+              hidden
+            >
+              <summary class="policy-callout__summary">
+                <span class="policy-callout__title"
+                  >Transit Proximity Exception</span
+                >
+                <span class="policy-callout__chevron" aria-hidden="true"
+                  >▸</span
+                >
+              </summary>
+              <p class="policy-callout__body">
+                This parcel is within ½ mile of a CTA/Metra rail station (or ¼
+                mile of a qualifying bus corridor). Under the 2022
+                <strong>Connected Communities Ordinance</strong>, a project with
+                3+ units may qualify for RT-4 density standards (allowing
+                3-flats and 4-flats) if at least 20% of units are affordable.
+              </p>
+              <ul class="policy-callout__citations">
+                <li>
+                  <a
+                    href="https://www.chicago.gov/city/en/sites/equitable-transit-oriented-development/home/connected-communities-ordinance.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Connected Communities Ordinance — City of Chicago</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.chicago.gov/content/dam/city/sites/etod/Pdfs/final_etod_ordinance.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Ordinance text (PDF)</a
+                  >
+                </li>
+              </ul>
+            </details>
+
+            <!-- ADU not-opted-in CTA (shown when zone is ADU-eligible but ward hasn't opted in) -->
+            <div
+              id="adu-optin-cta"
+              class="policy-callout policy-callout--adu policy-callout--not-opted-in"
+              hidden
+            >
+              <p class="policy-callout__title">
+                <span class="policy-callout__icon" aria-hidden="true">⚠</span>
+                Alderman Blocking ADUs
+              </p>
+              <p class="policy-callout__body" id="adu-optin-body"></p>
+              <ul class="policy-callout__citations">
+                <li>
+                  <a
+                    href="https://www.chicago.gov/city/en/sites/additional-dwelling-units-ordinance/home.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Additional Dwelling Units Ordinance — City of Chicago</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://abundanthousingillinois.org/resources/accessory-dwelling-units-faq/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >What are ADUs? — Abundant Housing Illinois</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <!-- ADU policy callout (shown for RS-1/2/3, RT-3.5, RT-4, RT-4A when ward opted in) -->
+            <details
+              id="adu-callout"
+              class="policy-callout policy-callout--adu"
+              hidden
+            >
+              <summary class="policy-callout__summary">
+                <span
+                  id="adu-callout-title"
+                  class="policy-callout__title"
+                ></span>
+                <span class="policy-callout__chevron" aria-hidden="true"
+                  >▸</span
+                >
+              </summary>
+              <p class="policy-callout__body" id="adu-callout-body"></p>
+              <ul class="policy-callout__citations">
+                <li>
+                  <a
+                    href="https://www.chicago.gov/city/en/sites/additional-dwelling-units-ordinance/home.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Additional Dwelling Units Ordinance — City of Chicago</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://abundanthousingillinois.org/resources/accessory-dwelling-units-faq/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >What are ADUs? — Abundant Housing Illinois</a
+                  >
+                </li>
+              </ul>
+            </details>
+
             <!-- Ward call-to-action -->
             <div id="ward-cta" class="ward-cta" hidden>
               <p class="ward-cta__text">

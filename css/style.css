@@ -697,6 +697,149 @@ details.use-section[open] .use-list {
 }
 
 /* ===================================================================
+   Policy exceptions divider
+   =================================================================== */
+
+.policy-exceptions-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.5rem 0;
+}
+
+.policy-exceptions-divider::before,
+.policy-exceptions-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.policy-exceptions-divider__label {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-text-faint);
+  white-space: nowrap;
+}
+
+/* ===================================================================
+   Policy callouts (CCO, ADU)
+   =================================================================== */
+
+.policy-callout {
+  padding: 1.125rem 1.5rem;
+  border-top: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-conditional);
+  background: var(--color-conditional-bg);
+}
+
+.policy-callout__title {
+  font-size: 0.625rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-conditional);
+  margin-bottom: 0.5rem;
+}
+
+.policy-callout__body {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 0.625rem;
+}
+
+.policy-callout__citations {
+  list-style: none;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.policy-callout__citations li + li {
+  margin-top: 0.25rem;
+}
+
+.policy-callout__citations a {
+  color: var(--color-conditional);
+  text-decoration: none;
+}
+
+.policy-callout__citations a:hover {
+  text-decoration: underline;
+}
+
+.policy-callout__link {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: var(--color-conditional);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.policy-callout__link:hover {
+  text-decoration: underline;
+}
+
+details.policy-callout > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+details.policy-callout > summary::-webkit-details-marker {
+  display: none;
+}
+
+details.policy-callout > summary .policy-callout__title {
+  margin-bottom: 0;
+}
+
+details.policy-callout > summary .policy-callout__chevron {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  transition: transform 0.15s;
+}
+
+details.policy-callout[open] > summary .policy-callout__chevron {
+  transform: rotate(90deg);
+}
+
+details.policy-callout .policy-callout__body,
+details.policy-callout .policy-callout__citations {
+  display: none;
+}
+
+details.policy-callout[open] .policy-callout__body,
+details.policy-callout[open] .policy-callout__citations {
+  display: block;
+  margin-top: 0.625rem;
+}
+
+.policy-callout__icon {
+  margin-right: 0.25rem;
+}
+
+.policy-callout--not-opted-in {
+  border-left-color: var(--color-special);
+  background: var(--color-special-bg);
+}
+
+.policy-callout--not-opted-in .policy-callout__title {
+  color: var(--color-special);
+}
+
+.policy-callout--not-opted-in .policy-callout__link {
+  color: var(--color-special);
+}
+
+/* ===================================================================
    Ward CTA
    =================================================================== */
 

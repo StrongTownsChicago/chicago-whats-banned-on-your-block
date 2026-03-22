@@ -57,3 +57,9 @@ node_modules/
 
 feature_planning
 misc
+
+# CTA GTFS source files (large; used only to regenerate data/transit-stations.json)
+# Download from https://www.transitchicago.com/downloads/sch_data/ and extract to scripts/
+scripts/cta_bus_stops.txt
+scripts/cta_trips.txt
+scripts/cta_stop_times.txt
