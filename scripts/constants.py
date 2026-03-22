@@ -60,7 +60,6 @@ ADVOCACY_USES: list[str] = [
     "four_flat",
     "multi_unit_residential",
     "live_work_unit",
-    "artist_live_work",
     # Food and retail
     "neighborhood_grocery_small",
     "food_production_artisan",

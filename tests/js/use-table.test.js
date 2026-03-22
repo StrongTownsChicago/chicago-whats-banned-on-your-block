@@ -2,8 +2,11 @@ import { describe, it, expect } from "vitest";
 import {
   getRestrictedUses,
   isPDDistrict,
+  isPOSDistrict,
+  isPMDDistrict,
   isDDowntownDistrict,
   USE_DISPLAY_LABELS,
+  SLUG_CATEGORY,
   ADVOCACY_USES_LIST,
 } from "../../js/use-table.js";
 
@@ -23,22 +26,23 @@ const MIXED_USE_TABLE = {
     three_flat:           "P",
     four_flat:            "P",
     multi_unit_residential: "P",
-    artist_live_work:     "P",
     neighborhood_grocery_small: "P",
     food_production_artisan: "P",
     eating_drinking_limited: "P",
     eating_drinking_general: "P",
+    tavern:               "P",
+    retail_sales_general: "P",
     community_center:     "P",
     place_of_worship:     "P",
     urban_farm:           "P",
     community_garden:     "P",
     medical_clinic:       "P",
-    bed_and_breakfast:    "P",
+    body_art_services:    "P",
     daycare_home:         "P",
   },
 };
 
-/** A zone where all 21 uses are permitted. */
+/** A zone where all tracked uses are permitted. */
 const ALL_PERMITTED_TABLE = {
   "RS-3": Object.fromEntries(ADVOCACY_USES_LIST.map((slug) => [slug, "P"])),
 };
@@ -225,5 +229,84 @@ describe("USE_DISPLAY_LABELS", () => {
 
   it("has exactly as many entries as ADVOCACY_USES_LIST", () => {
     expect(Object.keys(USE_DISPLAY_LABELS)).toHaveLength(ADVOCACY_USES_LIST.length);
+  });
+});
+
+// =====================================================================
+// isPOSDistrict tests
+// =====================================================================
+
+describe("isPOSDistrict", () => {
+  it("returns true for POS zone classes", () => {
+    expect(isPOSDistrict("POS-1")).toBe(true);
+    expect(isPOSDistrict("POS")).toBe(true);
+    expect(isPOSDistrict("POS-2")).toBe(true);
+  });
+
+  it("returns false for regular zone classes", () => {
+    expect(isPOSDistrict("B1-1")).toBe(false);
+    expect(isPOSDistrict("C3-2")).toBe(false);
+    expect(isPOSDistrict("RS-3")).toBe(false);
+    expect(isPOSDistrict("PD 144")).toBe(false);
+  });
+
+  it("is case-insensitive", () => {
+    expect(isPOSDistrict("pos-1")).toBe(true);
+    expect(isPOSDistrict("Pos-2")).toBe(true);
+  });
+
+  it("returns false for empty or non-string inputs", () => {
+    expect(isPOSDistrict("")).toBe(false);
+    expect(isPOSDistrict(null)).toBe(false);
+    expect(isPOSDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
+// isPMDDistrict tests
+// =====================================================================
+
+describe("isPMDDistrict", () => {
+  it("returns true for PMD zone classes", () => {
+    expect(isPMDDistrict("PMD-1")).toBe(true);
+    expect(isPMDDistrict("PMD")).toBe(true);
+    expect(isPMDDistrict("PMD-7")).toBe(true);
+  });
+
+  it("returns false for regular zone classes", () => {
+    expect(isPMDDistrict("B1-1")).toBe(false);
+    expect(isPMDDistrict("M1-2")).toBe(false);
+    expect(isPMDDistrict("RS-3")).toBe(false);
+    expect(isPMDDistrict("PD 144")).toBe(false);
+    expect(isPMDDistrict("POS-1")).toBe(false);
+  });
+
+  it("is case-insensitive", () => {
+    expect(isPMDDistrict("pmd-1")).toBe(true);
+    expect(isPMDDistrict("Pmd-7")).toBe(true);
+  });
+
+  it("returns false for empty or non-string inputs", () => {
+    expect(isPMDDistrict("")).toBe(false);
+    expect(isPMDDistrict(null)).toBe(false);
+    expect(isPMDDistrict(undefined)).toBe(false);
+  });
+});
+
+// =====================================================================
+// SLUG_CATEGORY coverage test
+// =====================================================================
+
+describe("SLUG_CATEGORY", () => {
+  it("covers all slugs in ADVOCACY_USES_LIST", () => {
+    for (const slug of ADVOCACY_USES_LIST) {
+      expect(SLUG_CATEGORY).toHaveProperty(slug);
+      expect(typeof SLUG_CATEGORY[slug]).toBe("string");
+      expect(SLUG_CATEGORY[slug].length).toBeGreaterThan(0);
+    }
+  });
+
+  it("has exactly as many entries as ADVOCACY_USES_LIST", () => {
+    expect(Object.keys(SLUG_CATEGORY)).toHaveLength(ADVOCACY_USES_LIST.length);
   });
 });

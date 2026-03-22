@@ -22,7 +22,6 @@ export const USE_DISPLAY_LABELS = {
   four_flat:              "4-flat",
   multi_unit_residential: "Apartment building (5+ units)",
   live_work_unit:         "Business live-work space",
-  artist_live_work:       "Artist live-work studio",
   // Food and retail
   neighborhood_grocery_small: "Food or beverage retail store",
   food_production_artisan:    "Small-scale food production (bakery, brewery, commissary kitchen)",
@@ -56,7 +55,6 @@ export const SLUG_CATEGORY = {
   four_flat:               "Housing",
   multi_unit_residential:  "Housing",
   live_work_unit:          "Housing",
-  artist_live_work:        "Housing",
   neighborhood_grocery_small: "Food & retail",
   food_production_artisan:    "Food & retail",
   eating_drinking_limited:    "Food & retail",

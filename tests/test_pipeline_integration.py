@@ -135,6 +135,11 @@ class TestConstantsZoneClassCoverage:
         "M1-1", "M1-2", "M1-3",
         "M2-1", "M2-2", "M2-3",
         "M3-1", "M3-2", "M3-3",
+        # Downtown
+        "DC-12", "DC-16",
+        "DX-3", "DX-5", "DX-7", "DX-12", "DX-16",
+        "DR-3", "DR-5", "DR-7", "DR-10",
+        "DS-3", "DS-5",
     })
 
     def _actual_zone_classes(self) -> frozenset[str]:
