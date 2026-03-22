@@ -11,7 +11,7 @@ const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
 // PMTiles URL for Chicago zoning polygons.
-export const ZONING_TILES_URL = "pmtiles:///data/zoning.pmtiles";
+export const ZONING_TILES_URL = "pmtiles://https://zoning-districts-pmtiles.open-advocacy.com/zoning.pmtiles";
 
 // Carto Positron basemap — no API key required
 const BASEMAP_STYLE =
