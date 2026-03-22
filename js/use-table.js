@@ -21,18 +21,18 @@ export const USE_DISPLAY_LABELS = {
   three_flat:             "3-flat",
   four_flat:              "4-flat",
   multi_unit_residential: "Apartment building (5+ units)",
-  live_work_unit:         "Live-work unit (combined home and workspace)",
-  artist_live_work:       "Artist live-work space (studio + residence)",
+  live_work_unit:         "Business live-work space",
+  artist_live_work:       "Artist live-work studio",
   // Food and retail
-  neighborhood_grocery_small: "Small neighborhood grocery",
-  food_production_artisan:    "Commercial kitchen / ghost kitchen (catering, food production)",
-  eating_drinking_limited:    "Café / limited food service",
-  eating_drinking_general:    "Restaurant (full-service)",
+  neighborhood_grocery_small: "Food or beverage retail store",
+  food_production_artisan:    "Small-scale food production (bakery, brewery, commissary kitchen)",
+  eating_drinking_limited:    "Counter-service or takeout restaurant",
+  eating_drinking_general:    "Sit-down restaurant",
   tavern:                     "Bar or tavern",
-  retail_sales_general:       "Retail shop (general merchandise)",
+  retail_sales_general:       "Corner store or retail shop",
   // Personal services
   hair_salon_barbershop: "Hair salon / barbershop",
-  personal_service:      "Personal service business (tailor, laundry, etc.)",
+  personal_service:      "Everyday service businesses (tailor, dry cleaner, laundromat)",
   body_art_services:     "Tattoo parlor or body art studio",
   // Childcare and education
   daycare_center: "Daycare center",
@@ -40,7 +40,7 @@ export const USE_DISPLAY_LABELS = {
   // Community and civic
   community_center: "Community center or social services agency",
   place_of_worship: "Place of worship",
-  urban_farm:       "Urban farm",
+  urban_farm:       "Indoor urban farm",
   community_garden: "Community garden",
   // Health
   medical_clinic: "Medical or dental clinic",

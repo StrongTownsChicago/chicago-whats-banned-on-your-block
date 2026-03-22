@@ -438,6 +438,15 @@ body {
   text-decoration: underline;
 }
 
+.intro-github-link {
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.intro-github-link:hover {
+  color: var(--color-accent);
+}
+
 /* ===================================================================
    Results panel
    =================================================================== */
