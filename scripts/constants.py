@@ -59,7 +59,6 @@ ADVOCACY_USES: list[str] = [
     "three_flat",
     "four_flat",
     "multi_unit_residential",
-    "live_work_unit",
     # Food and retail
     "neighborhood_grocery_small",
     "food_production_artisan",

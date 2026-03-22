@@ -18,7 +18,7 @@ import {
 const MIXED_USE_TABLE = {
   "B1-1": {
     daycare_center:       "—",     // banned
-    live_work_unit:       "S",     // special use
+    community_center:     "S",     // special use
     hair_salon_barbershop: "P/S",  // conditional
     personal_service:     "P/-",   // conditional
     single_family_detached: "P",   // permitted — should be excluded
@@ -32,7 +32,6 @@ const MIXED_USE_TABLE = {
     eating_drinking_general: "P",
     tavern:               "P",
     retail_sales_general: "P",
-    community_center:     "P",
     place_of_worship:     "P",
     urban_farm:           "P",
     community_garden:     "P",
@@ -77,7 +76,7 @@ describe("getRestrictedUses", () => {
     const result = getRestrictedUses("B1-1", MIXED_USE_TABLE);
     expect(result).not.toBeNull();
     expect(result.specialUse).toHaveLength(1);
-    expect(result.specialUse[0]).toMatchObject({ slug: "live_work_unit", label: expect.any(String) });
+    expect(result.specialUse[0]).toMatchObject({ slug: "community_center", label: expect.any(String) });
   });
 
   it("classifies P/S entries as permitted (by-right at standard size)", () => {
