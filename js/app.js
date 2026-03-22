@@ -12,11 +12,11 @@ import {
   addZoningLayer,
   placeAddressMarker,
   registerMapClickHandler,
+  ZONING_TILES_URL,
 } from "./map.js";
 import {
-  fetchZoningGeoJSON,
+  fetchZoneClass,
   fetchWardGeoJSON,
-  findZoneClass,
   findWard,
 } from "./spatial.js";
 import { geocodeAddress } from "./geocode.js";
@@ -41,7 +41,6 @@ import {
 
 const state = {
   map: null,
-  zoningGeoJSON: null,
   wardGeoJSON: null,
   useTable: null,
   transitStations: null,
@@ -156,10 +155,10 @@ async function loadAllData() {
 
   const errors = [];
 
-  // Fetch all data in parallel; also wait for the map style to be ready
-  const [zoningResult, wardResult, useTableResult, transitResult] =
+  // Fetch ward, use-table, and transit data in parallel;
+  // Zoning polygons are loaded lazily via PMTiles (no fetch needed here).
+  const [wardResult, useTableResult, transitResult] =
     await Promise.allSettled([
-      fetchZoningGeoJSON(),
       fetchWardGeoJSON(),
       fetchUseTable(),
       fetch("data/transit-stations.json").then((r) => {
@@ -170,15 +169,9 @@ async function loadAllData() {
 
   hideElement(dataLoadingBanner);
 
-  if (zoningResult.status === "fulfilled") {
-    state.zoningGeoJSON = zoningResult.value;
-    // Ensure map style is ready before adding layers
-    await waitForMapStyle(state.map);
-    addZoningLayer(state.map, state.zoningGeoJSON);
-  } else {
-    console.error("Zoning GeoJSON load failed:", zoningResult.reason);
-    errors.push("Map data unavailable. Spatial lookup is disabled.");
-  }
+  // Add zoning tile layer (PMTiles — loaded lazily by MapLibre as tiles enter viewport)
+  await waitForMapStyle(state.map);
+  addZoningLayer(state.map, ZONING_TILES_URL);
 
   if (wardResult.status === "fulfilled") {
     state.wardGeoJSON = wardResult.value;
@@ -220,13 +213,7 @@ async function loadAllData() {
 async function lookupLocation(lngLat, placeName) {
   placeAddressMarker(state.map, lngLat);
 
-  if (!state.zoningGeoJSON) {
-    hideElement(resultsLoading);
-    renderResults(null, placeName, null, null, { zoningUnavailable: true });
-    return;
-  }
-
-  const rawZoneClass = findZoneClass(lngLat, state.zoningGeoJSON);
+  const rawZoneClass = await fetchZoneClass(lngLat);
   const zoneClass = rawZoneClass ? normalizeZoneClass(rawZoneClass) : null;
   const ward = state.wardGeoJSON ? findWard(lngLat, state.wardGeoJSON) : null;
 
@@ -293,7 +280,14 @@ async function handleAddressSubmit(event) {
     return;
   }
 
-  await lookupLocation(geocodeResult.lngLat, geocodeResult.placeName);
+  try {
+    await lookupLocation(geocodeResult.lngLat, geocodeResult.placeName);
+  } catch (err) {
+    hideElement(resultsLoading);
+    hideElement(resultsPanel);
+    showAddressError("Zone lookup failed. Please try again.");
+    console.error("lookupLocation failed:", err);
+  }
 }
 
 async function handleMapClick(lngLat) {
@@ -303,7 +297,14 @@ async function handleMapClick(lngLat) {
   showElement(resultsPanel);
   showElement(resultsLoading);
   hideElement(resultsContent);
-  await lookupLocation(lngLat, "Chicago, Illinois");
+  try {
+    await lookupLocation(lngLat, "Chicago, Illinois");
+  } catch (err) {
+    hideElement(resultsLoading);
+    hideElement(resultsPanel);
+    showAddressError("Zone lookup failed. Please try again.");
+    console.error("lookupLocation failed:", err);
+  }
 }
 
 // =====================================================================

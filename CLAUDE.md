@@ -11,11 +11,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Local Development
 
 ```bash
-# Serve the app locally (required for ES modules to load)
-python -m http.server 8000
+# Serve the app locally (required for ES modules + PMTiles byte-range requests)
+npm run dev
 # Copy the config template and add your Mapbox token
 cp js/config.js.example js/config.js
 ```
+
+Note: `npm run dev` uses the `serve` package (not `python -m http.server`). Python's built-in server does not support HTTP Range requests, which PMTiles requires to render the zoning layer.
 
 ### Testing
 

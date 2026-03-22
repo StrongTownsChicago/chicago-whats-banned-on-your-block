@@ -1,26 +1,23 @@
 /**
- * spatial.js — Zoning and ward data fetching, and Turf.js point-in-polygon spatial queries.
+ * spatial.js — Ward data fetching, Turf.js ward PIP queries, and ArcGIS zone class lookup.
  *
- * Single responsibility: load zoning and ward GeoJSON datasets, then answer
- * "what zone/ward is this point in?" queries using browser-side Turf.js.
+ * Responsibilities:
+ * - Fetch ward GeoJSON and answer "what ward is this point in?" via Turf.js PIP.
+ * - Answer "what zone class is this coordinate in?" via a single ArcGIS point query.
  *
- * Both fetch functions are designed to be called once on page load and the
- * results cached in app.js. The query functions (findZoneClass, findWard)
- * are pure — they take data and return results, making them fully testable.
+ * Zone class lookup was moved from client-side Turf.js PIP (over ~14,874 polygons)
+ * to a single ArcGIS point query per lookup (~400ms). Map rendering of zoning
+ * polygons is now handled by PMTiles in map.js.
  *
  * Data sources:
- * - Zoning: Chicago ArcGIS REST API (gisapps.chicago.gov) — Zoning Boundaries layer.
- *   The Socrata dataset 7cve-jgbp previously used here now returns null geometries.
+ * - Zoning: Chicago ArcGIS REST API (gisapps.chicago.gov) — single point query.
  * - Wards: Chicago Data Portal Socrata (p293-wvbd) — still valid.
  */
 
 // ArcGIS REST API — Chicago Zoning Boundaries (Layer 1)
-// Returns real polygon geometry with ZONE_CLASS property.
-// Max 2000 records per request; 14,874 total features requires pagination.
+// Used for single-point zone class queries.
 const ZONING_ARCGIS_BASE =
   "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/1/query";
-const ZONING_PAGE_SIZE = 2000;
-const ZONING_TOTAL_FEATURES = 15000; // upper bound; actual ~14,874
 
 // Ward boundaries — Socrata (geometry only; no alderperson data)
 const WARD_GEOJSON_URL_PRIMARY =
@@ -87,71 +84,31 @@ const WARD_INFO = {
 };
 
 /**
- * Build the URL for one paginated page of the ArcGIS zoning layer.
+ * Look up the zone class for a single coordinate via the ArcGIS REST API.
  *
- * @param {number} offset - Feature offset (0-based).
- * @returns {string}
+ * Sends a point query to the same ArcGIS zoning layer previously used for
+ * bulk polygon fetches. Returns the normalized zone class string (trimmed,
+ * uppercased) or null if the point is outside all zoning polygons.
+ *
+ * @param {[number,number]} lngLat - [longitude, latitude]
+ * @returns {Promise<string | null>} Normalized zone class, or null if no match.
+ * @throws {Error} On HTTP error (non-200 response).
  */
-function buildZoningPageUrl(offset) {
+export async function fetchZoneClass(lngLat) {
+  const [lng, lat] = lngLat;
   const params = new URLSearchParams({
-    where: "1=1",
+    geometry: `${lng},${lat}`,
+    geometryType: "esriGeometryPoint",
+    spatialRel: "esriSpatialRelIntersects",
+    inSR: "4326",
     outFields: "ZONE_CLASS",
-    outSR: "4326",
-    f: "geojson",
-    resultRecordCount: String(ZONING_PAGE_SIZE),
-    resultOffset: String(offset),
+    f: "json",
   });
-  return `${ZONING_ARCGIS_BASE}?${params}`;
-}
-
-/**
- * Fetch one page of zoning GeoJSON from the ArcGIS REST API.
- *
- * @param {number} offset
- * @returns {Promise<GeoJSON.Feature[]>}
- */
-async function fetchZoningPage(offset) {
-  const response = await fetch(buildZoningPageUrl(offset));
-  if (!response.ok) {
-    throw new Error(`Zoning page fetch failed at offset ${offset}: HTTP ${response.status}`);
-  }
-  const data = await response.json();
-  return data.features || [];
-}
-
-/**
- * Fetch all Chicago zoning district polygons from the ArcGIS REST API.
- * Fetches pages in parallel (8 requests × 2000 features = 16,000 slots for ~14,874 actual).
- *
- * Properties returned: { ZONE_CLASS: "B1-1" }
- * Normalized to lowercase key "zone_class" for consistency with the rest of the app.
- *
- * @returns {Promise<GeoJSON.FeatureCollection>}
- * @throws {Error} If any page request fails.
- */
-export async function fetchZoningGeoJSON() {
-  const offsets = [];
-  for (let offset = 0; offset < ZONING_TOTAL_FEATURES; offset += ZONING_PAGE_SIZE) {
-    offsets.push(offset);
-  }
-
-  const pages = await Promise.all(offsets.map(fetchZoningPage));
-  const allFeatures = pages.flat();
-
-  // Normalize ZONE_CLASS → zone_class for consistency with spatial query functions
-  const normalizedFeatures = allFeatures
-    .filter((f) => f.geometry !== null)
-    .map((f) => ({
-      ...f,
-      properties: {
-        zone_class: f.properties && (f.properties.ZONE_CLASS || f.properties.zone_class) || "",
-      },
-    }));
-
-  return {
-    type: "FeatureCollection",
-    features: normalizedFeatures,
-  };
+  const resp = await fetch(`${ZONING_ARCGIS_BASE}?${params}`);
+  if (!resp.ok) throw new Error(`Zone query failed: HTTP ${resp.status}`);
+  const data = await resp.json();
+  const raw = data.features?.[0]?.attributes?.ZONE_CLASS;
+  return raw ? String(raw).trim().toUpperCase() : null;
 }
 
 /**
@@ -182,26 +139,6 @@ export async function fetchWardGeoJSON() {
 }
 
 /**
- * Return a bounding box [west, south, east, north] for a GeoJSON feature,
- * or null if the geometry lacks coordinates.
- *
- * Uses turf.bbox which is bundled globally via the Turf CDN script.
- * When running in Node (Vitest), callers import turf directly.
- *
- * @param {GeoJSON.Feature} feature
- * @returns {[number,number,number,number] | null}
- */
-function getFeatureBbox(feature) {
-  try {
-    // turf is loaded as a global in the browser; in tests it's passed via the
-    // turfLib parameter to allow dependency injection.
-    return turf.bbox(feature);
-  } catch {
-    return null;
-  }
-}
-
-/**
  * Test whether a bounding box [west, south, east, north] contains a point [lng, lat].
  *
  * @param {[number,number,number,number]} bbox
@@ -212,55 +149,6 @@ function bboxContainsPoint(bbox, point) {
   const [west, south, east, north] = bbox;
   const [lng, lat] = point;
   return lng >= west && lng <= east && lat >= south && lat <= north;
-}
-
-/**
- * Find the zone_class of the zoning district containing the given point.
- *
- * Uses a bounding-box prefilter to skip ~99% of features before running
- * the more expensive booleanPointInPolygon check.
- *
- * @param {[number,number]} lngLat - [longitude, latitude]
- * @param {GeoJSON.FeatureCollection} zoningGeoJSON
- * @param {{ booleanPointInPolygon?: Function, bbox?: Function, point?: Function }} [turfLib]
- *   Turf functions to use — injected in tests, defaults to global `turf` in browser.
- * @returns {string | null} Normalized zone_class, or null if no match found.
- */
-export function findZoneClass(lngLat, zoningGeoJSON, turfLib) {
-  const pipFn = (turfLib && turfLib.booleanPointInPolygon)
-    ? turfLib.booleanPointInPolygon
-    : turf.booleanPointInPolygon;
-  const bboxFn = (turfLib && turfLib.bbox)
-    ? turfLib.bbox
-    : turf.bbox;
-  const pointFn = (turfLib && turfLib.point)
-    ? turfLib.point
-    : turf.point;
-
-  const turfPoint = pointFn(lngLat);
-
-  for (const feature of zoningGeoJSON.features) {
-    // Bounding box prefilter
-    let bbox;
-    try {
-      bbox = bboxFn(feature);
-    } catch {
-      continue;
-    }
-
-    if (!bboxContainsPoint(bbox, lngLat)) {
-      continue;
-    }
-
-    // Full polygon test on candidates that pass the bbox check
-    if (pipFn(turfPoint, feature)) {
-      const rawZoneClass = feature.properties && feature.properties.zone_class;
-      if (!rawZoneClass) return null;
-      return String(rawZoneClass).trim().toUpperCase();
-    }
-  }
-
-  return null;
 }
 
 /**

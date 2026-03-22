@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
 import bbox from "@turf/bbox";
 import { point } from "@turf/helpers";
-import { findZoneClass, findWard } from "../../js/spatial.js";
+import { fetchZoneClass, findWard } from "../../js/spatial.js";
 
 // =====================================================================
-// Turf dependency injection shim
+// Turf dependency injection shim (used by findWard tests)
 // =====================================================================
 
 /**
@@ -20,51 +20,18 @@ const turfLib = { booleanPointInPolygon, bbox, point };
 
 /**
  * A simple square polygon covering roughly [-87.7, 41.9] to [-87.6, 42.0].
- * zone_class: "B1-1"
+ * Used as geometry for ward fixtures.
  */
-const ZONE_FIXTURE = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      properties: { zone_class: "B1-1" },
-      geometry: {
-        type: "Polygon",
-        coordinates: [
-          [
-            [-87.7, 41.9],
-            [-87.6, 41.9],
-            [-87.6, 42.0],
-            [-87.7, 42.0],
-            [-87.7, 41.9],
-          ],
-        ],
-      },
-    },
-  ],
-};
-
-/** A polygon with whitespace in the zone_class property. */
-const WHITESPACE_ZONE_FIXTURE = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      properties: { zone_class: "  B1-1  " },
-      geometry: ZONE_FIXTURE.features[0].geometry,
-    },
-  ],
-};
-
-/** A polygon with a PD district zone_class. */
-const PD_ZONE_FIXTURE = {
-  type: "FeatureCollection",
-  features: [
-    {
-      type: "Feature",
-      properties: { zone_class: "PD 144" },
-      geometry: ZONE_FIXTURE.features[0].geometry,
-    },
+const TEST_GEOMETRY = {
+  type: "Polygon",
+  coordinates: [
+    [
+      [-87.7, 41.9],
+      [-87.6, 41.9],
+      [-87.6, 42.0],
+      [-87.7, 42.0],
+      [-87.7, 41.9],
+    ],
   ],
 };
 
@@ -79,7 +46,7 @@ const WARD_FIXTURE = {
         alderman: "Scott Waguespack",
         website: "https://www.ward32.org/",
       },
-      geometry: ZONE_FIXTURE.features[0].geometry,
+      geometry: TEST_GEOMETRY,
     },
   ],
 };
@@ -91,93 +58,53 @@ const WARD_NO_ALDERMAN_FIXTURE = {
     {
       type: "Feature",
       properties: { ward: 5 },
-      geometry: ZONE_FIXTURE.features[0].geometry,
+      geometry: TEST_GEOMETRY,
     },
   ],
 };
 
 // Points used across tests
-const INSIDE_POINT = [-87.65, 41.95];    // inside ZONE_FIXTURE polygon
+const INSIDE_POINT = [-87.65, 41.95];    // inside TEST_GEOMETRY polygon
 const OUTSIDE_POINT = [-87.5, 41.85];   // outside all test polygons
 
 // =====================================================================
-// findZoneClass tests
+// fetchZoneClass tests
 // =====================================================================
 
-describe("findZoneClass", () => {
-  it("returns zone_class for a point inside the polygon", () => {
-    const result = findZoneClass(INSIDE_POINT, ZONE_FIXTURE, turfLib);
+describe("fetchZoneClass", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("returns normalized zone class on a successful ArcGIS response", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        features: [{ attributes: { ZONE_CLASS: " b1-1 " } }],
+      }),
+    }));
+
+    const result = await fetchZoneClass([-87.65, 41.95]);
     expect(result).toBe("B1-1");
   });
 
-  it("returns null for a point outside all polygons", () => {
-    const result = findZoneClass(OUTSIDE_POINT, ZONE_FIXTURE, turfLib);
+  it("returns null when ArcGIS returns no features", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => ({ features: [] }),
+    }));
+
+    const result = await fetchZoneClass([-87.65, 41.95]);
     expect(result).toBeNull();
   });
 
-  it("trims whitespace from zone_class property", () => {
-    const result = findZoneClass(INSIDE_POINT, WHITESPACE_ZONE_FIXTURE, turfLib);
-    expect(result).toBe("B1-1");
-  });
+  it("throws an error on non-200 HTTP response", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: false,
+      status: 503,
+    }));
 
-  it("returns PD zone class string for PD district features", () => {
-    const result = findZoneClass(INSIDE_POINT, PD_ZONE_FIXTURE, turfLib);
-    // Caller uses isPDDistrict() to branch; findZoneClass returns the full string
-    expect(result).toBe("PD 144");
-  });
-
-  it("skips features outside bbox before calling booleanPointInPolygon", () => {
-    const pipSpy = vi.fn(booleanPointInPolygon);
-    const spyTurfLib = { booleanPointInPolygon: pipSpy, bbox, point };
-
-    // The distant polygon has a far-away bbox — should be skipped
-    const distantFixture = {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: { zone_class: "FAR" },
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              [
-                [-80.0, 35.0],
-                [-79.0, 35.0],
-                [-79.0, 36.0],
-                [-80.0, 36.0],
-                [-80.0, 35.0],
-              ],
-            ],
-          },
-        },
-      ],
-    };
-
-    findZoneClass(INSIDE_POINT, distantFixture, spyTurfLib);
-    // The spy should NOT have been called because the bbox prefilter rejected the feature
-    expect(pipSpy).not.toHaveBeenCalled();
-  });
-
-  it("returns first matching zone when polygons overlap", () => {
-    const overlappingFixture = {
-      type: "FeatureCollection",
-      features: [
-        {
-          type: "Feature",
-          properties: { zone_class: "B1-1" },
-          geometry: ZONE_FIXTURE.features[0].geometry,
-        },
-        {
-          type: "Feature",
-          properties: { zone_class: "C1-1" },
-          geometry: ZONE_FIXTURE.features[0].geometry,
-        },
-      ],
-    };
-
-    const result = findZoneClass(INSIDE_POINT, overlappingFixture, turfLib);
-    // Should return one of them without throwing
-    expect(["B1-1", "C1-1"]).toContain(result);
+    await expect(fetchZoneClass([-87.65, 41.95])).rejects.toThrow("503");
   });
 });
 

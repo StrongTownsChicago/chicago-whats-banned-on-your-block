@@ -9,6 +9,9 @@
       content="Enter a Chicago address to see what cannot be built there under current zoning and what you can do about it."
     />
 
+    <!-- PMTiles protocol (must precede MapLibre) -->
+    <script src="https://unpkg.com/pmtiles@4.3.0/dist/pmtiles.js"></script>
+
     <!-- MapLibre GL JS -->
     <link
       href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css"
@@ -63,7 +66,7 @@
     </header>
 
     <div id="data-loading-banner" class="loading-banner" hidden>
-      Loading zoning and ward data…
+      Loading data…
     </div>
 
     <div
