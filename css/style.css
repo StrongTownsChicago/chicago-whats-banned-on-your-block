@@ -790,21 +790,24 @@ details.use-section[open] .use-list {
 @media (max-width: 768px) {
   .app-layout {
     flex-direction: column;
+    overflow: hidden;
   }
 
   .side-panel {
     width: 100%;
     min-width: 0;
-    /* Collapse by height on mobile */
-    max-height: 1200px;
+    /* Cap the panel so the map is always visible below */
+    max-height: 38vh;
     transition: max-height 0.3s ease;
-    overflow: hidden;
+    overflow-y: auto;
+    flex-shrink: 0;
   }
 
   .side-panel.is-collapsed {
     width: 100%;
     min-width: 0;
     max-height: 0;
+    overflow: hidden;
   }
 
   .intro-panel,
@@ -826,9 +829,8 @@ details.use-section[open] .use-list {
   }
 
   .map-container {
-    height: 50vh;
-    min-height: 280px;
-    flex: none;
+    flex: 1;
+    min-height: 220px;
   }
 
   .site-header {
