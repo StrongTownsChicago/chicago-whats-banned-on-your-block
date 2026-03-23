@@ -1221,7 +1221,7 @@ details.policy-callout[open] .policy-callout__citations {
 .build-act-banner a {
   color: var(--color-build-act);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .build-act-banner a:hover {
