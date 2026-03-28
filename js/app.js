@@ -265,6 +265,7 @@ async function lookupLocation(lngLat, placeName) {
 
   hideElement(resultsLoading);
   renderResultsForCurrentMode();
+  sidePanel.scrollTop = 0;
 }
 
 function expandPanel() {
@@ -280,6 +281,7 @@ async function handleAddressSubmit(event) {
   clearAddressError();
   expandPanel();
   hideElement(introPanel);
+  document.body.classList.add('has-results');
 
   const address = addressInput.value.trim();
   if (!address) return;
@@ -312,6 +314,7 @@ async function handleMapClick(lngLat) {
   clearAddressError();
   expandPanel();
   hideElement(introPanel);
+  document.body.classList.add('has-results');
   showElement(resultsPanel);
   showElement(resultsLoading);
   hideElement(resultsContent);

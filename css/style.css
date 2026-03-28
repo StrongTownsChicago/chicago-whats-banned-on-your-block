@@ -315,13 +315,28 @@ body {
   .panel-toggle {
     align-self: auto;
     width: 100%;
-    height: 32px;
+    height: 44px;
     border-radius: 0;
     border: none;
     border-top: 1px solid var(--color-border);
     border-bottom: 1px solid var(--color-border);
     box-shadow: none;
     background: var(--color-panel-alt);
+    gap: 0.4rem;
+  }
+
+  .panel-toggle::after {
+    content: 'Show map';
+    font-family: var(--font-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .panel-toggle.is-collapsed::after {
+    content: 'Show results';
   }
 
   .panel-toggle__icon {
@@ -1018,7 +1033,37 @@ details.policy-callout[open] .policy-callout__citations {
   }
 
   .district-label {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+  }
+
+  .district-header {
+    padding: 0.875rem 1rem 0.75rem;
+  }
+
+  /* Hide verbose section subtitles on mobile to maximize use-list space */
+  section.use-section .use-section__subtitle {
+    display: none;
+  }
+
+  /* Scroll fade — hint that panel content continues below */
+  .side-panel:not(.is-collapsed) {
+    -webkit-mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 88%, transparent 100%);
+  }
+
+  /* Results state — compact header so panel gets more screen real-estate */
+  body.has-results .site-header {
+    padding: 0.375rem 1rem 0.5rem;
+  }
+
+  body.has-results .site-title {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  /* Results state — increase panel height from 38vh to 55vh */
+  body.has-results .side-panel:not(.is-collapsed) {
+    max-height: 55vh;
   }
 }
 
